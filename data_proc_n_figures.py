@@ -71,6 +71,8 @@ pubIndex = fid[fid["Item Type"]=="journalArticle"].index
 onlyPub = fid.loc[pubIndex]
 onlyPub = onlyPub.sort_values("Publication Title")
 
+onlypub2 = onlyPub.sort_index()
+
 
 
 
@@ -80,6 +82,15 @@ fig2.set_xticklabels(rotation=90)
 fig2.savefig("/home/andre/Desktop/test.png")
 
 
+testindex = onlyPub["print" in onlyPub["Publication Title"]].index
+
+
+preprints = []
+for index,item in enumerate(onlyPub["Publication Title"]):
+    item = item.lower()
+    if item.find("print")>0 or item.find("biorxiv")>0:
+        #print(item)
+        preprints.append(index)
 
 #only preprints
 
