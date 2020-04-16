@@ -51,6 +51,10 @@ If you would like to contribute to this project you'll need to:
 - we need to classify the papers, and as far as we know this has to be done manually. So we are using Zotero to manually annotate the papers with Tags:
 
   - If a paper has a repository or a web resource (supplemental information section for instance) with more documentation containing files that can be used to reproduce the device it gets the 'repository' tag, and nothing otherwise.
+    - keywords used to find the repositories/extra information:
+        available, github, code, supplemental, shared, download, gitlab, repository 
+
+
   
   - We would also like to know if a paper was published previously as a preprint, in case it was, add "alsopreprint" tag
   
