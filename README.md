@@ -2,15 +2,16 @@
 
 Hi! This project is a side interest to see how/if open source hardware(OSH) is being adopted in Academia. 
 
-To do that, we are using Web of Science tools, as well as manual tracking to see check things like:
-- number of papers describing OSH increases over time
+To do that, we are using Web of Science tools, as well as manual tracking to see/check things like:
+- number of papers describing OSH increases over time (initially over 2000-2020 period)
 - where they are being published
+  - academic journals, conference proceedings, news, highlights? what would be the other?
 - if they are released as preprints
 - what percentage includes links to hardware documentation
 - number of citations these papers get
 - etc.
 
-**We are writing down this in the form of a paper here <https://docs.google.com/document/d/11K1XJKBIxdgYoO2fNESj3t8K9d_UI31NhEpDk5qaYH0/edit?usp=sharing> **
+**We are writing down this in the form of a paper here <https://docs.google.com/document/d/11K1XJKBIxdgYoO2fNESj3t8K9d_UI31NhEpDk5qaYH0/edit?usp=sharing>**
 
 --- 
 
