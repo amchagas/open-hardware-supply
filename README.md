@@ -10,14 +10,28 @@ To do that, we are using Web of Science tools, as well as manual tracking to see
 - number of citations these papers get
 - etc.
 
+--- 
+
 ## Methods:
 
 ### Tools used
 
-- [Zotero](https://www.zotero.org/)
-- [Python3](https://www.python.org/)
-- [Web of Science](webofknowledge.com)
-- [Google Scholar](https://scholar.google.com/) 
+- [Zotero](<https://www.zotero.org/>)
+- [Python3](<https://www.python.org/>)
+- [rxivist](<https://rxivist.org/docs>)
+
+### Python libraries used
+- matplotlib
+- pandas
+-   
+
+### databases used
+
+- [Web of Science](<webofknowledge.com>)
+- [Scopus](<https://www.scopus.com/>)
+- [BioRxiv](<https://www.biorxiv.org/>)
+- [Google Scholar](<https://scholar.google.com/>)
+-  
 
 ### Data collection 
 
@@ -30,19 +44,27 @@ To do that, we are using Web of Science tools, as well as manual tracking to see
   Timespan: All years. Indexes: SCI-EXPANDED, SSCI, A&HCI, CPCI-S, CPCI-SSH, BKCI-S, BKCI-SSH, ESCI, CCR-EXPANDED, IC.  
   ```
 
+getting data available from Scopus using the following search term:
+  
+  
+  ``` 
+  "Open hardware" OR "open source hardware" OR "open science hardware" OR "open labware" OR "free and open source hardware"  
+  ```
 
-- Data is exported as Bibtex format and imported in Zotero.
 
-- Zotero is then used to curated/annotate the data, together with some python scripts.
-
+- All Data is exported as Bibtex format and initially filtered in Python using [this Jupyter notebook](code/combine_databases.ipynb).
+- 
+- Once initially cleaned it is imported in Zotero so that users can curate/annotate the data, mainly checking:
+  -  if the papers were released with design files (either as a repository and/or supplemental files in the paper)
+  - if the papers were released as preprints before being published as peer-reviewed articles.
 
 ### Data presentation
 
 - data is analysed with Python 3 using Jupyter Notebook
   
+---
 
-
-#### Onboarding
+## Onboarding
 
 If you would like to contribute to this project you'll need to:
 
@@ -83,3 +105,15 @@ If you would like to contribute to this project you'll need to:
     - Life Sciences
     - Chemistry
     - Engineering
+
+---
+
+## collaborators (in no speficic order)
+
+- Andre Maia Chagas
+- Alexandre Hannud Abdo
+- Natasha Pouchkina-Stantcheva
+- Tom Baden
+  
+
+
