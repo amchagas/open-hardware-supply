@@ -85,7 +85,7 @@ If you would like to contribute to this project you'll need to:
   - "staging" contains entries that are up for work. They have already been checked and are not duplicates, they are just not yet manually classified.
 
 
-#### help needed right now
+### help needed right now
 
 - we need to classify the papers, and as far as we know this has to be done manually. So we are using Zotero to manually annotate the papers with Tags:
 
