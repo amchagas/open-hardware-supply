@@ -10,6 +10,8 @@ To do that, we are using Web of Science tools, as well as manual tracking to see
 - number of citations these papers get
 - etc.
 
+**We are writing down this in the form of a paper here <https://docs.google.com/document/d/11K1XJKBIxdgYoO2fNESj3t8K9d_UI31NhEpDk5qaYH0/edit?usp=sharing> **
+
 --- 
 
 ## Methods:
@@ -44,7 +46,7 @@ To do that, we are using Web of Science tools, as well as manual tracking to see
   Timespan: All years. Indexes: SCI-EXPANDED, SSCI, A&HCI, CPCI-S, CPCI-SSH, BKCI-S, BKCI-SSH, ESCI, CCR-EXPANDED, IC.  
   ```
 
-getting data available from Scopus using the following search term:
+- getting data available from Scopus using the following search term:
   
   
   ``` 
