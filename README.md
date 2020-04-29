@@ -108,7 +108,7 @@ If you would like to contribute to this project you'll need to:
 
 ---
 
-## collaborators (in no speficic order)
+## collaborators (in no specific order)
 
 - Andre Maia Chagas
 - Alexandre Hannud Abdo
