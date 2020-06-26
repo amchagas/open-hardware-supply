@@ -117,6 +117,8 @@ If you would like to contribute to this project you'll need to:
 - Alexandre Hannud Abdo
 - Natasha Pouchkina-Stantcheva
 - Tom Baden
+- Matias Andina
+- Miguel Fernandes
   
 
 
