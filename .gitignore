@@ -1,4 +1,6 @@
 #ignore vscode config
 */.vscode/*
 #ignore jupyer notebook config
-*/.ipynb_checkpoints/*
+*.ipynb_checkpoints/*
+#ignore Rhistory 
+*.Rhistory
