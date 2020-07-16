@@ -1,0 +1,33 @@
+---
+title: "extract bibtex data"
+author: "Andre M Chagas"
+date: "16/07/2020"
+output: html_document
+---
+
+
+```{r install-packages}
+##need to download a github package, therefore need to install devtools
+#install.packages("devtools")
+
+## now install the package to read bibtex data
+#devtools::install_github("romainfrancois/bibtex")
+
+
+```
+
+
+```{r attach-libraries}
+
+library(tidyverse)#
+library(here)
+library(bibtex)
+```
+
+```{r read-bibtex}
+
+web_science <- read.bib(file=here("data","scopus1.bib"),encoding="unknown",header = if (length(preamble)) paste(preamble, sep =
+  "\n") else "")
+
+```
+  

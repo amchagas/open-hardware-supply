@@ -8,6 +8,9 @@ output: html_document
 
 ```{r attach-libraries}
 
+## clear workspace
+rm(list = ls())
+
 library(tidyverse)#
 library(here)
 ```
@@ -16,13 +19,79 @@ library(here)
 
 
 ```{r load-csv}
-all_data <- read.csv(here("data","allData.csv"))
 
-names(all_data)
+allData <- read.csv(here("data","allData.csv"))
 
-#"title" contain the entries we need
+
+names(allData)
+
+##"title" contain the entries we need
 ```
 
+```{r sort-title}
+
+## set all titles to lower case
+lowTitles<-tolower(allData$title)
+
+##order titles
+ordered<-order(lowTitles)
+
+##show first 10 entries
+head(lowTitles[ordered],10)
+
+## save to file to cross-check
+write.csv(lowTitles[ordered],here("data","lowTitles_first.csv"))
+
+```
+
+
+### from this first check, we can see that the titles need some cleaning:
+
+- some entries are with a single quote, some with double, and some with tilted quote
+- some have \"
+- some entries have a newline escape in the middle.
+- etc
+
+So let's clean it by:
+
+- making all ' and ` and `` and \" into a single '
+- removing the newline escape
+
+
+```{r clean-naming}
+
+## remove \n
+lowTitles <- gsub("\n","",lowTitles)
+
+## remove \"
+lowTitles <- gsub("\"","",lowTitles)
+
+## substitute " `" for '
+lowTitles <- gsub(" `","'",lowTitles)
+
+## substitute "` " for '
+lowTitles <- gsub("` ","'",lowTitles)
+
+## substitute "`" for '
+lowTitles <- gsub("`","'",lowTitles)
+
+## substitute "''" for '
+lowTitles <- gsub("''","'",lowTitles)
+
+## substitute """ for '
+lowTitles <- gsub("\"","'",lowTitles)
+
+
+## reorder things 
+ordered<-order(lowTitles)
+
+
+head(lowTitles[ordered],10)
+
+## save lowTitles for a quick human check
+write.csv(lowTitles[ordered],here("data","lowTitles.csv"))
+
+```
 
 
 ```{r check-duplicates}
@@ -31,9 +100,8 @@ names(all_data)
 #number of repeated entries
 length(all_data$title)-length(unique(all_data$title))
 
-#titles <- subset(all_data, select=c("title"))
-#duplicated(titles)
-
+#get all duplicated titles
+rep_titles<-all_data[duplicated(all_data$title) ,"title"]
 
 
 ```
@@ -41,7 +109,13 @@ length(all_data$title)-length(unique(all_data$title))
 
 ```{r combine-duplicates}
 
-all_data[title,duplicated(all_data$title)]
+
+
+
+length(all_data[rep_titles[1],])
+
+
+
 
 ```
 
