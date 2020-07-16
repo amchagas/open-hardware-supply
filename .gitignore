@@ -5,3 +5,5 @@
 #ignore Rhistory 
 *.Rhistory
 .Rproj.user
+#Rdata workspace
+.RData

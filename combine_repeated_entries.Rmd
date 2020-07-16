@@ -1,0 +1,48 @@
+---
+title: "combine_repeated_entries"
+author: "Andre M Chagas"
+date: "16/07/2020"
+output: html_document
+---
+## RMarkdown to filter and combine repetitive entries of the 'allData.csv' file
+
+```{r attach-libraries}
+
+library(tidyverse)#
+library(here)
+```
+```
+
+
+
+```{r load-csv}
+all_data <- read.csv(here("data","allData.csv"))
+
+names(all_data)
+
+#"title" contain the entries we need
+```
+
+
+
+```{r check-duplicates}
+
+
+#number of repeated entries
+length(all_data$title)-length(unique(all_data$title))
+
+#titles <- subset(all_data, select=c("title"))
+#duplicated(titles)
+
+
+
+```
+
+
+```{r combine-duplicates}
+
+all_data[title,duplicated(all_data$title)]
+
+```
+
+
