@@ -1,0 +1,38 @@
+"","X","da","unique.id","doc.delivery.number","journal.iso","usage.count.since.2013","usage.count.last.180.days","times.cited","number.of.cited.references","funding.text","funding.acknowledgement","author.email","web.of.science.categories","research.areas","keywords.plus","keywords","eissn","issn","doi","affiliation","language","type","address","publisher","abstract","month","pages","number","volume","year","journal","title","author","ENTRYTYPE","ID","orcid.numbers","article.number","researcherid.numbers","oa","organization","note","isbn","booktitle","book.group.author","meeting","series","editor","esi.hot.paper","esi.highly.cited.paper","book.author","source","abbrev_source_title","author_keywords","url","art_number","large_category","correspondence_address1","page_count","pubmed_id","coden","crossref"
+"4101",4100,"","","","",NA,NA,NA,NA,"","","","","","","accuracy;  clinical research;  computer;  cost;  equipment design;  fluorescence imaging system;  health care planning;  human;  Internet;  laboratory device;  licence;  manufacturing industry;  microscope;  molecular physics;  non profit organization;  Note;  patent;  philosophy;  polymerase chain reaction;  printing;  priority journal;  quality control;  synthetic biology;  cost;  device material;  devices;  economics;  education;  information dissemination;  laboratory;  organization;  personnel;  supply and distribution;  trends;  utilization, Congresses as Topic;  Costs and Cost Analysis;  Equipment and Supplies;  Equipment Design;  Information Dissemination;  Laboratories;  Manufactured Materials;  Quality Control;  Research Personnel","","00280836","10.1038/531147a","","English","Note","","Nature Publishing Group","","","147-148","7593","531",2016,"Nature","'open-hardware' pineers push for low-cost lab kit","Gibney, E.","","Gibney2016147","","","","","","cited By 14","","","","","","","","","","Scopus","Nature","","https://www.scopus.com/inward/record.uri?eid=2-s2.0-84961696451&doi=10.1038%2f531147a&partnerID=40&md5=f322684b186f56f44949742fdb785016","","article","Gibney, E.",NA,26961632,"NATUA",""
+"246",245,"2020-06-29","ISI:000482554008120","BN4NP","",9,2,1,34,"","","mkiranyaz@qu.edu.qa
+turker.ince@izmirekonomi.edu.tr
+o.abdeljaber@qu.edu.qa
+onur.avci@qu.edu.qa
+Moncef.gabbouj@tut.fi","Acoustics; Engineering, Electrical \& Electronic","Acoustics; Engineering","BEARING DAMAGE DETECTION; FAULT-DIAGNOSIS; DEEP; DECOMPOSITION","1-D CNNs; Biomedical Signal Processing; SHM","","1520-6149","","Kiranyaz, S (Reprint Author), Qatar Univ, Dept Elect Engn, Doha, Qatar.
+Kiranyaz, Serkan, Qatar Univ, Dept Elect Engn, Doha, Qatar.
+Ince, Turker, Izmir Univ Econ, Elect \& Elect Engn Dept, Izmir, Turkey.
+Abdeljaber, Osama; Avci, Onur, Qatar Univ, Dept Civil Engn, Doha, Qatar.
+Gabbouj, Moncef, Tampere Univ Technol, Dept Signal Proc, Tampere, Finland.","English","Proceedings Paper","345 E 47TH ST, NEW YORK, NY 10017 USA","IEEE","1D Convolutional Neural Networks (CNNs) have recently become the
+state-of-the-art technique for crucial signal processing applications
+such as patient-specific ECG classification, structural health
+monitoring, anomaly detection in power electronics circuitry and
+motor-fault detection. This is an expected outcome as there are numerous
+advantages of using an adaptive and compact 1D CNN instead of a
+conventional (2D) deep counterparts. First of all, compact 1D CNNs can
+be efficiently trained with a limited dataset of 1D signals while the 2D
+deep CNNs, besides requiring 1D to 2D data transformation, usually need
+datasets with massive size, e.g., in the ``Big Data'' scale in order
+to prevent the well-known ``overfitting'' problem. 1D CNNs can
+directly be applied to the raw signal (e.g., current, voltage,
+vibration, etc.) without requiring any pre-or postprocessing such as
+feature extraction, selection, dimension reduction, denoising, etc.
+Furthermore, due to the simple and compact configuration of such
+adaptive 1D CNNs that perform only linear 1D convolutions (scalar
+multiplications and additions), a real-time and low-cost hardware
+implementation is feasible. This paper reviews the major signal
+processing applications of compact 1D CNNs with a brief theoretical
+background. We will present their state-of-the-art performances and
+conclude with focusing on some major properties.","","8360-8364","","",2019,"","1-d convolutional neural networks for signal processing applications","Kiranyaz, Serkan and Ince, Turker and Abdeljaber, Osama and Avci, Onur
+and Gabbouj, Moncef","inproceedings","ISI:000482554008120","Abdeljaber, Osama/0000-0003-0530-9552
+Gabbouj, Moncef/0000-0002-9788-2323","","Abdeljaber, Osama/AAO-2663-2020
+Gabbouj, Moncef/G-4293-2014","","Inst Elect \& Elect Engineers; Inst Elect \& Elect Engineers Signal Proc
+Soc","44th IEEE International Conference on Acoustics, Speech and Signal
+Processing (ICASSP), Brighton, ENGLAND, MAY 12-17, 2019","978-1-4799-8131-1","2019 IEEE INTERNATIONAL CONFERENCE ON ACOUSTICS, SPEECH AND SIGNAL
+PROCESSING (ICASSP)","IEEE","","International Conference on Acoustics Speech and Signal Processing
+ICASSP","","","","","","","","","","","",NA,NA,"",""

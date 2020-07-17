@@ -25,7 +25,9 @@ allData <- read.csv(here("data","allData.csv"))
 
 names(allData)
 
+## allData$ENTRYTYPE
 ##"title" contain the entries we need
+
 ```
 
 ```{r sort-title}
@@ -50,21 +52,26 @@ write.csv(lowTitles[ordered],here("data","lowTitles_first.csv"))
 - some entries are with a single quote, some with double, and some with tilted quote
 - some have \"
 - some entries have a newline escape in the middle.
+- there are mixes between hyphens (-) and dashes(--)
 - etc
 
 So let's clean it by:
 
 - making all ' and ` and `` and \" into a single '
 - removing the newline escape
+- etc
 
 
 ```{r clean-naming}
 
 ## remove \n
-lowTitles <- gsub("\n","",lowTitles)
+lowTitles <- gsub("\n"," ",lowTitles)
 
-## remove \"
-lowTitles <- gsub("\"","",lowTitles)
+
+
+## remove "\\&"
+lowTitles <- gsub(" \\&"," and",lowTitles)
+lowTitles <- gsub("\\&","and",lowTitles)
 
 ## substitute " `" for '
 lowTitles <- gsub(" `","'",lowTitles)
@@ -78,8 +85,254 @@ lowTitles <- gsub("`","'",lowTitles)
 ## substitute "''" for '
 lowTitles <- gsub("''","'",lowTitles)
 
+## substitute "–" for "-"
+lowTitles <- gsub("–","-",lowTitles)
+lowTitles <- gsub("—","-",lowTitles)
+
+
+## substitute " :" for ":"
+lowTitles <- gsub(" :",":",lowTitles)
+
+## substitute " - " for "-"
+lowTitles <- gsub(" - ","-",lowTitles)
+
+## substitute "- " for "-"
+lowTitles <- gsub("- ","-",lowTitles)
+
+## substitute "µ" for "um"
+lowTitles <- gsub("µ","um",lowTitles)
+
+## substitute "®" for "(r)"
+lowTitles <- gsub("®","(r)",lowTitles)
+
+## substitute " ? " for "? "
+lowTitles <- gsub(" \\? ","\\? ",lowTitles)
+
+## substitute "&" for "and"
+#lowTitles <- gsub("&","and",lowTitles)
+
 ## substitute """ for '
-lowTitles <- gsub("\"","'",lowTitles)
+#lowTitles <- gsub("\"","'",lowTitles)
+
+## remove \"
+lowTitles <- gsub("\"","",lowTitles)
+
+## some entries are duplicated due to typos
+
+## "a dataglove hardware design and real-time sign gesture interpretation"                                                                              ## "a dataglove hardware design and real-time sign gesture interpretation." 
+lowTitles <- gsub("interpretation.","interpretation",lowTitles) 
+
+
+## "a human-computer interface based on the “voluntary” pupil accommodative response"                                                                   ## "a human-computer interface based on the'voluntary' pupil accommodative response"  
+lowTitles <- gsub("'voluntary'"," “voluntary”",lowTitles) 
+
+## "a low-cost exp-golomb hardware architecture for h.264/avc entropy coder"                                                                         
+## "a low-cost exp\\_golomb hardware architecture for h.264/avc entropy coder"
+lowTitles <- gsub("p\\_g","p-g",lowTitles) 
+
+## "a low-cost iot based environmental monitoring system. a citizen approach to pollution awareness"                                                    ## "a low-cost iot based environmental monitoring system. a citizen approach to pollution awareness."  
+lowTitles <- gsub("awareness.","awareness",lowTitles)
+
+## "a low-cost open source hardware in control education. case study: arduino-feedback ms-150"                                                          ## "a low-cost open source hardware in control education. case study:arduino-feedback ms-150"  
+lowTitles <- gsub("study:arduino","study: arduino",lowTitles)
+
+## "a low-cost platform for eye-tracking research: using pupil (c) in behavior analysis"                                                                ## "a low-cost platform for eye-tracking research: using pupil© in behavior analysis"
+lowTitles <- gsub("©","(c)",lowTitles)
+
+## "a modular path planning solution for wire + arc additive manufacturing"                                
+## "a modular path planning solution for wire plus arc additive manufacturing" 
+lowTitles <- gsub(" + "," plus ",lowTitles)
+
+##  "a new paradigm for open robotics research and education with the c plus plus ooml"                                                                  ## "a new paradigm for open robotics research and education with the c++ ooml"   
+lowTitles <- gsub(" plus plus","++",lowTitles)
+
+## "a real-time imaging system fo lumber strength prediction"                                                                                           ## "a real-time imaging system for lumber strength prediction"    
+lowTitles <- gsub("system fo lumber","system for lumber",lowTitles)
+
+## "a review of arduino board's, lilypad's \\and arduino shields"                                                                                       ## "a review of arduino board's, lilypad's and arduino shields"  
+
+## "a simple strategy for carboxylated mwnts as a metal-free electrosensor for anchoring the rhb c=n group"                                             ## "a simple strategy for carboxylated mwnts as a metal-free electrosensor for anchoring the rhb cn group" 
+lowTitles <- gsub("rhb c=n","rhb cn",lowTitles)
+
+
+## "afm nanœye – development of an education oriented high resolution profilometer"                                                                      ## "afm nanoeye-development of an education oriented high resolution profilometer"  
+lowTitles <- gsub("œ","oe",lowTitles)
+
+## "an easily deployable system for indoor positioining using wi-fi network"                                                                            ## "an easily deployable system for indoor positioning using wi-fi network" 
+lowTitles <- gsub("positioining","positioning",lowTitles)
+
+## "an efficient estimator for target localization in a multi-station redundancy system without matrix inversion"                                        ## "an efficient estimator for target localization in a multistation redundancy system without matrix inversion" 
+lowTitles <- gsub("multi-station","multistation",lowTitles)
+
+## "an energy aware end-to-end trust mechanism for iot healthcare applications"                                                                         ## "an energy aware end-to-end trust mechanism for iot healthcare applications."  
+lowTitles <- gsub("applications.","applications",lowTitles)
+
+## "an iot based service system as a research and educational platfor"                                                                                  ## "an iot based service system as a research and educational platform"  
+lowTitles <- gsub("and educational platfor","and educational platform",lowTitles)
+
+## "cost-effective n:1 firewall array via subnet-levcl load balancing by sdn/openflow switches"                               
+## "cost-effective n:1 firewall array via subnet-level load balancing by sdn/openflow switches"  
+## substitute "levcl" for "level"
+lowTitles <- gsub("levcl","level",lowTitles)
+
+## "cap floor - a flexible capacitive indoor localization system"                                                                    
+## "capfloor - a flexible capacitive indoor localization system" 
+## substitute "cap floor" for "capfloor"
+lowTitles <- gsub("cap floor","capfloor",lowTitles)
+
+## "detection of episodes of major depression in older adults through physiological markers and movement patterns case study"                    
+## "detection of episodes of major depression in older adults through physiological markers and movement patterns: case study" 
+# substitute "movement patterns:" for "movement patterns"
+lowTitles <- gsub("movement patterns:","movement patterns",lowTitles)
+
+
+
+## "deploying sdn in geant production network"                                                                                                          ## "deploying sdn in géant production network" 
+
+## "development of the gambiarradio educacional prototype: device for transmitting audio via fm radio waves based on raspberry pi"            
+## "development of the gambiarrádio educational prototype: device for transmitting audio via fm radio waves based on raspberry pi"
+lowTitles <- gsub("á","a",lowTitles)
+lowTitles <- gsub("ó","o",lowTitles)
+lowTitles <- gsub("é","e",lowTitles)
+
+## "differentiation between organic and non-organic apples using diffraction grating and image processing—a cost-effective approach"                    ## "differentiation between organic and non-organic apples using diffraction grating and image processinga cost-effective approach"   
+lowTitles <- gsub("processing—a","processinga",lowTitles)
+
+## "bridging digital divide: 'village wireless lan', a low cost network infrastructure solution for digital communication, information dissemination and education in rural bangladesh"                                
+## "bridging digital divide:'village wireless lan', a low cost network infrastructure solution for digital communication, information dissemination \\and education in rural bangladesh"
+lowTitles <- gsub("divide:'village","divide: 'village",lowTitles)
+
+
+## "bipolar transistor application for «on-line» neutron fluence registration"                                                                       
+## "bipolar transistor application for'on-line' neutron fluence registration"  
+lowTitles <- gsub(" «on-line»","'on-line'",lowTitles)
+
+## "implementation of vision-based autonomous mobile platform to control by a* algorithm"                                                                
+## "implementation of vision-based autonomous mobile platform to control by a∗ algorithm"
+lowTitles <- gsub("∗","*",lowTitles)
+
+## "lighting control actuator design and development for a zigbee network with a web server mounted on raspberry pi." 
+## "lighting control actuator design and development for a zigbee network with a web server mounted on raspberry pi"
+lowTitles <- gsub("pi.","pi",lowTitles)
+
+## "livecoding the synthkit: littlebits as an embodied programming language"
+## "livecoding the synthkit: little bits as an embodied programming language"
+lowTitles <- gsub("littlebits","little bits",lowTitles)
+
+## "maker movement influence on students' learning motivation and learning achievement-a learning style perspective"                                    
+## "maker movement influence on students' learning motivation and learning achievement-a learning style perspective"                                    
+lowTitles <- gsub("’","'",lowTitles)
+
+## "modular open hardware omnidirectional platform for mobile robot research *" 
+## "modular open hardware omnidirectional platform for mobile robot research" 
+lowTitles <- gsub(" \\*","",lowTitles)
+
+## "open labware: 3-d printing your own lab equipment" 
+## "open labware: 3-d printing your own lab equipment (vol 13, e1002086, 2015)"
+lowTitles <- gsub(" (vol 13, e1002086, 2015)","",lowTitles)
+
+
+## "opens hub: real-time data logging, connecting field sensors t o google sheets"
+## "opens hub: real-time data logging, connecting field sensors t o google sheets"
+lowTitles <- gsub(" t o "," to ",lowTitles)
+
+## "progress on the self service kiosk for testing the uv protection on sunglasses-polynomial and neural network approximation for calculating light transmittance"
+## "progress on the self-service kiosk for testing the uv protection on sunglasses-polynomial and neural network approximation for calculating light transmittance"   
+lowTitles <- gsub("self service","self-service",lowTitles)
+
+
+## "rapi morphological exploration with the poppy humanoid platform." 
+## "rapi morphological exploration with the poppy humanoid platform"
+## "rosmotic: a scalable smart home for blind people controlled with an app."  
+## "rosmotic: a scalable smart home for blind people controlled with an app"  
+lowTitles <- gsub(".","",lowTitles)
+
+## "retrofit of air conditioning systems through an wireless sensor and actuator network: an iot-based application for smart buildings"  
+## "retrofit of air conditioning systems through an wireless sensor and actuator network an iot-based application for smart buildings" 
+lowTitles <- gsub("network an","network: an",lowTitles)
+
+## "self-sustainable monitoring station for f,xtreme environments (s3me2): design and validation" 
+## "self-sustainable monitoring station for extreme environments (s3me2): design and validation" 
+lowTitles <- gsub("f,xtreme","extreme",lowTitles)
+
+## "simultaneous determination of vitamin b-1 and b-2 in complex cereal foods, by reverse phase isocratic hplc-uv" 
+## "simultaneous determination of vitamin b 1 and b 2 in complex cereal foods, by reverse phase isocratic hplc-uv" 
+lowTitles <- gsub("vitamin b 1 and b 2","vitamin b-1 and b-2",lowTitles)
+
+## "sniffi: a portable development gas sensing embedded system" 
+## "sniffi a portable development gas sensing embedded system" 
+lowTitles <- gsub("sniffi:","sniffi",lowTitles)
+
+## systems overview of ono: a diy reproducible open source social robot
+## systems overview of ono a diy reproducible open source social robot
+lowTitles <- gsub("ono:","ono",lowTitles)
+
+## "the complementarity of openness: how makerbot leveraged thingiverse in 3dprinting"    
+## "the complementarity of openness: how makerbot leveraged thingiverse in 3d printing"    
+lowTitles <- gsub("3dprinting","3d printing",lowTitles)
+
+## "the emergence of open construction systems: a sustainable paradigm in the construction sector?" 
+## "the emergence of open construction systems: a sustainable paradigm in the construction sector" 
+lowTitles <- gsub("sector?","sector",lowTitles)
+
+## "towards secure elements for trusted transactions in blockchain and blochchain iot (biot) platforms. invited paper"   
+## "towards secure elements for trusted transactions in blockchain and blochchain iot (biot) platforms"
+lowTitles <- gsub(" invited paper","",lowTitles)
+
+## "very high resolution crop surface models (csms) from uav-based stereo images for rice growth monitoring in northeast china" 
+## "very high resolution crop surface models (csm) from uav-based stereo images for rice growth monitoring in northeast china" 
+lowTitles <- gsub("csms","csm",lowTitles)
+
+## "x4-mag: a low-cost open-source micro-quadrotor and its linux based controller" 
+## "x4-mag: a low-cost open-source micro-quadrotor and its linux-based controller" 
+lowTitles <- gsub("linux-based","linux based",lowTitles)
+
+#### brought this one below on myself
+## "openwsn \\and openmote: demo'ing a complete ecosystem for the industrial internet of things"
+## "openwsn and openmote: demo'ing a complete ecosystem for the industrial internet of things"
+
+## CHECK THESE ONES BELOW in MORE DETAIL BEFORE MERGE
+
+## "research on detection of beef freshness parameters based on multi spectral diffuse reflectance method [基于多光谱漫反射的牛肉品质参数检测方法研究]" 
+## "research on detection of beef freshness parameters based on multi spectral diffuse reflectance method"
+
+## "optimization and hardware implementation of image watermarking for low cost applications" 
+## "optimization and hardware implementation of image and video watermarking for low-cost applications" 
+
+## "peristaltic pump and detection system controlled by an arduino open source hardware developed and designed for application in a flow analysis system"
+## "peristaltic pump and detection system controlled by an arduino open source hardware developed and designed for application in a flow analysis system [construção de uma bomba peristaltica e de um sistema de detecção utilizando um hardware de codigo fonte aberto ⇜arduino⇝ para analise em fluxo]"
+
+## "archeorobotics. open robotic applications and extreme archeology"                                                                                   ## "archeorobotics. open robotic applications and extreme archeology [archeorobotics. applicazioni robotiche aperte e archeologia estrema]" 
+
+
+## "arduino microcontroller processing for everyone! third edition barrett"                                                                              
+## "arduino microcontroller: processing for everyone"    
+
+## "beach profiles: should the emery rod method be discarded?"                                                                                          ## "beach profiles: should the emery rod method be discarded? [perfis de praia: deve o método das balizas de emery ser abandonado?]"  
+
+# "big data in chemicals sector"                                                                                                                 
+# "big data in the chemicals sector" 
+
+
+## "designing low-cost hardware accelerators for ce devices"                                                           
+## "designing low-cost hardware accelerators for ce devices [hardware matters]"   
+
+## "design of an open source-based control platform for an underwater remotely operated vehicle"                                                         
+## "design of an open source-based control platform for an underwater remotely operated vehicle [diseño de una plataforma de control basada en fuente abierta para un vehículo subacuático operado remotamente]"  
+
+## "design and implementation of a modern automatic deformation monitoring system"                                                            
+## "design and implementation of a modern automatic deformation monitoring system: towards an open source software platform for geodetical and geotechnical measurements" 
+
+## "consideration of the versatility of the open prototype for educational nanosats cubesat design"                                                   
+## "consideration of the versatility of the open prototype for educational nanosats cubesat design an overview of multiple uses and discussion of prospective future uses"  
+
+## "a compact hardware implementation of sm3"                                                                                                           ## "a compact hardware implementation of sm3 hash function"  
+
+## "3d cardiac electrical activity model"                                                                                                               ## "3d cardiac electrical activity model [3d model električne aktivnosti srca]"    
+
+## "learning basic robotics and val ii programming with lego mindstorms robots"                                                                         ## "learning basic robotics and val ii programming with lego mindstorms robots [aprendizaje de robótica básica y programación en val ii usando robots lego mindstoms]"   
+
+ 
 
 
 ## reorder things 
@@ -88,8 +341,18 @@ ordered<-order(lowTitles)
 
 head(lowTitles[ordered],10)
 
-## save lowTitles for a quick human check
-write.csv(lowTitles[ordered],here("data","lowTitles.csv"))
+
+## subsitute title with the lower case titles
+allData[,"title"]<-lowTitles
+
+#reorder allData according to sorted titles
+allData<-allData[ordered,]
+
+head(allData$title)
+
+
+## save two entries that are with the same title for a quick human check
+write.csv(allData[5:6,],here("data","quickCheck.csv"))
 
 ```
 
@@ -97,11 +360,14 @@ write.csv(lowTitles[ordered],here("data","lowTitles.csv"))
 ```{r check-duplicates}
 
 
-#number of repeated entries
-length(all_data$title)-length(unique(all_data$title))
+## number of non-repeated entries
+length(allData$title)-length(unique(allData$title))
 
-#get all duplicated titles
-rep_titles<-all_data[duplicated(all_data$title) ,"title"]
+## de 
+test<-(unique(allData$title))
+
+## get all duplicated titles
+rep_titles<-allData[duplicated(allData$title) ,"title"]
 
 
 ```
