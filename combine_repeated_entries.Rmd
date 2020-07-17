@@ -108,6 +108,12 @@ lowTitles <- gsub("®","(r)",lowTitles)
 ## substitute " ? " for "? "
 lowTitles <- gsub(" \\? ","\\? ",lowTitles)
 
+## "rapi morphological exploration with the poppy humanoid platform." 
+## "rapi morphological exploration with the poppy humanoid platform"
+## "rosmotic: a scalable smart home for blind people controlled with an app."  
+## "rosmotic: a scalable smart home for blind people controlled with an app"  
+lowTitles <- gsub("\\.","",lowTitles)
+
 ## substitute "&" for "and"
 #lowTitles <- gsub("&","and",lowTitles)
 
@@ -165,7 +171,7 @@ lowTitles <- gsub("positioining","positioning",lowTitles)
 lowTitles <- gsub("multi-station","multistation",lowTitles)
 
 ## "an energy aware end-to-end trust mechanism for iot healthcare applications"                                                                         ## "an energy aware end-to-end trust mechanism for iot healthcare applications."  
-lowTitles <- gsub("applications.","applications",lowTitles)
+#lowTitles <- gsub("applications.","applications",lowTitles)
 
 ## "an iot based service system as a research and educational platfor"                                                                                  ## "an iot based service system as a research and educational platform"  
 lowTitles <- gsub("and educational platfor","and educational platform",lowTitles)
@@ -213,7 +219,7 @@ lowTitles <- gsub("∗","*",lowTitles)
 
 ## "lighting control actuator design and development for a zigbee network with a web server mounted on raspberry pi." 
 ## "lighting control actuator design and development for a zigbee network with a web server mounted on raspberry pi"
-lowTitles <- gsub("pi.","pi",lowTitles)
+#lowTitles <- gsub("pi.","pi",lowTitles)
 
 ## "livecoding the synthkit: littlebits as an embodied programming language"
 ## "livecoding the synthkit: little bits as an embodied programming language"
@@ -241,11 +247,7 @@ lowTitles <- gsub(" t o "," to ",lowTitles)
 lowTitles <- gsub("self service","self-service",lowTitles)
 
 
-## "rapi morphological exploration with the poppy humanoid platform." 
-## "rapi morphological exploration with the poppy humanoid platform"
-## "rosmotic: a scalable smart home for blind people controlled with an app."  
-## "rosmotic: a scalable smart home for blind people controlled with an app"  
-lowTitles <- gsub(".","",lowTitles)
+
 
 ## "retrofit of air conditioning systems through an wireless sensor and actuator network: an iot-based application for smart buildings"  
 ## "retrofit of air conditioning systems through an wireless sensor and actuator network an iot-based application for smart buildings" 
@@ -351,8 +353,7 @@ allData<-allData[ordered,]
 head(allData$title)
 
 
-## save two entries that are with the same title for a quick human check
-write.csv(allData[5:6,],here("data","quickCheck.csv"))
+
 
 ```
 
@@ -365,6 +366,8 @@ length(allData$title)-length(unique(allData$title))
 
 ## de 
 test<-(unique(allData$title))
+## save entries that are unique for a quick human check
+write.csv(test,here("data","quickCheck.csv"))
 
 ## get all duplicated titles
 rep_titles<-allData[duplicated(allData$title) ,"title"]
