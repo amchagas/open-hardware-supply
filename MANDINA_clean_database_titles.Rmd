@@ -1,7 +1,7 @@
 ---
 title: "combine_repeated_entries"
-author: "Andre M Chagas"
-date: "16/07/2020"
+author: "Matias Andina"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 ## RMarkdown to filter and combine repetitive entries of the 'allData.csv' file
@@ -236,3 +236,19 @@ allData$title <- gsub(" 基于多光谱漫反射的牛肉品质参数检测方�
  
 ```
 
+## Trying to remove duplicates
+
+The distance matrix with `adist` takes forever, do not run!
+
+```{r, eval=FALSE}
+titles <- df$title
+dist_mat <- adist(titles, titles)
+```
+
+```{r}
+hist(unlist(dist_mat[lower.tri(dist_mat)]))
+```
+
+```{r}
+df_filt <- df %>% filter(!duplicated(title))
+```
