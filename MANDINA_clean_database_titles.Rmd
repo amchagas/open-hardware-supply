@@ -1,0 +1,238 @@
+---
+title: "combine_repeated_entries"
+author: "Andre M Chagas"
+date: "16/07/2020"
+output: html_document
+---
+## RMarkdown to filter and combine repetitive entries of the 'allData.csv' file
+
+```{r attach-libraries}
+## clear workspace
+# rm(list = ls())
+
+library(tidyverse)#
+library(here)
+```
+
+
+```{r load-csv}
+allData <- read.csv(here("data","allData.csv"))
+#names(allData)
+```
+
+## removing errors on title
+
+There is a lot of garbage that needs almost manual cleaning with `gsub`, we might not need it if using [[:punct:]]
+
+```{r}
+## remove \n
+allData$title <- gsub("\n"," ",allData$title)
+
+## remove "\\&"
+allData$title <- gsub(" \\&"," and",allData$title)
+allData$title <- gsub("\\&","and",allData$title)
+
+## "a modular path planning solution for wire + arc additive manufacturing"                                
+## "a modular path planning solution for wire plus arc additive manufacturing" 
+allData$title <- gsub(" + "," plus ",allData$title)
+
+##  "a new paradigm for open robotics research and education with the c plus plus ooml"                                                                  ## "a new paradigm for open robotics research and education with the c++ ooml"   
+allData$title <- gsub("++", " plus plus", allData$title)
+
+```
+
+
+> [[:punct:]]Punctuation characters
+> ;!"#$%&’()*+,-./:;<=>?@[]^_`{|}~
+
+
+
+```{r sort-title}
+
+
+allData <- allData %>%
+  # put into lower case and remove punctuation
+  mutate(title=tolower(title),
+         title = str_replace_all(title,
+                 pattern="[[:punct:]]",
+                 replacement = " "),
+         # remove all backticks
+         # (for some reason some escape to punct)
+         title = str_remove_all(title,
+                               "`"),
+         # remove extra spaces
+         title = stringr::str_trim(str_squish(title)))
+
+```
+
+
+More manual cleaning 
+
+> It's possible to check patterns using 
+
+`filter(allData, str_detect(title, "bridging digital divide")) %>% pull(title)` 
+
+or 
+
+`filter(allData, str_detect(title, "your pattern here")) %>% pull(title)`
+
+```{r clean-naming}
+
+## "a low-cost platform for eye-tracking research: using pupil (c) in behavior analysis"                  ## "a low-cost platform for eye-tracking research: using pupil© in behavior analysis"
+lowTitles <- gsub("©","(c)",lowTitles)
+
+## substitute "µ" for "um"
+allData$title <- gsub("µ","um",allData$title)
+
+## substitute "®" for "(r)"
+allData$title <- gsub("®","(r)",allData$title)
+
+
+## "a real-time imaging system fo lumber strength prediction"
+## "a real-time imaging system for lumber strength prediction"    
+lowTitles <- gsub("system fo lumber","system for lumber",lowTitles)
+
+## "a review of arduino board's, lilypad's \\and arduino shields"                                       
+## "a review of arduino board's, lilypad's and arduino shields"  
+
+## "a simple strategy for carboxylated mwnts as a metal-free electrosensor for anchoring the rhb c=n group"                                             
+## "a simple strategy for carboxylated mwnts as a metal-free electrosensor for anchoring the rhb cn group" 
+allData$title <- gsub("rhb c=n","rhb cn", allData$title)
+
+
+## "afm nanœye – development of an education oriented high resolution profilometer"                          ## "afm nanoeye-development of an education oriented high resolution profilometer"  
+allData$title <- gsub("œ","oe", allData$title)
+
+## "an easily deployable system for indoor positioining using wi-fi network"                                   ## "an easily deployable system for indoor positioning using wi-fi network" 
+allData$title <- gsub("positioining","positioning", allData$title)
+
+
+## "an iot based service system as a research and educational platfor"                                                           ## "an iot based service system as a research and educational platform"  
+allData$title <- gsub("and educational platfor","and educational platform",allData$title)
+
+## "cost-effective n:1 firewall array via subnet-levcl load balancing by sdn/openflow switches"                               
+## "cost-effective n:1 firewall array via subnet-level load balancing by sdn/openflow switches"  
+## substitute "levcl" for "level"
+allData$title <- gsub("levcl","level",allData$title)
+
+## "cap floor - a flexible capacitive indoor localization system"                                                                    
+## "capfloor - a flexible capacitive indoor localization system" 
+## substitute "cap floor" for "capfloor"
+allData$title <- gsub("cap floor","capfloor",allData$title)
+
+## "deploying sdn in geant production network"
+## "deploying sdn in géant production network" 
+
+## "development of the gambiarradio educacional prototype: device for transmitting audio via fm radio waves based on raspberry pi"            
+## "development of the gambiarrádio educational prototype: device for transmitting audio via fm radio waves based on raspberry pi"
+#lowTitles <- gsub("á","a",lowTitles)
+#lowTitles <- gsub("ó","o",lowTitles)
+#lowTitles <- gsub("é","e",lowTitles)
+# I think this does the same hopefully not introducing problems
+allData$title <- stringi::stri_trans_general(allData$title,"Latin-ASCII")
+
+
+## "differentiation between organic and non-organic apples using diffraction grating and image processing—a cost-effective approach"                    
+## "differentiation between organic and non-organic apples using diffraction grating and image processinga cost-effective approach"   
+allData$title <- gsub("processinga", "processing a", allData$title)
+
+## "bridging digital divide: 'village wireless lan', a low cost network infrastructure solution for digital communication, information dissemination and education in rural bangladesh"                                
+## "bridging digital divide:'village wireless lan', a low cost network infrastructure solution for digital communication, information dissemination \\and education in rural bangladesh"
+allData$title <- gsub("divide:'village","divide: 'village",allData$title)
+
+# on line has to be one word now
+allData$title <- gsub("on line","online", allData$title)
+
+## "implementation of vision-based autonomous mobile platform to control by a* algorithm"                                           ## "implementation of vision-based autonomous mobile platform to control by a∗ algorithm"
+allData$title <- gsub("∗","*", allData$title)
+
+## "livecoding the synthkit: littlebits as an embodied programming language"
+## "livecoding the synthkit: little bits as an embodied programming language"
+allData$title <- gsub("littlebits","little bits",allData$title)
+
+## "modular open hardware omnidirectional platform for mobile robot research *" 
+## "modular open hardware omnidirectional platform for mobile robot research" 
+## "low comple*ity and low cost hardware sharing design of fast multistandard 2 d dct idct for image video coding"
+allData$title <- gsub(" \\*", "", allData$title)
+allData$title <- gsub("comple*ity","complexity",allData$title)
+
+## "open labware: 3-d printing your own lab equipment" 
+## "open labware: 3-d printing your own lab equipment (vol 13, e1002086, 2015)"
+allData$title <- gsub(" vol 13 e1002086 2015","",allData$title)
+
+
+## "opens hub: real-time data logging, connecting field sensors t o google sheets"
+## "opens hub: real-time data logging, connecting field sensors t o google sheets"
+allData$title <- gsub(" t o "," to ",allData$title)
+
+## "self-sustainable monitoring station for f,xtreme environments (s3me2): design and validation" 
+## "self-sustainable monitoring station for extreme environments (s3me2): design and validation" 
+allData$title <- gsub("f,xtreme","extreme",allData$title)
+
+## "the complementarity of openness: how makerbot leveraged thingiverse in 3dprinting"    
+## "the complementarity of openness: how makerbot leveraged thingiverse in 3d printing"    
+allData$title <- gsub("3dprinting","3d printing",allData$title)
+
+## "towards secure elements for trusted transactions in blockchain and blochchain iot (biot) platforms. invited paper"   
+## "towards secure elements for trusted transactions in blockchain and blochchain iot (biot) platforms"
+allData$title <- gsub(" invited paper","", allData$title)
+
+## "very high resolution crop surface models (csms) from uav-based stereo images for rice growth monitoring in northeast china" 
+## "very high resolution crop surface models (csm) from uav-based stereo images for rice growth monitoring in northeast china" 
+allData$title <- gsub("csms","csm",allData$title)
+
+## "x4-mag: a low-cost open-source micro-quadrotor and its linux based controller" 
+## "x4-mag: a low-cost open-source micro-quadrotor and its linux-based controller" 
+allData$title <- gsub("linux-based","linux based",allData$title)
+
+#### brought this one below on myself
+## "openwsn \\and openmote: demo'ing a complete ecosystem for the industrial internet of things"
+## "openwsn and openmote: demo'ing a complete ecosystem for the industrial internet of things" --> This one is fine now no need for intervention
+
+## CHECK THESE ONES BELOW in MORE DETAIL BEFORE MERGE
+
+## "research on detection of beef freshness parameters based on multi spectral diffuse reflectance method [基于多光谱漫反射的牛肉品质参数检测方法研究]" 
+## "research on detection of beef freshness parameters based on multi spectral diffuse reflectance method"
+# mind the space! in " 基于多光谱漫反射的牛肉品质参数检测方法研究"
+allData$title <- gsub(" 基于多光谱漫反射的牛肉品质参数检测方法研究","", allData$title)
+
+
+## "optimization and hardware implementation of image watermarking for low cost applications" 
+## "optimization and hardware implementation of image and video watermarking for low-cost applications" 
+
+## "peristaltic pump and detection system controlled by an arduino open source hardware developed and designed for application in a flow analysis system"
+## "peristaltic pump and detection system controlled by an arduino open source hardware developed and designed for application in a flow analysis system [construção de uma bomba peristaltica e de um sistema de detecção utilizando um hardware de codigo fonte aberto ⇜arduino⇝ para analise em fluxo]"
+
+## "archeorobotics. open robotic applications and extreme archeology"                                                       ## "archeorobotics. open robotic applications and extreme archeology [archeorobotics. applicazioni robotiche aperte e archeologia estrema]" 
+
+
+## "arduino microcontroller processing for everyone! third edition barrett"                                                          ## "arduino microcontroller: processing for everyone"    
+
+## "beach profiles: should the emery rod method be discarded?"    
+## "beach profiles: should the emery rod method be discarded? [perfis de praia: deve o método das balizas de emery ser abandonado?]"  
+
+# "big data in chemicals sector"
+# "big data in the chemicals sector" 
+
+
+## "designing low-cost hardware accelerators for ce devices"                                                           
+## "designing low-cost hardware accelerators for ce devices [hardware matters]"   
+
+## "design of an open source-based control platform for an underwater remotely operated vehicle"                                                         
+## "design of an open source-based control platform for an underwater remotely operated vehicle [diseño de una plataforma de control basada en fuente abierta para un vehículo subacuático operado remotamente]"  
+
+## "design and implementation of a modern automatic deformation monitoring system"                                                            
+## "design and implementation of a modern automatic deformation monitoring system: towards an open source software platform for geodetical and geotechnical measurements" 
+
+## "consideration of the versatility of the open prototype for educational nanosats cubesat design"                                                   
+## "consideration of the versatility of the open prototype for educational nanosats cubesat design an overview of multiple uses and discussion of prospective future uses"  
+
+## "a compact hardware implementation of sm3"                     ## "a compact hardware implementation of sm3 hash function"  
+
+## "3d cardiac electrical activity model"                         ## "3d cardiac electrical activity model [3d model električne aktivnosti srca]"    
+
+## "learning basic robotics and val ii programming with lego mindstorms robots"                                                ## "learning basic robotics and val ii programming with lego mindstorms robots [aprendizaje de robótica básica y programación en val ii usando robots lego mindstoms]"   
+
+ 
+```
+
