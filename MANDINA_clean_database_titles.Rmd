@@ -37,7 +37,7 @@ allData$title <- gsub("\\&","and",allData$title)
 allData$title <- gsub(" + "," plus ",allData$title)
 
 ##  "a new paradigm for open robotics research and education with the c plus plus ooml"                                                                  ## "a new paradigm for open robotics research and education with the c++ ooml"   
-allData$title <- gsub("++", " plus plus", allData$title)
+allData$title <- gsub("\\+\\+", " plus plus", allData$title)
 
 ```
 
@@ -78,8 +78,9 @@ or
 
 ```{r clean-naming}
 
-## "a low-cost platform for eye-tracking research: using pupil (c) in behavior analysis"                  ## "a low-cost platform for eye-tracking research: using pupil© in behavior analysis"
-lowTitles <- gsub("©","(c)",lowTitles)
+## "a low-cost platform for eye-tracking research: using pupil (c) in behavior analysis"                  
+## "a low-cost platform for eye-tracking research: using pupil© in behavior analysis"
+allData$title <- gsub("©","(c)",allData$title)
 
 ## substitute "µ" for "um"
 allData$title <- gsub("µ","um",allData$title)
@@ -90,7 +91,7 @@ allData$title <- gsub("®","(r)",allData$title)
 
 ## "a real-time imaging system fo lumber strength prediction"
 ## "a real-time imaging system for lumber strength prediction"    
-lowTitles <- gsub("system fo lumber","system for lumber",lowTitles)
+allData$title <- gsub("system fo lumber","system for lumber",allData$title)
 
 ## "a review of arduino board's, lilypad's \\and arduino shields"                                       
 ## "a review of arduino board's, lilypad's and arduino shields"  
@@ -103,11 +104,13 @@ allData$title <- gsub("rhb c=n","rhb cn", allData$title)
 ## "afm nanœye – development of an education oriented high resolution profilometer"                          ## "afm nanoeye-development of an education oriented high resolution profilometer"  
 allData$title <- gsub("œ","oe", allData$title)
 
-## "an easily deployable system for indoor positioining using wi-fi network"                                   ## "an easily deployable system for indoor positioning using wi-fi network" 
+## "an easily deployable system for indoor positioining using wi-fi network"                                   
+## "an easily deployable system for indoor positioning using wi-fi network" 
 allData$title <- gsub("positioining","positioning", allData$title)
 
 
-## "an iot based service system as a research and educational platfor"                                                           ## "an iot based service system as a research and educational platform"  
+## "an iot based service system as a research and educational platfor"                                                        
+## "an iot based service system as a research and educational platform"  
 allData$title <- gsub("and educational platfor","and educational platform",allData$title)
 
 ## "cost-effective n:1 firewall array via subnet-levcl load balancing by sdn/openflow switches"                               
@@ -206,7 +209,8 @@ allData$title <- gsub(" 基于多光谱漫反射的牛肉品质参数检测方�
 ## "archeorobotics. open robotic applications and extreme archeology"                                                       ## "archeorobotics. open robotic applications and extreme archeology [archeorobotics. applicazioni robotiche aperte e archeologia estrema]" 
 
 
-## "arduino microcontroller processing for everyone! third edition barrett"                                                          ## "arduino microcontroller: processing for everyone"    
+## "arduino microcontroller processing for everyone! third edition barrett"                                                          
+## "arduino microcontroller: processing for everyone"    
 
 ## "beach profiles: should the emery rod method be discarded?"    
 ## "beach profiles: should the emery rod method be discarded? [perfis de praia: deve o método das balizas de emery ser abandonado?]"  
@@ -231,7 +235,8 @@ allData$title <- gsub(" 基于多光谱漫反射的牛肉品质参数检测方�
 
 ## "3d cardiac electrical activity model"                         ## "3d cardiac electrical activity model [3d model električne aktivnosti srca]"    
 
-## "learning basic robotics and val ii programming with lego mindstorms robots"                                                ## "learning basic robotics and val ii programming with lego mindstorms robots [aprendizaje de robótica básica y programación en val ii usando robots lego mindstoms]"   
+## "learning basic robotics and val ii programming with lego mindstorms robots"                                           
+## "learning basic robotics and val ii programming with lego mindstorms robots [aprendizaje de robótica básica y programación en val ii usando robots lego mindstoms]"   
 
  
 ```
@@ -245,10 +250,118 @@ titles <- df$title
 dist_mat <- adist(titles, titles)
 ```
 
-```{r}
+```{r, eval=FALSE}
 hist(unlist(dist_mat[lower.tri(dist_mat)]))
 ```
 
+
+- clean Title -> done
+- clean Journals 
+- interaction title, journal, year
+- flag that tells me whether duplicated
+- remove duplicated
+- only keep articles
+
+# Same clean for the journals
+
+Before clean, there are `r unique(allData$journal) %>% length()` journals.
+
+
 ```{r}
-df_filt <- df %>% filter(!duplicated(title))
+allData$journal <- gsub(" \\&|\\&"," and",allData$journal)
+#allData$journal <- gsub("&", "and", allData$journal)
+
+allData <- allData %>%
+  # put into upper case and remove punctuation
+  mutate(journal=toupper(journal),
+         journal = str_replace_all(journal,
+                 pattern="[[:punct:]]",
+                 replacement = " "),
+                  # remove extra spaces
+         title = stringr::str_trim(str_squish(title)))
+
 ```
+
+
+After clean, we have a few less unique journals `r unique(allData$journal) %>% length()`.
+
+We will create a column identifying title, journal and year together.
+
+```{r}
+allData %>% 
+  mutate(triple = paste(year, journal, title),
+         duplicated = duplicated(triple)) -> allData
+
+allData %>% count(duplicated)
+```
+
+- clean Title -> done
+- clean Journals -> done
+- interaction title, journal, year -> done
+- flag that tells me whether duplicated -> done
+-remove duplicated 
+- only keep articles
+
+```{r}
+allData %>% filter(duplicated == FALSE,
+                   str_detect(type, "[Aa]rticle")) %>% 
+  mutate(doi = na_if(doi, "")) %>% 
+  count(is.na(doi))
+```
+
+We still have duplicated papers...
+
+```{r}
+allData %>% filter(duplicated == FALSE,
+                   str_detect(type, "[Aa]rticle")) %>% 
+  mutate(doi = na_if(doi, "")) %>% 
+  count(doi, sort = TRUE)
+```
+
+So basically we remove everything that is duplicated or is na.
+
+```{r}
+clean_data <- allData %>% 
+  mutate(doi = forcats::fct_explicit_na(na_if(doi, ""))) %>%
+  filter(duplicated == FALSE,
+         str_detect(type, "[Aa]rticle"),
+         !is.na(doi),
+         !duplicated(doi)
+        ) 
+
+```
+
+
+```{r}
+doi_list <- clean_data  %>% pull(doi)
+# safely get dois
+# this has been done previously, data provided as .Rdata
+#my_data <- purrr::map(doi_list, 
+#  .f = purrr::safely(function(x) roadoi::oadoi_fetch(x,
+#  .progress = "text",
+#  email = "matiasandina@gmail.com")))
+
+results <- purrr::map_df(my_data, "result")
+
+urls <-  results %>% 
+  mutate(
+  urls = purrr::map(best_oa_location, "url") %>% 
+    purrr::map_if(purrr::is_empty, ~ NA_character_) %>% 
+    purrr::flatten_chr()
+) %>%
+  .$urls
+
+```
+
+
+```{r}
+results %>%
+  group_by(is_oa) %>%
+  summarise(Articles = n()) %>%
+  ggplot(aes(is_oa, Articles)) +
+  geom_col()+
+  geom_text(aes(y=Articles - 80, label=Articles), color="white", size=12)+
+  labs(x="Open Access",
+       title="Open Access papers in dataset")
+```
+
