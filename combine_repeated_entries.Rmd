@@ -350,7 +350,7 @@ allData[,"title"]<-lowTitles
 #reorder allData according to sorted titles
 allData<-allData[ordered,]
 
-head(allData$title)
+head(allData$title,10)
 
 
 
@@ -361,9 +361,14 @@ head(allData$title)
 ```{r check-duplicates}
 
 
-## number of non-repeated entries
-length(allData$title)-length(unique(allData$title))
+## number of entries
+length(allData$title)
 
+## non repeated entries (here discarding what is repeated)
+test<-distinct(lowTitles)
+
+##number of non-repeated entries
+length(test)
 ## de 
 test<-(unique(allData$title))
 ## save entries that are unique for a quick human check
