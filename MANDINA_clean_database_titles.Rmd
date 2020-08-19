@@ -267,6 +267,7 @@ hist(unlist(dist_mat[lower.tri(dist_mat)]))
 Before clean, there are `r unique(allData$journal) %>% length()` journals.
 
 
+<<<<<<< HEAD
 ```{r}
 allData$journal <- gsub(" \\&|\\&"," and",allData$journal)
 #allData$journal <- gsub("&", "and", allData$journal)
@@ -333,6 +334,74 @@ clean_data <- allData %>%
 
 
 ```{r}
+=======
+```{r}
+allData$journal <- gsub(" \\&|\\&"," and",allData$journal)
+#allData$journal <- gsub("&", "and", allData$journal)
+
+allData <- allData %>%
+  # put into upper case and remove punctuation
+  mutate(journal=toupper(journal),
+         journal = str_replace_all(journal,
+                 pattern="[[:punct:]]",
+                 replacement = " "),
+                  # remove extra spaces
+         title = stringr::str_trim(str_squish(title)))
+
+```
+
+
+After clean, we have a few less unique journals `r unique(allData$journal) %>% length()`.
+
+We will create a column identifying title, journal and year together.
+
+```{r}
+allData %>% 
+  mutate(triple = paste(year, journal, title),
+         duplicated = duplicated(triple)) -> allData
+
+allData %>% count(duplicated)
+```
+
+- clean Title -> done
+- clean Journals -> done
+- interaction title, journal, year -> done
+- flag that tells me whether duplicated -> done
+-remove duplicated 
+- only keep articles
+
+```{r}
+allData %>% filter(duplicated == FALSE,
+                   str_detect(type, "[Aa]rticle")) %>% 
+  mutate(doi = na_if(doi, "")) %>% 
+  count(is.na(doi))
+```
+
+We still have duplicated papers...
+
+```{r}
+allData %>% filter(duplicated == FALSE,
+                   str_detect(type, "[Aa]rticle")) %>% 
+  mutate(doi = na_if(doi, "")) %>% 
+  count(doi, sort = TRUE)
+```
+
+So basically we remove everything that is duplicated or is na.
+
+```{r}
+clean_data <- allData %>% 
+  mutate(doi = forcats::fct_explicit_na(na_if(doi, ""))) %>%
+  filter(duplicated == FALSE,
+         str_detect(type, "[Aa]rticle"),
+         !is.na(doi),
+         !duplicated(doi)
+        ) 
+
+```
+
+
+```{r}
+>>>>>>> 13ca04635802e68bf4109fce5164b5c3b5aaf5b3
 doi_list <- clean_data  %>% pull(doi)
 # safely get dois
 # this has been done previously, data provided as .Rdata
@@ -365,6 +434,7 @@ results %>%
        title="Open Access papers in dataset")
 ```
 
+<<<<<<< HEAD
 
 
 ## Reading and downloading
@@ -502,3 +572,5 @@ do.call(rbind, M) %>%
   pivot_longer(everything())
 ```
 
+=======
+>>>>>>> 13ca04635802e68bf4109fce5164b5c3b5aaf5b3
