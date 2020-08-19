@@ -1,0 +1,123 @@
+doi,title,fake_id,pdf_name,person
+10.1371/journal.pbio.3000730,Leveraging open hardware to alleviate the burden of COVID-19 on global health systems,021,pdf/021.pdf,A
+10.1016/j.suscom.2019.100356,Lightweight Sustainable Intelligent Load Forecasting Platform for Smart Grid Applications,033,pdf/033.pdf,A
+10.1134/s1061934820030156,Syringe Pump Created using 3D Printing Technology and Arduino Platform,036,pdf/036.pdf,A
+10.26833/ijeg.587023,AN IOT ARCHITECTURE FOR FACILITATING INTEGRATION OF GEOINFORMATION,047,pdf/047.pdf,A
+10.1080/23311916.2020.1767019,Multiobjective generation scheduling using multicore processing-based continuous genetic algorithm,050,pdf/050.pdf,A
+10.1109/access.2020.2988348,"A low-cost, portable solution for stress and relaxation estimation based on a real-time fuzzy algorithm",052,pdf/052.pdf,A
+10.1109/access.2020.2988800,Inverted Pendulum Nonlinear Controllers Using Two Reaction Wheels: Design and Implementation,053,pdf/053.pdf,A
+10.1016/j.microc.2019.104343,Open LabBot and RmsiGUI: Community development kit for sampling automation and ambient imaging,066,pdf/066.pdf,A
+10.1049/htl.2019.0081,Development and Face Validation of Ultrasound-Guided Renal Biopsy Virtual Trainer,075,pdf/075.pdf,A
+10.1016/j.rcim.2019.05.009,A modular path planning solution for Wire + Arc Additive Manufacturing,080,pdf/080.pdf,A
+10.1038/s41592-019-0554-0,The mesoSPIM initiative: open-source light-sheet microscopes for imaging cleared tissue,088,pdf/088.pdf,A
+10.1109/lsp.2019.2925533,Optimal Least-Squares Estimator and Precoder for Energy Beamforming over IQ-Impaired Channels,116,pdf/116.pdf,A
+10.4258/hir.2019.25.3.230,Internet of Things Applied in Healthcare Based on Open Hardware with Low-Energy Consumption,120,pdf/120.pdf,A
+10.1016/j.jestch.2018.12.010,Modelling and hardware implementation of quantization levels of digital cameras in DCT based image compression,127,pdf/127.pdf,A
+10.1587/transinf.2018edl8227,A Lightweight System to Achieve Proactive Risk Management for Household ASIC-Resistant Cryptocurrency Mining,128,pdf/128.pdf,A
+10.1049/joe.2018.8141,Determination of synchronous machine parameters through the SSFRT test and artificial neural networks,129,pdf/129.pdf,A
+10.1200/jgo.18.00263,Using Low-Cost Virtual Reality Simulation to Build Surgical Capacity for Cervical Cancer Treatment,138,pdf/138.pdf,A
+10.1371/journal.pone.0212064,Molecular drug susceptibility testing and strain typing of tuberculosis by DNA hybridization,160,pdf/160.pdf,A
+10.1109/access.2019.2956190,Finite-Time Control of Multirotor UAVs Under Disturbances,171,pdf/171.pdf,A
+10.1109/access.2019.2951145,"A Wearable, Extensible, Open-Source Platform for Hearing Healthcare Research",173,pdf/173.pdf,A
+10.7906/indecs.17.3.1,Learning Platform for Smart City Application Development,174,pdf/174.pdf,A
+10.1109/access.2019.2934420,Low-cost Hardware-in-the-Loop platform for embedded control strategies simulation,175,pdf/175.pdf,A
+10.1109/access.2019.2934715,"iFLEX: A fully open-source, high-density field-programmable gate array (FPGA)-based hardware co-processor for vector similarity searching",176,pdf/176.pdf,A
+10.1109/access.2019.2932294,Design and Building of an Automatic Alternator Synchronizer Based on Open-Hardware Arduino Platform,177,pdf/177.pdf,A
+10.1109/access.2019.2920936,PACoGen: A Hardware Posit Arithmetic Core Generator,178,pdf/178.pdf,A
+10.1109/access.2019.2919324,Communication technologies based on voluntary blinks: assessment and design,179,pdf/179.pdf,B
+10.1109/access.2019.2903929,Measurement and Analysis of PMU Reporting Latency for Smart Grid Protection and Control Applications,180,pdf/180.pdf,B
+10.1109/access.2019.2914958,Incu-Stream 1.0: An Open-Hardware Live-Cell Imaging System Based on Inverted Bright-Field Microscopy and Automated Mechanical Scanning for Real-Time and Long-Term Imaging of Microplates in Incubator,181,pdf/181.pdf,B
+10.1109/access.2019.2901902,Spectrum Assignment in Hardware-constrained Cognitive Radio IoT Networks under Varying Channel-quality Conditions,184,pdf/184.pdf,B
+10.1016/j.aej.2018.02.003,Warehouse inventory management system using IoT and open source framework,197,pdf/197.pdf,B
+10.1587/transinf.2017edl8267,In-Storage Anti-Virus System via On-Demand Inspection,235,pdf/235.pdf,B
+10.15598/aeee.v16i2.2439,Design of an Open Hardware Bridge Between Robots and ROS/non-ROS Environments,261,pdf/261.pdf,B
+10.1016/j.enggeo.2018.02.017,Application of an ultra-wide band sensor-free wireless network for ground monitoring,268,pdf/268.pdf,B
+10.1109/tcsvt.2016.2630848,A Compact VLSI System for Bio-inspired Visual Motion Estimation,275,pdf/275.pdf,B
+10.1016/j.jestch.2017.12.007,A web aided education model that can be used in power electronics course,288,pdf/288.pdf,B
+10.1109/access.2018.2881929,Open-Source Hardware in Education: a Systematic Mapping Study,291,pdf/291.pdf,B
+10.1109/access.2018.2838544,Implementation of a Ball and Plate Control System using Sliding Mode Control,300,pdf/300.pdf,B
+10.1109/access.2018.2820326,Underwater-drone with Panoramic Camera for Automatic Fish Recognition Based on Deep Learning,302,pdf/302.pdf,B
+10.1371/journal.pone.0187163,Low cost and open source multi-fluorescence imaging system for teaching and research in biology and bioengineering,315,pdf/315.pdf,B
+10.1080/23311916.2017.1386364,Hardware for classification of power quality problems in three phase system using Microcontroller,322,pdf/322.pdf,B
+10.1016/j.heliyon.2017.e00415,Evaluation of the stability of lyophilized loop-mediated isothermal amplification reagents for the detection of Coxiella burnetii,324,pdf/324.pdf,B
+10.1371/journal.pone.0180309,OPTiM: Optical projection tomography integrated microscope using open-source hardware and software,337,pdf/337.pdf,B
+10.1371/journal.pone.0179636,A versatile and low-cost open source pipetting robot for automation of toxicological and ecotoxicological bioassays,340,pdf/340.pdf,B
+10.1109/tasc.2017.2650903,Development of ROACH Firmware for Microwave Multiplexed X-Ray TES Microcalorimeters,348,pdf/348.pdf,B
+10.1109/tcad.2016.2597232,TL-HLS: Methodology for Low Cost Hardware Trojan Security Aware Scheduling With Optimal Loop Unrolling Factor During High Level Synthesis,363,pdf/363.pdf,B
+10.1109/te.2016.2622680,"All Roads Lead to Computing: Making, Participatory Simulations, and Social Computing as Pathways to Computer Science",385,pdf/385.pdf,B
+10.1109/access.2017.2723919,An Open Framework for Participatory PM2.5 Monitoring in Smart Cities,391,pdf/391.pdf,B
+10.1109/access.2017.2715184,A Light-Weight Rapid Control Prototyping System Based on Open Source Hardware,396,pdf/396.pdf,B
+10.1109/les.2016.2611664,Shoulder Angel: An Open Platform for Reprogramming Wayward Wireless Sensors,411,pdf/411.pdf,B
+10.1016/j.jbi.2016.08.025,Open source platform for collaborative construction of wearable sensor datasets for human motion analysis and an application for gait analysis,427,pdf/427.pdf,C
+10.3390/s16081306,A Self-Provisioning Mechanism in OpenStack for IoT Devices,443,pdf/443.pdf,C
+10.1093/scipol/scv034,Return on investment for open source scientific hardware development,463,pdf/463.pdf,C
+10.1177/1357633x15593192,A randomized waitlist-controlled pilot trial of voice over Internet protocol-delivered behavior therapy for youth with chronic tic disorders,467,pdf/467.pdf,C
+10.1371/journal.pone.0149641,"End to End Digitisation and Analysis of Three-Dimensional Coral Models, from Communities to Corallites",475,pdf/475.pdf,C
+10.1177/0162243915590861,Hacking with Chinese Characteristics,515,pdf/515.pdf,C
+10.1260/1756-8293.7.2.89,X4-MaG: A Low-Cost Open-Source Micro-Quadrotor and its Linux-Based Controller,523,pdf/523.pdf,C
+10.1119/1.4895343,A low-cost mirror mount control system for optics setups,546,pdf/546.pdf,C
+10.1155/2015/286860,Towards the Integration between IoT and Cloud Computing: An Approach for the Secure Self-Configuration of Embedded Devices,548,pdf/548.pdf,C
+10.1109/jtehm.2015.2431471,Technical Validation of ARTSENS–An Image Free Device for Evaluation of Vascular Stiffness,554,pdf/554.pdf,C
+10.4018/ijehmc.2015100104,A Low Cost Pupillometry Approach,555,pdf/555.pdf,C
+10.1016/j.applthermaleng.2013.11.065,High thermal conductive diamond/Cu–Ti composites fabricated by pressureless sintering technique,571,pdf/571.pdf,C
+10.13073/fpj-d-13-00078,A Real-Time Imaging System for Lumber Strength Prediction,594,pdf/594.pdf,C
+10.1016/j.fusengdes.2012.12.005,Open source hard- and software: Using Arduino boards to keep old hardware running,610,pdf/610.pdf,C
+10.1007/s10514-012-9316-x,The ManyEars open framework,621,pdf/621.pdf,C
+10.3390/s130405338,Open-Source Colorimeter,624,pdf/624.pdf,C
+10.1175/bams-d-11-00163.1,The Life Cycle of a Radiosonde,628,pdf/628.pdf,C
+10.1109/access.2013.2293018,A Low-Cost Open-Source Metal 3-D Printer,635,pdf/635.pdf,C
+10.1371/journal.pone.0023783,"CheapStat: An Open-Source, “Do-It-Yourself” Potentiostat for Analytical and Educational Applications",677,pdf/677.pdf,C
+10.1016/s1000-9361(08)60141-7,PMAC-based Tracking Control System for 8-axis Automated Tape-laying Machine,722,pdf/722.pdf,C
+10.1093/ietisy/e90-d.2.606,A Low-Complexity Interpolation Method for Deinterlacing,763,pdf/763.pdf,C
+10.1080/00103620601174635,Sequential Injection Determination of Nitrate in Vegetables by Spectrophotometry with Inline Cadmium Reduction,766,pdf/766.pdf,C
+10.1016/s0026-265x(02)00173-x,Construction and performance of a drop cell for the nephelometric determination of sulfur dioxide,804,pdf/804.pdf,C
+10.1002/fsn3.168,Optimization on drying conditions of a solar electrohydrodynamic drying system based on desirability concept,829,pdf/829.pdf,C
+10.31269/vol12iss1pp356-361,From the Communism of Capital to Capital for the Commons: Towards an Open Co-operativism,838,pdf/838.pdf,D
+10.1109/mm.2013.30,Relyzer: Application Resiliency Analyzer for Transient Faults,843,pdf/843.pdf,D
+10.4018/jskd.2013040105,A Gestural Recognition Interface for Intelligent Wheelchair Users,845,pdf/845.pdf,D
+10.14763/2013.2.138,How open hardware drives digital fabrication tools such as the 3D printer,848,pdf/848.pdf,D
+10.31269/vol10iss1pp66-76,Atoms Want to Be Free Too! Expanding the Critique of Intellectual Property to Physical Goods,860,pdf/860.pdf,D
+10.1016/j.geoderma.2020.114539,A soil tool kit to evaluate soil properties and monitor soil health changes in smallholder farming contexts,863,pdf/863.pdf,D
+10.1016/j.ohx.2020.e00115,"The FAST Pump, a low-cost, easy to fabricate, SLA-3D-printed peristaltic pump for multi-channel systems in any lab",864,pdf/864.pdf,D
+10.1016/j.cej.2020.124908,Optical determination of flow-rate and flow-uniformity in segmented flows,866,pdf/866.pdf,D
+10.1016/j.ohx.2020.e00107,Open-source five degree of freedom motion platform for investigating fish-robot interaction,875,pdf/875.pdf,D
+10.1016/j.ohx.2020.e00102,"PlasPI marine cameras: Open-source, affordable camera systems for time series marine studies",876,pdf/876.pdf,D
+10.1016/j.ohx.2020.e00096,µPump: An Open-Source Pressure Pump for Precision Fluid Handling in Microfluidics,877,pdf/877.pdf,D
+10.1016/j.ohx.2019.e00087,A Plug-and-play Hyperspectral Imaging Sensor Using Low-cost Equipment,878,pdf/878.pdf,D
+10.1016/j.ohx.2019.e00080,Ystruder: open source multifunction extruder with sensing and monitoring capabilities,899,pdf/899.pdf,D
+10.1016/j.ohx.2019.e00071,Fully replicable and automated retention measurement setup for characterization of bio-adhesion,900,pdf/900.pdf,D
+10.1016/j.ohx.2019.e00085,Low-cost Active Electromyography,901,pdf/901.pdf,D
+10.1016/j.ohx.2019.e00072,Open Source All-Iron Battery for Renewable Energy Storage,902,pdf/902.pdf,D
+10.1016/j.ohx.2019.e00081,"HyperRail: Modular, 3D Printed, 1-100 meter, Programmable, and Low-cost Linear Motion Control System for Imaging and Sensor Suites",903,pdf/903.pdf,D
+10.1016/j.ohx.2019.e00083,Open-source experimental setup for investigating the actuation behavior of active textiles,904,pdf/904.pdf,D
+10.1016/j.ohx.2019.e00076,A Low-cost and Small USV Platform for Water Quality Monitoring,905,pdf/905.pdf,D
+10.1016/j.ohx.2019.e00078,Open Hardware for neuro-prosthesis research: A study about a closed-loop multi-channel system for electrical surface stimulations and measurements,906,pdf/906.pdf,D
+10.1016/j.ohx.2018.e00050,An open-source multi-robot construction system,916,pdf/916.pdf,D
+10.1016/j.ohx.2019.e00057,Open-source wideband (DC to MHz range) isolated current sensor,917,pdf/917.pdf,D
+10.1016/j.ohx.2019.e00052,A low-cost bench-top research device for turbidity measurement by radially distributed illumination intensity sensing at multiple wavelengths,918,pdf/918.pdf,D
+10.1016/j.ohx.2018.e00026,RepRapable Recyclebot: Open source 3-D printable extruder for converting plastic to 3-D printing filament,929,pdf/929.pdf,D
+10.1016/j.ohx.2018.e00042,Approaches to Open Source 3-D Printable Probe Positioners and Micromanipulators for Probe Stations,930,pdf/930.pdf,E
+10.1016/j.ohx.2018.e00047,"Actifield, an automated open source actimeter for rodents",931,pdf/931.pdf,E
+10.1016/j.ohx.2018.e00036,Low-cost Sieverts-type apparatus for the study of hydriding/dehydriding reactions,932,pdf/932.pdf,E
+10.1016/j.ohx.2018.e00037,Low-cost equipment for electroformation of Giant Unilamellar Vesicles,933,pdf/933.pdf,E
+10.1016/j.ohx.2018.e00028,The smARTS_Museum_V1: an open hardware device for remote monitoring of Cultural Heritage indoor environments,934,pdf/934.pdf,E
+10.1016/j.ohx.2018.e00044,Open Source Low-Cost Power Monitoring System,936,pdf/936.pdf,E
+10.1371/journal.pbio.3000014,Haves and have nots must find a better way: The case for open scientific hardware,939,pdf/939.pdf,E
+10.1109/lra.2018.2800121,"Localization, Grasping, and Transportation of Magnetic Objects by a team of MAVs in Challenging Desert like Environments",940,pdf/940.pdf,E
+10.1016/j.ohx.2018.02.002,An Open-Source Hardware GPS Data Logger for Wildlife Radio-Telemetry Studies: a Case Study Using Eastern Box Turtles,943,pdf/943.pdf,E
+10.1016/j.ohx.2017.10.002,Controller for microfluidic large-scale integration,944,pdf/944.pdf,E
+10.1016/j.ohx.2018.02.001,Large Volume Syringe Pump Extruder for Desktop 3D Printers,946,pdf/946.pdf,E
+10.2525/ecb.56.107,Development of Program Library Using an Open-source Hardware for Implementation of Low-cost Greenhouse Environmental Control System,948,pdf/948.pdf,E
+10.1109/access.2018.2873084,Low-Complexity Path Planning Algorithm for Unmanned Aerial Vehicles in Complicated Scenarios,950,pdf/950.pdf,E
+10.1016/j.ohx.2017.08.003,Shybo. An open-source low-anthropomorphic robot for children,954,pdf/954.pdf,E
+10.1016/j.ohx.2017.08.001,A USB-controlled potentiostat/galvanostat for thin-film battery characterization,955,pdf/955.pdf,E
+10.1016/j.ohx.2017.07.001,A programmable optical stimulator for the Drosophila eye,956,pdf/956.pdf,E
+10.1016/j.ohx.2016.07.001,Open source laboratory sample rotator mixer and shaker,960,pdf/960.pdf,E
+10.1016/j.ohx.2016.09.001,An open source automatic feeder for animal experiments,961,pdf/961.pdf,E
+10.1016/j.ohx.2017.02.002,Open source IoT meter devices for smart and energy-efficient school buildings,962,pdf/962.pdf,E
+10.1016/j.ohx.2017.03.001,A plug’n’play WiFi surface-mount dual-loop antenna,963,pdf/963.pdf,E
+10.1016/j.ohx.2017.01.001,"A high performance, low power computational platform for complex sensing operations in smart cities",964,pdf/964.pdf,E
+10.4067/s0718-07642017000500007,Adquisición de Señales Ambientales para un Sistema de Alerta Temprana,972,pdf/972.pdf,E
+10.1016/j.ramd.2016.12.001,Validade e fidedignidade do uso de cronômetros e vídeo para avaliação do tempo de execução do Line Drill Test,975,pdf/975.pdf,E
+10.15446/dyna.v83n195.49828,Design of an open source-based control platform for an underwater remotely operated vehicle,982,pdf/982.pdf,E
+10.1007/s00170-016-8680-7,"An open-source equipment for thin film fabrication by electrodeposition, dip coating, and SILAR",987,pdf/987.pdf,E
