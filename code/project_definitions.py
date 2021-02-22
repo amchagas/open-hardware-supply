@@ -21,7 +21,7 @@ def store_data(dataFrame, dataFile):
 
 
 def load_data(dataFile):
-    return pd.read_json(dataFile, orient="table")
+    return pd.read_json(dataFile, orient="table", convert_dates=False)
 
 
 def build_query():
