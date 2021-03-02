@@ -12,7 +12,8 @@ figDir = baseDir / 'figures'
 
 # Project files shared across notebooks
 
-allDataFile = dataOutDir / 'allData.json.xz'
+allDataFile = dataOutDir / 'all_data.json.xz'
+articleDataFile = dataOutDir / 'article_data.json.xz'
 
 # Project-wide functions
 
