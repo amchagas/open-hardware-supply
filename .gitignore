@@ -8,3 +8,4 @@
 #Rdata workspace
 .RData
 .pdf
+*pychache*
