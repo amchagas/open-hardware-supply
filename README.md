@@ -8,12 +8,13 @@ To do that, we are using Web of Science tools, as well as manual tracking to see
   - academic journals, conference proceedings, news, highlights? what would be the other?
 - if they are released as preprints
 - what percentage includes links to hardware documentation
+  - how do journal practices and other factors impact the prevalence and quality of such
 - number of citations these papers get
 - etc.
 
-**We are writing down this in the form of a paper here <https://docs.google.com/document/d/11K1XJKBIxdgYoO2fNESj3t8K9d_UI31NhEpDk5qaYH0/edit?usp=sharing>**
+Results will eventually be published as a paper [currently under construction](https://docs.google.com/document/d/11K1XJKBIxdgYoO2fNESj3t8K9d_UI31NhEpDk5qaYH0/edit?usp=sharing)
 
---- 
+----
 
 ## Methods:
 
@@ -21,44 +22,29 @@ To do that, we are using Web of Science tools, as well as manual tracking to see
 
 - [Zotero](<https://www.zotero.org/>)
 - [Python3](<https://www.python.org/>)
-- [rxivist](<https://rxivist.org/docs>)
+- [rxivist](<https://rxivist.org/docs>) ?
 
 ### Python libraries used
-- matplotlib
-- pandas
--   
+- evolving; check the code
 
 ### databases used
+- evolving; check the code
 
 - [Web of Science](<webofknowledge.com>)
 - [Scopus](<https://www.scopus.com/>)
-- [BioRxiv](<https://www.biorxiv.org/>)
-- [Google Scholar](<https://scholar.google.com/>)
--  
+- [BioRxiv](<https://www.biorxiv.org/>) ?
+- [Google Scholar](<https://scholar.google.com/>) ?
+
+- Data from the discontinued [PLOS Open Source Toolkit](https://collections.plos.org/collection/open-source-toolkit-hardware/)
 
 ### Data collection 
 
 - Manual tracking with google scholar alerts
-- getting data available from Web of Science using the following search term:
-  
-  
-  ``` 
-  TOPIC= ("Open hardware" OR "open source hardware" OR "open science hardware" OR "open labware" OR "free and open source hardware") OR TITLE= ("Open hardware" OR "open source hardware" OR "open science hardware" OR "open labware" OR "free and open source hardware")
-  Timespan: All years. Indexes: SCI-EXPANDED, SSCI, A&HCI, CPCI-S, CPCI-SSH, BKCI-S, BKCI-SSH, ESCI, CCR-EXPANDED, IC.  
-  ```
 
-- getting data available from Scopus using the following search term:
-  
-  
-  ``` 
-  "Open hardware" OR "open source hardware" OR "open science hardware" OR "open labware" OR "free and open source hardware"  
-  ```
+- Data obtained from scholarly databases using [a search query](code/project_definitions.py) and exported in RIS format
 
-
-- All Data is exported as Bibtex format and initially filtered in Python using [this Jupyter notebook](code/combine_databases.ipynb).
-- 
-- Once initially cleaned it is imported in Zotero so that users can curate/annotate the data, mainly checking:
-  -  if the papers were released with design files (either as a repository and/or supplemental files in the paper)
+- Once cleaned and harmonized it is imported in Zotero so that users can curate/annotate the data, mainly checking:
+  - if the papers were released with design files (either as a repository and/or supplemental files in the paper)
   - if the papers were released as preprints before being published as peer-reviewed articles.
 
 ### Data presentation
@@ -69,7 +55,10 @@ To do that, we are using Web of Science tools, as well as manual tracking to see
 
 ## Onboarding
 
-If you would like to contribute to this project you'll need to:
+If you would like to contribute to this project, please create an issue.
+
+
+## Old instructions (out of date)
 
 - Install [Zotero](https://www.zotero.org/) on your computer.
 - get access to the collection by visiting https://www.zotero.org/groups/2485390/osh_evolution and asking for access
@@ -85,7 +74,7 @@ If you would like to contribute to this project you'll need to:
   - "staging" contains entries that are up for work. They have already been checked and are not duplicates, they are just not yet manually classified.
 
 
-### help needed right now
+### help needed right now (also out of date)
 
 - we need to classify the papers, and as far as we know this has to be done manually. So we are using Zotero to manually annotate the papers with Tags:
 
@@ -93,8 +82,6 @@ If you would like to contribute to this project you'll need to:
     - keywords used to find the repositories/extra information:
         available, github, code, supplemental, shared, download, gitlab, repository 
 
-
-  
   - We would also like to know if a paper was published previously as a preprint, in case it was, add "alsopreprint" tag
   
   - We would also like to know if a paper was a conference poster/abstract, in case it was, add "alsoconference" tag
@@ -111,14 +98,11 @@ If you would like to contribute to this project you'll need to:
 
 ---
 
-## collaborators (in no specific order)
+## Collaborators (alphabetic order)
 
-- Andre Maia Chagas
 - Alexandre Hannud Abdo
-- Natasha Pouchkina-Stantcheva
-- Tom Baden
+- Andre Maia Chagas (project lead)
 - Matias Andina
 - Miguel Fernandes
-  
-
-
+- Natasha Pouchkina-Stantcheva
+- Tom Baden
