@@ -30,6 +30,7 @@ def build_query():
         'equipment',
         'hardware',
         'labware',
+        'design',
     ]
     adjectives = [
         'open',
