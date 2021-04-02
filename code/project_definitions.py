@@ -35,13 +35,17 @@ def build_query():
     adjectives = [
         'open',
         'open source',
+        'opensource',
         'open science',
         'frugal',
+        #'do it yourself'
+        #'diy'
         #'low cost',
     ]
     phrases = [
         ' '.join([a, n]) for a in adjectives for n in nouns
     ]
+    phrases.remove('open design')
     phrases.extend([
         "free hardware and software",
     ])
