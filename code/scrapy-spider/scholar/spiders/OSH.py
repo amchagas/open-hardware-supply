@@ -6,6 +6,8 @@ import json
 from datetime import datetime
 
 
+API_KEY = open('scraperapi_api_key').read().strip()
+
 
 def get_url(url):
     payload = {'api_key': API_KEY, 'url': url, 'country_code': 'gb '}

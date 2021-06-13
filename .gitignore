@@ -1,11 +1,19 @@
-#ignore vscode config
-*/.vscode/*
-#ignore jupyer notebook config
-*.ipynb_checkpoints*
-#ignore Rhistory 
+# jupyter config
+.ipynb_checkpoints
+
+# R configs
 *.Rhistory
 .Rproj.user
-#Rdata workspace
 .RData
-.pdf
-*/__pycache__
+
+# ignore vscode config
+.vscode
+
+# ignore some data
+*.pdf
+
+# Ignore python cache
+__pycache__
+
+# Secrets
+code/scrapy-spider/scholar/spiders/scraperapi_api_key
