@@ -30,10 +30,13 @@ DEBUG_LOG = True
 
 
 class TitlesToRecords:
-    def __init__(self, api_key, target_file, source_files=DATA_FILES):
+    def __init__(self, source_files, output_dir, api_key):
         self.api_key = api_key
         self.source_files = [Path(file) for file in source_files]
-        self.target_file = Path(target_file)
+        self.store = Path(output_dir)
+        self.store.mkdir(parents=True, exist_ok=True)
+        self.multi_records_file = self.store / "multi_records.jsonl"
+        self.records_file = self.store / "records.jsonl"
         self.normalize_rex = re.compile(r"\W+")
         self.query_fields = ["title", "pubyear", "first_author"]
         self._debug_log = []
@@ -68,11 +71,6 @@ class TitlesToRecords:
 
                 data["_line"] = line
 
-                # DEBUG
-                if "pubyear" in data:
-                    continue
-                # /DEBUG
-
                 if skipping and data["title"] == self._last_title:
                     skipping = False
                     tqdm.write(f"Starting from: {self._last_title}")
@@ -106,6 +104,7 @@ class TitlesToRecords:
             "firstRecord": 1,
         }
         r = httpx.get(WOS_API, params=params, headers=headers)
+        time.sleep(1)
         recs = r.json()["Data"]["Records"]["records"]
         if recs:
             recs = recs["REC"]
@@ -113,6 +112,21 @@ class TitlesToRecords:
             recs = []
             self.debug_log("Failed query", {"Parameters": params, "Text": r.text})
         return recs
+
+    def download_records(self):
+        self.multi_records_file.touch()
+        with open(self.multi_records_file, "r") as rf:
+            multi_records = [tuple(json.loads(x)["scraped"]) for x in rf.readlines()]
+        with open(self.multi_records_file, "a") as rf:
+            for data in self.scraped_data():
+                data_key = tuple(data.items())
+                if data_key not in multi_records:
+                    recs = self.get_records_from_scraped_data(data)
+                    if recs:
+                        rf.writelines(
+                            [json.dumps({"scraped": data_key, "records": recs}), "\n"]
+                        )
+                    self._last_title = data["title"]
 
     def check_record(self, recs, data):
         for rec in recs:
@@ -166,18 +180,17 @@ class TitlesToRecords:
         return None
 
     def dump_records(self):
-        self.target_file.touch()
-        with open(self.target_file, "r") as tf:
-            records = [tuple(json.loads(x)["scraped"]) for x in tf.readlines()]
-        with open(self.target_file, "a") as tf:
-            for data in self.scraped_data():
-                rec_key = tuple(data.values())
-                if rec_key not in records:
-                    recs = self.get_records_from_scraped_data(data)
-                    rec = self.check_record(recs, data)
+        with open(self.multi_records_file, "r") as mrf:
+            multi_records = [tuple(json.loads(x)["scraped"]) for x in mrf.readlines()]
+        self.records_file.touch()
+        with open(self.records_file, "r") as rf:
+            records = [tuple(json.loads(x)["scraped"]) for x in rf.readlines()]
+        with open(self.records_file, "a") as rf:
+            for data_key, records in multi_records:
+                if data_key not in records:
+                    rec = self.check_record(records, dict(data_key))
                     if rec:
-                        tf.writelines(
+                        rf.writelines(
                             [json.dumps({"scraped": rec_key, "record": rec}), "\n"]
                         )
                     self._last_title = data["title"]
-                    time.sleep(1)
