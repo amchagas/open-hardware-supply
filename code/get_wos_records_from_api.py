@@ -112,6 +112,10 @@ class TitlesToRecords:
         recs = r.json()["Data"]["Records"]["records"]
         if recs:
             recs = recs["REC"]
+        elif isinstance(data.get("pubyear", None), int):
+            data = data.copy()
+            data["pubyear"] = f'{data["pubyear"]-1}-{data["pubyear"]+1}'
+            return self.get_records_from_scraped_data(data)
         else:
             recs = []
             self.logger.debug(("Failed query", {"Parameters": params, "Text": r.text}))
