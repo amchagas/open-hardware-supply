@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
-from pathlib import Path
-import json
 import httpx
+import json
+import logging
+from pathlib import Path
 import re
 import time
 from jellyfish import damerau_levenshtein_distance as edit_distance
@@ -26,8 +27,6 @@ DATA_FILES = [
     ]
 ]
 
-DEBUG_LOG = True
-
 
 class TitlesToRecords:
     def __init__(self, source_files, output_dir, api_key):
@@ -39,15 +38,19 @@ class TitlesToRecords:
         self.records_file = self.store / "records.jsonl"
         self.normalize_rex = re.compile(r"\W+")
         self.query_fields = ["title", "pubyear", "first_author"]
-        self._debug_log = []
+        self.logger = self._logging()
         self._last_downloaded_title = None
 
     def normalize_text(self, text):
         return self.normalize_rex.sub(" ", text).strip().lower()
 
-    def debug_log(self, kind, data):
-        if DEBUG_LOG:
-            self._debug_log.append((kind, data))
+    def _logging(self):
+        logger = logging.getLogger(f"{type(self).__module__}.{type(self).__name__}")
+        logger.setLevel(logging.DEBUG)
+        fh = logging.FileHandler(self.store / f"{time.asctime()}.log")
+        fh.setLevel(logging.DEBUG)
+        logger.addHandler(fh)
+        return logger
 
     def scraped_data(self):
         skipping = bool(self._last_downloaded_title)
@@ -67,7 +70,7 @@ class TitlesToRecords:
                 if pubyear := re.search(r"[,-] (\d{4}) -", scraped["publishedData"]):
                     data["pubyear"] = int(pubyear.groups()[0])
                 else:
-                    self.debug_log("Missing year", scraped)
+                    self.logger.debug(("Missing year", scraped))
 
                 data["_line"] = line
 
@@ -90,7 +93,7 @@ class TitlesToRecords:
             ]
             if key in self.query_fields
         ]
-        self.debug_log("Query", query)
+        self.logger.debug(("Query", query))
         return " AND ".join(query)
 
     def get_records_from_scraped_data(self, data):
@@ -111,7 +114,7 @@ class TitlesToRecords:
             recs = recs["REC"]
         else:
             recs = []
-            self.debug_log("Failed query", {"Parameters": params, "Text": r.text})
+            self.logger.debug(("Failed query", {"Parameters": params, "Text": r.text}))
         return recs
 
     def download_records(self):
@@ -139,14 +142,13 @@ class TitlesToRecords:
                 if x["type"] == "item"
             ]
             rec_title = self.normalize_text(rec_title["content"])
-            data_title = data["title"]
-            title_distance = edit_distance(rec_title, data_title)
+            title_distance = edit_distance(rec_title, data["title"])
             if title_distance > 5:
                 continue
             elif title_distance > 0:
-                debug["Bad title"] = (rec_title, data_title)
+                debug["Bad title"] = (rec_title, data["title"])
             else:
-                debug["Good title"] = data_title
+                debug["Good title"] = data["title"]
 
             rec_authors = [
                 y.get("last_name", y["full_name"].split(",")[0]).strip()
@@ -176,9 +178,10 @@ class TitlesToRecords:
 
             if any(x.startswith("Bad") for x in debug):
                 for key, value in debug.items():
-                    self.debug_log(key, value)
+                    self.logger.debug((key, value))
             return rec
-
+        if recs:
+            self.logger.debug(("No match", data))
         return None
 
     def dump_records(self):
