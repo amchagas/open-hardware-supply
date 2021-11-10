@@ -10,7 +10,7 @@ from jellyfish import damerau_levenshtein_distance as edit_distance
 from tqdm.auto import tqdm
 
 WOS_API = "https://wos-api.clarivate.com/api/wos"
-DATA_DIR = Path("/home/eris/Projects/gosh/open-hardware-supply/data/scrapy")
+DATA_DIR = Path("../data/scrapy")
 DATA_FILES = [
     DATA_DIR / file
     for file in [
@@ -113,7 +113,7 @@ class TitlesToRecords:
         r = httpx.get(WOS_API, params=params, headers=headers)
         time.sleep(1)
         recs = r.json()["Data"]["Records"]["records"]
-        if recs:
+        if recs:  # WOS_API returns "" here if no records
             recs = recs["REC"]
         elif isinstance(data.get("pubyear", None), int):
             data = data.copy()
