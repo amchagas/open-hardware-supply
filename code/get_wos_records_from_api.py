@@ -44,6 +44,9 @@ class TitlesToRecords:
     def normalize_text(self, text):
         return self.normalize_rex.sub(" ", text).strip().lower()
 
+    def data_key(self, data):
+        return tuple(tuple(x) for x in data)
+
     def _logging(self):
         logger = logging.getLogger(f"{type(self).__module__}.{type(self).__name__}")
         logger.setLevel(logging.DEBUG)
@@ -123,12 +126,14 @@ class TitlesToRecords:
 
     def download_records(self):
         self.multi_records_file.touch()
-        with open(self.multi_records_file, "r") as rf:
-            multi_records = [tuple(json.loads(x)["scraped"]) for x in rf.readlines()]
+        with open(self.multi_records_file, "r") as mrf:
+            downloaded_data_keys = [
+                self.data_key(json.loads(x)["scraped"]) for x in mrf.readlines()
+            ]
         with open(self.multi_records_file, "a") as rf:
             for data in self.scraped_data():
-                data_key = tuple(data.items())
-                if data_key not in multi_records:
+                data_key = self.data_key(data.items())
+                if data_key not in downloaded_data_keys:
                     recs = self.get_records_from_scraped_data(data)
                     if recs:
                         rf.writelines(
@@ -191,16 +196,18 @@ class TitlesToRecords:
     def dump_records(self):
         with open(self.multi_records_file, "r") as mrf:
             multi_records = {
-                tuple(tuple(x) for x in rec["scraped"]): rec["records"]
+                self.data_key(rec["scraped"]): rec["records"]
                 for line in mrf.readlines()
                 for rec in [json.loads(line)]
             }
         self.records_file.touch()
         with open(self.records_file, "r") as rf:
-            records = [tuple(json.loads(x)["scraped"]) for x in rf.readlines()]
+            dumped_data_keys = [
+                self.data_key(json.loads(x)["scraped"]) for x in rf.readlines()
+            ]
         with open(self.records_file, "a") as rf:
             for data_key, records in multi_records.items():
-                if data_key not in records:
+                if data_key not in dumped_data_keys:
                     rec = self.check_record(records, dict(data_key))
                     if rec:
                         rf.writelines(
