@@ -67,7 +67,11 @@ class TitlesToRecords:
                 data["title"] = self.normalize_text(scraped["title"])
 
                 data["first_author"] = (
-                    scraped["publishedData"].split("-")[0].split(",")[0].split()[-1]
+                    scraped["publishedData"]
+                    .split("-")[0]
+                    .split(",")[0]
+                    .split()[-1]
+                    .strip("… ")
                 )
 
                 if pubyear := re.search(r"[,-] (\d{4}) -", scraped["publishedData"]):
@@ -94,7 +98,7 @@ class TitlesToRecords:
             for escaped_value in [
                 " ".join(f'"{x}"' for x in value.split()) if key == "title" else value
             ]
-            if key in self.query_fields
+            if key in self.query_fields and escaped_value
         ]
         self.logger.debug(("Query", query))
         return " AND ".join(query)
