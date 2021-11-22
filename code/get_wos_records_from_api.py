@@ -39,7 +39,7 @@ class TitlesToRecords:
         self.normalize_rex = re.compile(r"\W+")
         self.query_fields = ["title", "pubyear", "first_author"]
         self.logger = self._logging()
-        self._last_downloaded_title = None
+        self._last_downloaded_line = None
 
     def normalize_text(self, text):
         return self.normalize_rex.sub(" ", text).strip().lower()
@@ -56,13 +56,22 @@ class TitlesToRecords:
         return logger
 
     def scraped_data(self):
-        skipping = bool(self._last_downloaded_title)
+        skipping = self._last_downloaded_line is not None
         for file in tqdm(self.source_files):
             with file.open() as f:
                 total = len(list(f.readlines()))
             for line in tqdm(file.open().readlines(), total=total, desc=" "):
-                scraped = json.loads(line)
                 data = {}
+                data["_line"] = line
+
+                if skipping and line == self._last_downloaded_line:
+                    skipping = False
+                    tqdm.write(f"Starting after: {self._last_downloaded_line}")
+                    continue
+                if skipping:
+                    continue
+
+                scraped = json.loads(line)
 
                 data["title"] = self.normalize_text(scraped["title"])
 
@@ -78,15 +87,6 @@ class TitlesToRecords:
                     data["pubyear"] = int(pubyear.groups()[0])
                 else:
                     self.logger.debug(("Missing year", scraped))
-
-                data["_line"] = line
-
-                if skipping and data["title"] == self._last_downloaded_title:
-                    skipping = False
-                    tqdm.write(f"Starting after: {self._last_downloaded_title}")
-                    continue
-                if skipping:
-                    continue
 
                 yield data
 
@@ -143,7 +143,7 @@ class TitlesToRecords:
                         rf.writelines(
                             [json.dumps({"scraped": data_key, "records": recs}), "\n"]
                         )
-                    self._last_downloaded_title = data["title"]
+                    self._last_downloaded_line = data["_line"]
 
     def check_record(self, recs, data):
         for rec in recs:
