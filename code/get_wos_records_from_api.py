@@ -11,7 +11,7 @@ from tqdm.auto import tqdm
 
 WOS_API = "https://wos-api.clarivate.com/api/wos"
 DATA_DIR = Path("../data/scrapy")
-DATA_FILES = [
+DATA_PATHS = [
     DATA_DIR / file
     for file in [
         "open_hardware_2005-2010.jl",
@@ -31,7 +31,7 @@ DATA_FILES = [
 class TitlesToRecords:
     def __init__(self, source_files, output_dir, api_key):
         self.api_key = api_key
-        self.source_files = [Path(file) for file in source_files]
+        self.source_paths = [Path(file) for file in source_files]
         self.store = Path(output_dir)
         self.store.mkdir(parents=True, exist_ok=True)
         self.multi_records_file = self.store / "multi_records.jsonl"
@@ -39,7 +39,6 @@ class TitlesToRecords:
         self.normalize_rex = re.compile(r"\W+")
         self.query_fields = ["title", "pubyear", "first_author"]
         self.logger = self._logging()
-        self._last_downloaded_line = None
 
     def normalize_text(self, text):
         return self.normalize_rex.sub(" ", text).strip().lower()
@@ -56,25 +55,14 @@ class TitlesToRecords:
         return logger
 
     def scraped_data(self):
-        skipping = self._last_downloaded_line is not None
-        for file in tqdm(self.source_files):
-            with file.open() as f:
+        for fpath in tqdm(self.source_paths):
+            with fpath.open() as f:
                 total = len(list(f.readlines()))
-            for line in tqdm(file.open().readlines(), total=total, desc=" "):
+            for line in tqdm(fpath.open().readlines(), total=total, desc=" "):
                 data = {}
                 data["_line"] = line
-
-                if skipping and line == self._last_downloaded_line:
-                    skipping = False
-                    tqdm.write(f"Starting after: {self._last_downloaded_line}")
-                    continue
-                if skipping:
-                    continue
-
                 scraped = json.loads(line)
-
                 data["title"] = self.normalize_text(scraped["title"])
-
                 data["first_author"] = (
                     scraped["publishedData"]
                     .split("-")[0]
@@ -82,12 +70,10 @@ class TitlesToRecords:
                     .split()[-1]
                     .strip("… ")
                 )
-
                 if pubyear := re.search(r"[,-] (\d{4}) -", scraped["publishedData"]):
                     data["pubyear"] = int(pubyear.groups()[0])
                 else:
                     self.logger.debug(("Missing year", scraped))
-
                 yield data
 
     def build_query(self, data):
@@ -131,19 +117,18 @@ class TitlesToRecords:
     def download_records(self):
         self.multi_records_file.touch()
         with open(self.multi_records_file, "r") as mrf:
-            downloaded_data_keys = [
+            downloaded_data_keys = set(
                 self.data_key(json.loads(x)["scraped"]) for x in mrf.readlines()
-            ]
+            )
         with open(self.multi_records_file, "a") as rf:
             for data in self.scraped_data():
                 data_key = self.data_key(data.items())
                 if data_key not in downloaded_data_keys:
                     recs = self.get_records_from_scraped_data(data)
-                    if recs:
-                        rf.writelines(
-                            [json.dumps({"scraped": data_key, "records": recs}), "\n"]
-                        )
-                    self._last_downloaded_line = data["_line"]
+                    rf.writelines(
+                        [json.dumps({"scraped": data_key, "records": recs}), "\n"]
+                    )
+                    downloaded_data_keys.add(data_key)
 
     def check_record(self, recs, data):
         for rec in recs:
