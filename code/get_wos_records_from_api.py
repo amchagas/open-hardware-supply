@@ -89,6 +89,21 @@ class TitlesToRecords:
         self.logger.debug(("Query", query))
         return " AND ".join(query)
 
+    def http_get_json_retry(self, params, headers):
+        error_count = 0
+        while True:
+            try:
+                r = httpx.get(WOS_API, params=params, headers=headers)
+                time.sleep(1)
+                return r.json()["Data"]["Records"]["records"]
+            except (httpx.ReadTimeout, KeyError) as err:
+                error_count += 1
+                duration = min(2 ** (error_count + 1), 1800)
+                self.logger.debug(
+                    f"Server error {type(err).__name__}:{err}. Sleeping {duration}s."
+                )
+                time.sleep(duration)
+
     def get_records_from_scraped_data(self, data):
         query = self.build_query(data)
         headers = {
@@ -100,9 +115,7 @@ class TitlesToRecords:
             "count": 5,
             "firstRecord": 1,
         }
-        r = httpx.get(WOS_API, params=params, headers=headers)
-        time.sleep(1)
-        recs = r.json()["Data"]["Records"]["records"]
+        recs = self.http_get_json_retry(params, headers)
         if recs:  # WOS_API returns "" here if no records
             recs = recs["REC"]
         elif isinstance(data.get("pubyear", None), int):
