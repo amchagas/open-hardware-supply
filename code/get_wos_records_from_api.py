@@ -124,7 +124,7 @@ class TitlesToRecords:
             return self.get_records_from_scraped_data(data)
         else:
             recs = []
-            self.logger.debug(("Failed query", {"Parameters": params, "Text": r.text}))
+            self.logger.debug(("Failed query", {"Parameters": params}))
         return recs
 
     def download_records(self):
