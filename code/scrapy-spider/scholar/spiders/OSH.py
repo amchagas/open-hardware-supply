@@ -20,14 +20,14 @@ class ExampleSpider(scrapy.Spider):
     allowed_domains = ['api.scraperapi.com']
 
     def start_requests(self):
-        begYear = str(2021)
-        endYear = str(2021)
+        begYear = str(2022)
+        endYear = str(2022)
         start = 0
         position = start
         month1 = "January OR February OR March OR April OR June"
         month2 =  "July OR August OR September OR October OR November OR December"
         monthIndex = 0
-        queries = ['"open hardware" ']#+month2]#,'"open hardware" '+month2 ]
+        queries = ['"open hardware" '+month2]#,'"open hardware" '+month2 ]
         #queries = ['"open * hardware"'+"AND "+month[monthIndex] ]
         #"""
         # OR "open labware" OR "open source equipment" OR "open source hardware" OR \
