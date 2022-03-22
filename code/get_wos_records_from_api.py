@@ -24,6 +24,7 @@ DATA_PATHS = [
         "open_hardware_2019.jl",
         "open_hardware_2020.jl",
         "open_hardware_2021.jl",
+        "open_hardware_2022.jl"
     ]
 ]
 
