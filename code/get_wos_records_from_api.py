@@ -15,16 +15,16 @@ DATA_PATHS = [
     DATA_DIR / file
     for file in [
         "open_hardware_2005-2010.jl",
-        "open_hardware_2011-2013.jl",
-        "open_hardware_2014.jl",
-        "open_hardware_2015.jl",
-        "open_hardware_2016.jl",
-        "open_hardware_2017.jl",
-        "open_hardware_2018.jl",
-        "open_hardware_2019.jl",
-        "open_hardware_2020.jl",
-        "open_hardware_2021.jl",
-        "open_hardware_2022.jl"
+        #"open_hardware_2011-2013.jl",
+        #"open_hardware_2014.jl",
+        #"open_hardware_2015.jl",
+        #"open_hardware_2016.jl",
+        #"open_hardware_2017.jl",
+        #"open_hardware_2018.jl",
+        #"open_hardware_2019.jl",
+        #"open_hardware_2020.jl",
+        #"open_hardware_2021.jl",
+        #"open_hardware_2022.jl"
     ]
 ]
 

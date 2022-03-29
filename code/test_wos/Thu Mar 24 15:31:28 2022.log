@@ -1,0 +1,7 @@
+('Query', ['TI=("a" "low" "cost" "open" "hardware" "wideband" "multiple" "input" "multiple" "output" "mimo" "wireless" "channel" "sounder")', 'AU=(Maharaj)', 'PY=(2008)'])
+Server error KeyError:'Data'. Sleeping 4s.
+Server error KeyError:'Data'. Sleeping 8s.
+Server error KeyError:'Data'. Sleeping 16s.
+Server error KeyError:'Data'. Sleeping 32s.
+Server error KeyError:'Data'. Sleeping 64s.
+Server error KeyError:'Data'. Sleeping 128s.
