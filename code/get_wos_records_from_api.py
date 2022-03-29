@@ -30,6 +30,16 @@ DATA_PATHS = [
 
 
 class TitlesToRecords:
+    """
+    Downloads WOS records realted to each item of Google Scholar scraped data, then find the best match.
+    Instantiate the class, then:
+    `wosTtr.download_records()` to download all matches into 'multi_records.json'
+    `wosTtr.dump_records()` to clean the downloaded data and dump it into the final 'records.jsonl'.
+    Parameters:
+    - source_files: paths to files containing information scraped from Google Scholar
+    - output_dir: path where intermediate and resulting WOS records will be stored
+    - api_key: WOS API key
+    """
     def __init__(self, source_files, output_dir, api_key):
         self.api_key = api_key
         self.source_paths = [Path(file) for file in source_files]
