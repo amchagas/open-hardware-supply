@@ -14,8 +14,8 @@ DATA_DIR = Path("../data/scrapy")
 DATA_PATHS = [
     DATA_DIR / file
     for file in [
-        "open_hardware_2005-2010.jl",
-        #"open_hardware_2011-2013.jl",
+        #"open_hardware_2005-2010.jl",
+        "open_hardware_2011-2013.jl",
         #"open_hardware_2014.jl",
         #"open_hardware_2015.jl",
         #"open_hardware_2016.jl",

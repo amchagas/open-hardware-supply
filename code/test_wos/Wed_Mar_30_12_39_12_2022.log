@@ -1,0 +1,15 @@
+('Query', ['TI=("democratizing" "production" "through" "open" "source" "knowledge" "from" "open" "software" "to" "open" "hardware")', 'AU=(Powell)', 'PY=(2012)'])
+Server error KeyError:'Data'. Sleeping 4s.
+Server error KeyError:'Data'. Sleeping 8s.
+Server error KeyError:'Data'. Sleeping 16s.
+Server error KeyError:'Data'. Sleeping 32s.
+Server error KeyError:'Data'. Sleeping 64s.
+Server error KeyError:'Data'. Sleeping 128s.
+Server error KeyError:'Data'. Sleeping 256s.
+Server error KeyError:'Data'. Sleeping 512s.
+Server error KeyError:'Data'. Sleeping 1024s.
+Server error KeyError:'Data'. Sleeping 1800s.
+Server error KeyError:'Data'. Sleeping 1800s.
+Server error KeyError:'Data'. Sleeping 1800s.
+Server error KeyError:'Data'. Sleeping 1800s.
+Server error KeyError:'Data'. Sleeping 1800s.
