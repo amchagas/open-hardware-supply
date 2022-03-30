@@ -60,7 +60,10 @@ class TitlesToRecords:
     def _logging(self):
         logger = logging.getLogger(f"{type(self).__module__}.{type(self).__name__}")
         logger.setLevel(logging.DEBUG)
-        fh = logging.FileHandler(self.store / f"{time.asctime()}.log")
+        logFileName = time.asctime()
+        logFileName = logFileName.replace(" ","_")
+        logFileName = logFileName.replace(":","_")
+        fh = logging.FileHandler(self.store / f"{logFileName}.log")
         fh.setLevel(logging.DEBUG)
         logger.addHandler(fh)
         return logger
