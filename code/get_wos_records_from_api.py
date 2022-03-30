@@ -14,24 +14,24 @@ DATA_DIR = Path("../data/scrapy")
 DATA_PATHS = [
     DATA_DIR / file
     for file in [
-        #"open_hardware_2005-2010.jl",
+        "open_hardware_2005-2010.jl",
         "open_hardware_2011-2013.jl",
-        #"open_hardware_2014.jl",
-        #"open_hardware_2015.jl",
-        #"open_hardware_2016.jl",
-        #"open_hardware_2017.jl",
-        #"open_hardware_2018.jl",
-        #"open_hardware_2019.jl",
-        #"open_hardware_2020.jl",
-        #"open_hardware_2021.jl",
-        #"open_hardware_2022.jl"
+        "open_hardware_2014.jl",
+        "open_hardware_2015.jl",
+        "open_hardware_2016.jl",
+        "open_hardware_2017.jl",
+        "open_hardware_2018.jl",
+        "open_hardware_2019.jl",
+        "open_hardware_2020.jl",
+        "open_hardware_2021.jl",
+        "open_hardware_2022.jl"
     ]
 ]
 
 
 class TitlesToRecords:
     """
-    Downloads WOS records realted to each item of Google Scholar scraped data, then find the best match.
+    Downloads WOS records related to each item of Google Scholar scraped data, then find the best match.
     Instantiate the class, then:
     `wosTtr.download_records()` to download all matches into 'multi_records.json'
     `wosTtr.dump_records()` to clean the downloaded data and dump it into the final 'records.jsonl'.
@@ -60,9 +60,7 @@ class TitlesToRecords:
     def _logging(self):
         logger = logging.getLogger(f"{type(self).__module__}.{type(self).__name__}")
         logger.setLevel(logging.DEBUG)
-        logFileName = time.asctime()
-        logFileName = logFileName.replace(" ","_")
-        logFileName = logFileName.replace(":","_")
+        logFileName = time.asctime().replace(" ","_").replace(":","_")
         fh = logging.FileHandler(self.store / f"{logFileName}.log")
         fh.setLevel(logging.DEBUG)
         logger.addHandler(fh)
@@ -116,6 +114,8 @@ class TitlesToRecords:
                 self.logger.debug(
                     f"Server error {type(err).__name__}:{err}. Sleeping {duration}s."
                 )
+                if r.text == '{"message":"Invalid authentication credentials"}':
+                    raise ValueError("Invalid authentication credentials (api_key)")
                 time.sleep(duration)
 
     def get_records_from_scraped_data(self, data):
