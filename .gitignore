@@ -19,3 +19,4 @@ __pycache__
 code/scrapy-spider/scholar/spiders/scraperapi_api_key
 code/wos_api_key
 code/wos_api
+*email
