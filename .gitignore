@@ -15,6 +15,9 @@
 # Ignore python cache
 __pycache__
 
+#ignore caches
+*cache*
+
 # Secrets
 code/scrapy-spider/scholar/spiders/scraperapi_api_key
 code/wos_api_key
