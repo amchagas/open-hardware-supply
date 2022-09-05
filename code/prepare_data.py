@@ -6,7 +6,7 @@ import doi as doiLib
 
 
 class Prepare:
-    def __init__(source_file,output_dir):
+    def __init__(self,source_file,output_dir):
         self.dataDict = {"WOSUID":[],
             "pubTitle":[],
             "pubYear":[],
@@ -29,6 +29,12 @@ class Prepare:
         self.output_dir=output_dir
     
     def run(self):
+        """
+        this function opens the jsonlines file with raw data from web of science, 
+        digs for the variables wanted, and stores them in a dictionary. The function "save"
+        saves the dictionary in a JSON file
+        """
+        
         with jsonlines.open(self.source_file) as reader:   
             for obj in reader:
                 
@@ -109,7 +115,7 @@ class Prepare:
                     url=None
             
                 self.dataDict["url"].append(url)      
-            index=index+1
+            #index=index+1
         
         return self.dataDict
     

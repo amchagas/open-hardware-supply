@@ -7,7 +7,7 @@
 .RData
 
 # ignore vscode config
-.vscode
+*.vscode
 
 # ignore some data
 *.pdf
