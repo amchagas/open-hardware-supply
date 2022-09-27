@@ -121,5 +121,5 @@ class Prepare:
     
     def save(self,file_name):    
         with open(self.output_dir+file_name, 'w') as fp:
-            json.dump(data, fp)
+            json.dump(dataDict, fp)
     
