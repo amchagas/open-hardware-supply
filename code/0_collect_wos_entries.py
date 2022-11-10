@@ -10,7 +10,5 @@ output_dir ="../data/derived2"
 api_key = Path('./wos_api_key').read_text()
 
 wosTtr = gwr.TitlesToRecords(source_files,output_dir,api_key)
-
-
 wosTtr.download_records()
 wosTtr.dump_records()
