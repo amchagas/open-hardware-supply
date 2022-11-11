@@ -46,11 +46,12 @@ for idx,item in enumerate(dois):
         dois[idx]="none"
 
 upwData = Unpywall.doi(dois=dois,errors="ignore",progress=True)
+upwData.to_json(dataPath+"upwData.json")
 
 #upwJson = upwData.to_json()
 #parsed = json.loads(upwJson)
-with open(dataPath+"upwData.json","w") as fid:
-    upwData.to_json(fid)
+#with open(dataPath+"upwData.json","w") as fid:
+#    upwData.to_json(fid)
 
 #articles = pd.merge(wosArticles, upwData,on="doi" )
 #articles.to_json(dataPath+"articles_to_review")

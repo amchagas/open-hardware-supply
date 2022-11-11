@@ -9,16 +9,20 @@ import time
 
 
 dataPath = "../data/derived2/"
-dataFile = "articles_to_review.json"
+dataFile = "upwData.json"
 articles = pd.read_json(dataPath + dataFile)
 
-dois = list(articles.doi)
+dois = list(set(articles.doi))
+##to run zotero translator, one needs to have docker installed and run it so (if one is using command line):
+#docker pull zotero/translation-server
+#docker run -d -p 1969:1969 --rm --name translation-server zotero/translation-server
+
 
 url = "http://127.0.0.1:1969/search"  # zotero translator server running locally
 headers = {"content-type": "text/plain", "Accept-Charset": "UTF-8"}
 # r = requests.post(url=url, data=dois[0], headers=headers)
 
-""" 
+
 allMeta = list()
 for item in dois:
     r = requests.post(url=url, data=item, headers=headers)
@@ -28,7 +32,7 @@ for item in dois:
 with open(dataPath + "zotMeta.json", "w") as fid:
     json.dump(allMeta, fid)
 
-"""
+
 
 with open(dataPath + "zotMeta.json", "r") as fid:
     allMeta = json.load(fid)
