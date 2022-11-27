@@ -1,4 +1,4 @@
-import pandas as pd
+#import pandas as pd
 import jsonlines
 import json
 import doi as doiLib
@@ -34,9 +34,14 @@ class Prepare:
         digs for the variables wanted, and stores them in a dictionary. The function "save"
         saves the dictionary in a JSON file
         """
-        
+        done=1
         with jsonlines.open(self.source_file) as reader:   
+            
             for obj in reader:
+                print ("starting " +str(done) +"\r")
+                #if done ==2066:
+                #    print(obj)
+                done = done +1
                 
                 try:
                     wosID = obj["record"]["UID"][4:]
