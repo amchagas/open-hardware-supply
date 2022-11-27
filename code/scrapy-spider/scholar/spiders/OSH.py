@@ -6,7 +6,7 @@ import json
 from datetime import datetime
 
 
-API_KEY = open('scraperapi_api_key').read().strip()
+API_KEY = open('..//scraper_api_key').read().strip()
 
 
 def get_url(url):
@@ -20,14 +20,21 @@ class ExampleSpider(scrapy.Spider):
     allowed_domains = ['api.scraperapi.com']
 
     def start_requests(self):
-        begYear = str(2022)
-        endYear = str(2022)
+        yearRange = list(range(2005,2022))
+        #begYear = str(2005)
+        #endYear = str(2022)
         start = 0
         position = start
-        month1 = "January OR February OR March OR April OR June"
-        month2 =  "July OR August OR September OR October OR November OR December"
-        monthIndex = 0
-        queries = ['"open hardware" '+month2]#,'"open hardware" '+month2 ]
+        month1 = ' January OR February OR March' 
+        month2 = ' April OR June OR July'
+        month3 = ' August OR September OR October'
+        month4 = ' November OR December'
+        #monthIndex = 0
+        keyword = '"open hardware "'#'"open science hardware"'
+        queries = [keyword+month1,
+                   keyword+month2,
+                   keyword+month3,
+                   keyword+month4,]#,'"open hardware" '+month2 ]
         #queries = ['"open * hardware"'+"AND "+month[monthIndex] ]
         #"""
         # OR "open labware" OR "open source equipment" OR "open source hardware" OR \
@@ -36,19 +43,21 @@ class ExampleSpider(scrapy.Spider):
         #    "frugal equipment" OR "frugal hardware" OR "frugal labware" OR "frugal design" OR "free hardware and software"'
         #"""
 
-        
-        for query in queries:
-            print(" ")
-            print("query: "+str(query))
-            print(" ")
-            url = 'https://scholar.google.com/scholar?' + urlencode({'hl': 'en',
-             'q': query,
-             'as_vis':"1", # this removes the display of citations
-             'start':str(start), # position where to start collection data. if the api drops, one can restart from where it stopped.
-             'as_ylo':begYear,
-             'as_yhi':endYear,
-             'num': '20' # set the number of results per page, on GS either 10 or 20. Under the impression that setting to 20 decreases the number of API calls. 
-             })
+        for year in yearRange:
+            for query in queries:
+                print("\n")
+                print("query: "+str(query))
+                print("year: "+str(year))
+                print("\n")
+                url = 'https://scholar.google.com/scholar?' + \
+                        urlencode({'hl': 'en',
+                        'q': query,
+                        'as_vis':"1", # this removes the display of citations
+                        'start':str(start), # position where to start collection data. if the api drops, one can restart from where it stopped.
+                        'as_ylo':year,
+                        'as_yhi':year,
+                        'num': '20' # set the number of results per page, on GS either 10 or 20. Under the impression that setting to 20 decreases the number of API calls. 
+                        })
             yield scrapy.Request(get_url(url), callback=self.parse, meta={'position': position})
 
     def parse(self, response):

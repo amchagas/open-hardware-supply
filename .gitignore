@@ -7,7 +7,7 @@
 .RData
 
 # ignore vscode config
-.vscode
+*.vscode
 
 # ignore some data
 *.pdf
@@ -15,6 +15,14 @@
 # Ignore python cache
 __pycache__
 
+#ignore caches
+*cache*
+
 # Secrets
+code/scraper_api_key
 code/scrapy-spider/scholar/spiders/scraperapi_api_key
 code/wos_api_key
+code/wos_api
+*email
+*zotero_api
+*scraperapi_api_key
