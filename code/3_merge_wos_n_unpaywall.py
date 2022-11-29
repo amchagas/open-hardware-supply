@@ -11,7 +11,9 @@ UnpywallCredentials(unpaywallcred)# could not get api cred on time,
 #so using this email which is pasted all over the web.... #unpaywallcred)
 
 dataPath = "../data/derived3/"
-dataFile = "wos_data_as.json"
+
+dataFile = "1wos_data_as.json"
+
 
 with open(dataPath+dataFile,"r") as fid:
     dataDict = json.load(fid)
