@@ -1,6 +1,5 @@
 # Open hardware documentation in academic papers: Truly open, or just open washing?
 
-
 Hi there! This project started because we were interested in knowing the 
 quality of the documentation in peer reviewed papers describing open source 
 hardware. 
@@ -29,13 +28,12 @@ We are using a couple of open source tools, plus some code of our own to collect
 information about academic work related to open source hardware, namely:
 
 0 - We use [Scrapy](https://scrapy.org/) coupled with [ScraperAPI](https://www.scraperapi.com/)
-to scrape data from [Google Scholar (GS)](https://scholar.google.com/). 
-We use GS because it is to our knowledge the only database that performs 
-queries on the entire documents it hosts, as oppposed to only title, abstract 
-etc, as other databases. This combination allows us to systematically mine 
-data using keywords combined with time periods to get a certain number of hits 
-per query, bypassing google's "result output limitation" (ie only the first 
-1000 values being returned at each search).
+to scrape data from Google Scholar (GS). We use GS because it is to our knowledge
+the only database that performs queries on the entire documents it hosts,
+as oppposed to only title, abstract etc, as other databases. This combination 
+allows us to systematically mine data using keywords combined with time 
+periods to get a certain number of hits per query, bypassing google's "result 
+output limitation" (ie only the first 1000 values being returned at each search).
 
 1 - This generates a bit of a mountain of disorganised data, as Google Scholar 
 has entries comprising books, master thesis, peer reviewed articles, etc. Plus 
@@ -62,6 +60,7 @@ score the quality of their documentation based on the classification system
 described on the Open-O-Meter. This would give a well documented paper a total
 score of 8 out of 8. We add another point to this classification based on 
 an entry being open access (so, end up with 9 points for well documented papers). 
+
 
 Results will placed here and also as a preprint and then submitted peer-review.
 
