@@ -74,7 +74,9 @@ for idx in articles.index:
         zot.add_tags(zot.item(temp[0]["key"]),articles["oa_status"][idx])
         index=index+1
         print(index)
+
         #time.sleep(0.5)
+
     except:
         print(articles["doi"][idx])
         print(r)
