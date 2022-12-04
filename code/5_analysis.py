@@ -40,4 +40,4 @@ sns.histplot(#x="year",
 plt.xlim(2004, 2023) # Define x-axis limits
 plt.xticks(np.arange(min_val, max_val, 1),rotation=90)
 
-
+sns.scatterplot(data=data2, x=range(22), y="total points ")
