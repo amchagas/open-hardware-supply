@@ -1,4 +1,6 @@
+
 # Practices vs. standards of Open Hardware documentation in academic papers: adoption barriers and open washing
+
 
 Hi there! This project started because we were interested in knowing the 
 quality of the documentation in peer reviewed papers describing open source 
