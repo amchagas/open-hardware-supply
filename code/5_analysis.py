@@ -29,25 +29,44 @@ fig.ax_joint.tick_params(rotation=30)
 fig.savefig(figDir / "articles-joint-genre_X_oa_status.png")
 
 plt.close()
-fig = sns.displot(documentData, x="oa_status", hue="genre")
-fig.savefig(figDir / "documents-dist-oa_status_X_genre.png")
-
-plt.close()
-fig = sns.displot(articleData, x="genre", hue="is_oa")
-fig.savefig(figDir / "articles-dist-genre_X_is_oa.png")
-
-plt.close()
-fig = sns.histplot(
-    data=articleData.year,
-    discrete=True,
+fig = sns.displot(
+    documentData,
+    x="genre",
+    hue="oa_status",
+    hue_order=("gold", "green", "bronze", "hybrid", "closed"),
+    multiple="dodge",
+    shrink=0.8,
+    aspect=16 / 9,
 )
-fig.set_xticks(range(articleData.year.min(), articleData.year.max() + 1))
-fig.tick_params(rotation=30)
-fig.figure.tight_layout()
-fig.figure.savefig(figDir / "articles-hist_year.png")
+fig.savefig(figDir / "documents-dist-genre_X_oa_status.png")
 
 plt.close()
-totalPoints = (2 * scoringData["total points "]).astype(int)
-fig = sns.histplot(data=totalPoints, bins=range(0, 22), discrete=True)
-fig.set_xticks(range(0, 21))
+fig = sns.displot(
+    data=articleData,
+    x="year",
+    discrete=True,
+    hue="is_oa",
+    multiple="dodge",
+    shrink=0.8,
+    aspect=16 / 9,
+)
+fig.ax.set_xticks(range(articleData.year.min(), articleData.year.max() + 1))
+fig.tick_params(rotation=45)
+fig.savefig(figDir / "articles-dist-year_X_is_oa.png")
+
+plt.close()
+scoringData["total points"] = (2 * scoringData["total points "]).astype(int)
+fig = sns.displot(
+    data=scoringData,
+    x="total points",
+    bins=range(0, 22),
+    discrete=True,
+    shrink=0.8,
+    aspect=16 / 9,
+    hue="total points",
+    hue_norm=(0, 20 * 4 / 3),  # use colormap up to bright "open-style" oranges
+    palette="PuOr_r",
+)
+fig.ax.set_xticks(range(0, 21))
+fig.ax.set_yticks(range(0, scoringData["total points"].value_counts().max() + 1))
 fig.figure.savefig(figDir / "scoring-hist-total points .png")
