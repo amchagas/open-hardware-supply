@@ -5,7 +5,6 @@ preliminary analysis
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 import seaborn as sns
 
@@ -16,33 +15,39 @@ while not (Path() / ".git").is_dir():
 dataDir = projectPath / "data/derived3"
 dataFile = dataDir / "upwData.json"
 scoringFile = dataDir / "scoring_system.csv"
+figDir = projectPath / "figures"
 
 # data
 documentData = pd.read_json(dataFile)
 scoringData = pd.read_csv(scoringFile)
-articles = documentData[documentData.genre.eq("journal-article")]
+articleData = documentData[documentData.genre.eq("journal-article")]
 
 # plots
-sns.jointplot(x=documentData.genre, y=documentData.oa_status)
-sns.displot(documentData, x="oa_status", hue="genre")
-sns.displot(articles, x="genre", hue="is_oa")
+plt.close()
+fig = sns.jointplot(kind="hist", x=documentData.genre, y=documentData.oa_status)
+fig.ax_joint.tick_params(rotation=30)
+fig.savefig(figDir / "articles-joint-genre_X_oa_status.png")
 
-min_val = articles.year.min()
-max_val = articles.year.max()
-val_width = max_val - min_val
-n_bins = max_val - min_val
-bin_width = val_width / n_bins
+plt.close()
+fig = sns.displot(documentData, x="oa_status", hue="genre")
+fig.savefig(figDir / "documents-dist-oa_status_X_genre.png")
 
-sns.histplot(
-    data=articles.year,
-    bins=n_bins,
-    binrange=(min_val, max_val),
-    # x="year",
-    # hue="day",
-    # multiple = 'stack',
-    # palette='Paired',
+plt.close()
+fig = sns.displot(articleData, x="genre", hue="is_oa")
+fig.savefig(figDir / "articles-dist-genre_X_is_oa.png")
+
+plt.close()
+fig = sns.histplot(
+    data=articleData.year,
+    discrete=True,
 )
-plt.xlim(2004, 2023)  # Define x-axis limits
-plt.xticks(np.arange(min_val, max_val, 1), rotation=90)
+fig.set_xticks(range(articleData.year.min(), articleData.year.max() + 1))
+fig.tick_params(rotation=30)
+fig.figure.tight_layout()
+fig.figure.savefig(figDir / "articles-hist_year.png")
 
-sns.scatterplot(data=scoringData, x=range(22), y="total points ")
+plt.close()
+totalPoints = (2 * scoringData["total points "]).astype(int)
+fig = sns.histplot(data=totalPoints, bins=range(0, 22), discrete=True)
+fig.set_xticks(range(0, 21))
+fig.figure.savefig(figDir / "scoring-hist-total points .png")
