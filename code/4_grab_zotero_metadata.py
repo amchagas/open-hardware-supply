@@ -15,10 +15,10 @@ import requests
 import pandas as pd
 from pyzotero import zotero
 #import json
-import time
+#import time
 
 
-dataPath = "../data/derived3/"
+dataPath = "../data/derived/20230214/"
 dataFile = "upwData.json"
 articles = pd.read_json(dataPath + dataFile)
 #idx = set(articles.doi)

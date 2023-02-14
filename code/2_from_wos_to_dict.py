@@ -4,7 +4,7 @@
 from prepare_wos_data_to_json import Prepare as prp
 
 
-dataPath = "../data/derived3/"
+dataPath = "../data/derived/20230214/"
 dataFile = "records.jsonl"
 
 data = prp(source_file=dataPath+dataFile, output_dir=dataPath)

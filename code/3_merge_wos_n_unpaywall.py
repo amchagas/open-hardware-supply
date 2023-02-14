@@ -10,7 +10,7 @@ with open("email") as fid:
 UnpywallCredentials(unpaywallcred)# could not get api cred on time, 
 #so using this email which is pasted all over the web.... #unpaywallcred)
 
-dataPath = "../data/derived3/"
+dataPath = "../data/derived/20230214/"
 
 dataFile = "1wos_data_as.json"
 

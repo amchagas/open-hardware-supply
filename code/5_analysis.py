@@ -12,7 +12,7 @@ import seaborn as sns
 projectPath = Path()
 while not (Path() / ".git").is_dir():
     projectPath = projectPath.parent
-dataDir = projectPath / "data/derived3"
+dataDir = projectPath / "data/derived/20230214/"
 dataFile = dataDir / "upwData.json"
 scoringFile = dataDir / "scoring_system.csv"
 figDir = projectPath / "figures"
