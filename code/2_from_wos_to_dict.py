@@ -9,4 +9,4 @@ dataFile = "records.jsonl"
 
 data = prp(source_file=dataPath+dataFile, output_dir=dataPath)
 data.run()
-data.save("1wos_data_as.json")
+data.save("wos_data_as.json")

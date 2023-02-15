@@ -12,7 +12,7 @@ UnpywallCredentials(unpaywallcred)# could not get api cred on time,
 
 dataPath = "../data/derived/20230214/"
 
-dataFile = "1wos_data_as.json"
+dataFile = "wos_data_as.json"
 
 
 with open(dataPath+dataFile,"r") as fid:
@@ -23,7 +23,7 @@ data = pd.DataFrame.from_dict(dataDict)
 
 
 #drop duplicated dois
-data = data[data.duplicated(subset=['doi'])]
+#data = data[data.duplicated(subset=['doi'])]
 
 
 dois = list(data["doi"])
