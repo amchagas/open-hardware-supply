@@ -1,3 +1,19 @@
+# Collecting data from Google Scholar
+
+## Method 2 [current]
+
+Implemented in `0_collect_gscholar_data.py`.
+
+### Use `scholarly` to scrape Google Scholar
+This method uses a Python library, `scholarly`, to scrape.
+
+https://github.com/scholarly-python-package/scholarly
+
+
+## Method 1
+
+Implemented in `scrapy-spider/`.
+
 ### systematically retrieve entries from google scholar using code:
 
 - After quite a bit of digging we learned that the only search tool/database of 
