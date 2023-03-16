@@ -29,8 +29,9 @@ TERMS = (
 YEARS = tuple(range(2005, 2023))
 
 
-# Months in current locale (English if not specified)
-MONTHS = tuple(calendar.month_name[m] for m in range(1, 13))
+# Months in current locale (English with the default locale)
+# We exclude month 5 (May), as it coincides with the verb "may".
+MONTHS = tuple(calendar.month_name[m] for m in range(1, 13) if m != 5)
 
 
 # Query results are silently cut at 1k
