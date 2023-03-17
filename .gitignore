@@ -19,10 +19,10 @@ __pycache__
 *cache*
 
 # Secrets
-code/scraper_api_key
-code/scrapy-spider/scholar/spiders/scraperapi_api_key
-code/wos_api_key
-code/wos_api
+*scraper_api_key
+*scraperapi_api_key
+*wos_api_key
+*wos_api
 *email
 *zotero_api
 *scraperapi_api_key
