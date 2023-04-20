@@ -6,6 +6,12 @@ from pathlib import Path
 
 from scholarly import scholarly
 
+#use free proxies, as Google Scholar is blocking access for these many entries
+from scholarly import ProxyGenerator
+pg = ProxyGenerator()
+pg.FreeProxies()
+scholarly.use_proxy(pg)
+
 if "logger" not in locals():
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
