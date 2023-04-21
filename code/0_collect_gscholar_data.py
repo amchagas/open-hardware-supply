@@ -8,8 +8,13 @@ from scholarly import scholarly
 
 #use free proxies, as Google Scholar is blocking access for these many entries
 from scholarly import ProxyGenerator
+
+with open("scraper_api_key") as fh:
+    key = fh.readline()
+
 pg = ProxyGenerator()
-pg.FreeProxies()
+pg.ScraperAPI(key)
+
 scholarly.use_proxy(pg)
 
 if "logger" not in locals():
@@ -32,7 +37,7 @@ TERMS = (
 # 2005 → Arduino, Make, Git, ...
 # full_query [< 2005]: 615 results
 # full_query [>=2000 & < 2005]: 335 results
-YEARS = tuple(range(2005, 2023))
+YEARS = tuple(range(2011, 2023))
 
 
 # Months in current locale (English with the default locale)
