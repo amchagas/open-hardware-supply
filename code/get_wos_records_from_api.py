@@ -8,55 +8,21 @@ import re
 import time
 from jellyfish import damerau_levenshtein_distance as edit_distance
 from tqdm.auto import tqdm
+import os
+
 
 WOS_API = "https://wos-api.clarivate.com/api/wos"
-DATA_DIR = Path("../data/scrapy")
+DATA_DIR = Path("../data/")
+
+all_files = list()
+for entry in os.listdir(DATA_DIR):
+    if os.path.isfile(os.path.join(DATA_DIR, entry)):
+        all_files.append(entry)
+
+
 DATA_PATHS = [
     DATA_DIR / file
-    for file in [
-        "open_hardware_2000-2005.jl",
-        "open_hardware_2005-2022.jl",
-        "open_hardware_2022-2025.jl"
-        #"open_hardware_2005_1.jl",
-        #"open_hardware_2005_2.jl",
-        #"open_hardware_2005_3.jl",
-        #"open_hardware_2005_4.jl",
-        #"open_hardware_2006_1.jl",
-        #"open_hardware_2006_2.jl",
-        #"open_hardware_2006_3.jl",
-        #"open_hardware_2006_4.jl",
-        #"open_hardware_2007_1.jl",
-        #"open_hardware_2007_2.jl",
-        #"open_hardware_2007_3.jl",
-        #"open_hardware_2007_4.jl",
-        #"open_hardware_2008_1.jl",
-        #"open_hardware_2008_2.jl",
-        #"open_hardware_2008_3.jl",
-        #"open_hardware_2008_4.jl",
-        #"open_hardware_2009_1.jl",
-        #"open_hardware_2009_2.jl",
-        #"open_hardware_2009_3.jl",
-        #"open_hardware_2009_4.jl",
-        #"open_hardware_2010_1.jl",
-        #"open_hardware_2010_2.jl",
-        #"open_hardware_2010_3.jl",
-        #"open_hardware_2010_4.jl",
-        #"open_hardware_2011-2013.jl",
-        #"open_hardware_2014.jl",
-        #"open_hardware_2015.jl",
-        #"open_hardware_2016.jl",
-        #"open_hardware_2017.jl",
-        #"open_hardware_2018.jl",
-        #"open_hardware_2019.jl",
-        #"open_hardware_2020.jl",
-        #"open_hardware_2021.jl",
-        #"open_hardware_2022_1.jl",
-        #"open_hardware_2022_2.jl",
-        #"open_hardware_2022_3.jl",
-        #"open_hardware_2022_4.jl",
-    
-    ]
-]
+    for file in all_files]
 
 
 class TitlesToRecords:
