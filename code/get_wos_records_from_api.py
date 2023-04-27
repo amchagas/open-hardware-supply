@@ -63,13 +63,46 @@ class TitlesToRecords:
         return logger
 
     def scraped_data(self):
+        print("files found: "+str(len(source_paths)))
+        for idx,fpath in enumerate(source_paths):
+            print("processing file "+str(idx))
+            print(fpath)
+            with open(fpath,'r') as f:
+                json_data = f.readlines()
+            # Remove newline characters and parse JSON
+            json_data = [json.loads(line.strip()) for line in json_data]
+            # Extract relevant data from JSON
+            #extracted_data = []
+            for temp in json_data:
+                
+                data = {
+                    'title': temp['bib'].get('title', None),
+                    'author': temp['bib'].get('author', None),
+                    "pub_year": temp['bib'].get('pub_year', None),
+                    #"first_author": data['bib'].get('first_author', None),
+                    'pub_type': temp.get('container_type', None),
+                    'venue': temp['bib'].get('venue', None),
+                    'pub_url': temp.get('pub_url', None)
+                }
+                if data['author']:
+                    data['first_author']=data['author'][0]
+                else:
+                    data['first_author']="NA"
+                
+                if pubyear := re.search(r"[,-] (\d{4}) -", data["pub_year"]) == "NA":
+                    print("missing year")
+                    self.logger.debug(("Missing year", data))
+                    
+                yield data
+        """
         for fpath in tqdm(self.source_paths):
             with fpath.open() as f:
                 total = len(list(f.readlines()))
             for line in tqdm(fpath.open().readlines(), total=total, desc=" "):
                 data = {}
                 data["_line"] = line
-                scraped = json.loads(line)
+                #scraped = json.loads(line)
+                scraped = json.loads(line.strip())
                 data["title"] = self.normalize_text(scraped["title"])
                 data["first_author"] = (
                     scraped["publishedData"]
@@ -83,7 +116,7 @@ class TitlesToRecords:
                 else:
                     self.logger.debug(("Missing year", scraped))
                 yield data
-
+                """
     def build_query(self, data):
         tag = {"title": "TI", "first_author": "AU", "pubyear": "PY"}
         query = [
