@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 import time
 from jellyfish import damerau_levenshtein_distance as edit_distance
-from tqdm.auto import tqdm
+#from tqdm.auto import tqdm
 import os
 
 
@@ -63,8 +63,8 @@ class TitlesToRecords:
         return logger
 
     def scraped_data(self):
-        print("files found: "+str(len(source_paths)))
-        for idx,fpath in enumerate(source_paths):
+        print("files found: "+str(len(self.source_paths)))
+        for idx,fpath in enumerate(self.source_paths):
             print("processing file "+str(idx))
             print(fpath)
             with open(fpath,'r') as f:
@@ -92,7 +92,8 @@ class TitlesToRecords:
                 if pubyear := re.search(r"[,-] (\d{4}) -", data["pub_year"]) == "NA":
                     print("missing year")
                     self.logger.debug(("Missing year", data))
-                    
+                if idx==0:
+                    print(data)
                 yield data
         """
         for fpath in tqdm(self.source_paths):
