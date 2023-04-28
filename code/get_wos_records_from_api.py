@@ -77,8 +77,8 @@ class TitlesToRecords:
                 
                 data = {
                     'title': temp['bib'].get('title', None),
-                    'author': temp['bib'].get('author', None),
-                    "pub_year": temp['bib'].get('pub_year', None),
+                    'author': tuple(temp['bib'].get('author', None)),
+                    "pubyear": temp['bib'].get('pub_year', None),
                     #"first_author": data['bib'].get('first_author', None),
                     'pub_type': temp.get('container_type', None),
                     'venue': temp['bib'].get('venue', None),
@@ -89,11 +89,10 @@ class TitlesToRecords:
                 else:
                     data['first_author']="NA"
                 
-                if pubyear := re.search(r"[,-] (\d{4}) -", data["pub_year"]) == "NA":
+                if pubyear := re.search(r"[,-] (\d{4}) -", data["pubyear"]) == "NA":
                     print("missing year")
                     self.logger.debug(("Missing year", data))
-                if idx==0:
-                    print(data)
+
                 yield data
         """
         for fpath in tqdm(self.source_paths):
@@ -179,7 +178,9 @@ class TitlesToRecords:
             )
         with open(self.multi_records_file, "a") as rf:
             for data in self.scraped_data():
+                
                 data_key = self.data_key(data.items())
+
                 if data_key not in downloaded_data_keys:
                     recs = self.get_records_from_scraped_data(data)
                     rf.writelines(
