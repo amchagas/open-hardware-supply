@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 import time
 from jellyfish import damerau_levenshtein_distance as edit_distance
+from unidecode import unidecode
 #from tqdm.auto import tqdm
 import os
 
@@ -73,26 +74,39 @@ class TitlesToRecords:
             json_data = [json.loads(line.strip()) for line in json_data]
             # Extract relevant data from JSON
             #extracted_data = []
-            for temp in json_data:
+            for line in json_data:
+                data = dict()
+                #data["_line"]=line
                 
-                data = {
-                    'title': temp['bib'].get('title', None),
-                    'author': tuple(temp['bib'].get('author', None)),
-                    "pubyear": temp['bib'].get('pub_year', None),
-                    #"first_author": data['bib'].get('first_author', None),
-                    'pub_type': temp.get('container_type', None),
-                    'venue': temp['bib'].get('venue', None),
-                    'pub_url': temp.get('pub_url', None)
-                }
-                if data['author']:
-                    data['first_author']=data['author'][0]
+                title = line['bib'].get('title', None)
+                data['title']= self.normalize_text(title)
+                
+                
+                author = line['bib'].get('author', None)
+                pubyear = line['bib'].get('pub_year', None)
+                
+                if author:
+                    author = self.normalize_text(author[0].split(" ")[-1])
+                    data['first_author'] = unidecode(author)
                 else:
-                    data['first_author']="NA"
+                    data['first_author']="NA"                
+
+                
+                
+                
+                #data['author']= author,
+                data["pubyear"]= pubyear
+                #"first_author": data['bib'].get('first_author', None)
+                data['pub_type']= line.get('container_type', None)
+                data['venue']= line['bib'].get('venue', None)
+                data['pub_url']= line.get('pub_url', None)
+                
+
                 
                 if pubyear := re.search(r"[,-] (\d{4}) -", data["pubyear"]) == "NA":
                     print("missing year")
                     self.logger.debug(("Missing year", data))
-
+                print(data)
                 yield data
         """
         for fpath in tqdm(self.source_paths):

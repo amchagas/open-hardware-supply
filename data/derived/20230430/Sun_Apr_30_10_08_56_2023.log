@@ -1,0 +1,24 @@
+('Query', ['TI=("towards" "fair" "principles" "for" "open" "hardware")', 'PY=(2021)', 'AU=(miljković)'])
+Server error KeyError:'Data'. Sleeping 4s.
+Server error KeyError:'Data'. Sleeping 8s.
+Server error KeyError:'Data'. Sleeping 16s.
+Server error KeyError:'Data'. Sleeping 32s.
+Server error KeyError:'Data'. Sleeping 64s.
+('Query', ['TI=("towards" "fair" "principles" "for" "open" "hardware")', 'PY=(2021)', 'AU=(miljkovic)'])
+Server error KeyError:'Data'. Sleeping 4s.
+Server error KeyError:'Data'. Sleeping 8s.
+Server error KeyError:'Data'. Sleeping 16s.
+Server error KeyError:'Data'. Sleeping 32s.
+Server error KeyError:'Data'. Sleeping 64s.
+Server error KeyError:'Data'. Sleeping 128s.
+Server error KeyError:'Data'. Sleeping 256s.
+('Query', ['AU=(miljkovic)', 'TI=("towards" "fair" "principles" "for" "open" "hardware")', 'PY=(2021)'])
+Server error KeyError:'Data'. Sleeping 4s.
+Server error KeyError:'Data'. Sleeping 8s.
+Server error KeyError:'Data'. Sleeping 16s.
+Server error KeyError:'Data'. Sleeping 32s.
+('Query', ['TI=("towards" "fair" "principles" "for" "open" "hardware")', 'AU=(miljkovic)', 'PY=(2021)'])
+Server error KeyError:'Data'. Sleeping 4s.
+Server error KeyError:'Data'. Sleeping 8s.
+Server error KeyError:'Data'. Sleeping 16s.
+Server error KeyError:'Data'. Sleeping 32s.
