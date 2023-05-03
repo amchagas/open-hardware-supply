@@ -1,0 +1,26 @@
+('Query', ['TI=("towards" "an" "open" "hardware" "open" "software" "toolkit" "for" "robust" "low" "cost" "eye" "tracking" "in" "hci" "applications")', 'AU=(winfield)', 'PY=(2005)'])
+('Failed query', {'Parameters': {'databaseId': 'WOK', 'usrQuery': 'TI=("towards" "an" "open" "hardware" "open" "software" "toolkit" "for" "robust" "low" "cost" "eye" "tracking" "in" "hci" "applications") AND AU=(winfield) AND PY=(2005)', 'count': 5, 'firstRecord': 1}})
+('Query', ['TI=("tools" "for" "in" "circuit" "testing" "of" "on" "line" "content" "processing" "hardware")', 'AU=(mitchell)', 'PY=(2005)'])
+('Query', ['TI=("open" "hw" "open" "design" "sw" "and" "the" "vc" "ecosystem" "dilemma")', 'AU=(carballo)', 'PY=(2005)'])
+('Failed query', {'Parameters': {'databaseId': 'WOK', 'usrQuery': 'TI=("open" "hw" "open" "design" "sw" "and" "the" "vc" "ecosystem" "dilemma") AND AU=(carballo) AND PY=(2005)', 'count': 5, 'firstRecord': 1}})
+('Query', ['TI=("open" "source" "software" "for" "commercial" "off" "the" "shelf" "gps" "receivers")', 'AU=(greenberg)', 'PY=(2005)'])
+('Failed query', {'Parameters': {'databaseId': 'WOK', 'usrQuery': 'TI=("open" "source" "software" "for" "commercial" "off" "the" "shelf" "gps" "receivers") AND AU=(greenberg) AND PY=(2005)', 'count': 5, 'firstRecord': 1}})
+('Query', ['TI=("a" "robot" "controller" "development" "of" "a" "large" "scale" "system" "for" "shipbuilding")', 'AU=(kim)', 'PY=(2005)'])
+('Failed query', {'Parameters': {'databaseId': 'WOK', 'usrQuery': 'TI=("a" "robot" "controller" "development" "of" "a" "large" "scale" "system" "for" "shipbuilding") AND AU=(kim) AND PY=(2005)', 'count': 5, 'firstRecord': 1}})
+('Query', ['TI=("use" "of" "a" "soft" "core" "processor" "in" "a" "hardware" "software" "codesign" "laboratory")', 'AU=(chamberlain)', 'PY=(2005)'])
+('Query', ['TI=("risk" "monitoring" "of" "buildings" "with" "wireless" "sensor" "networks")', 'AU=(kurata)', 'PY=(2005)'])
+('Query', ['TI=("application" "defined" "processors")', 'AU=(poznanovic)', 'PY=(2005)'])
+('Failed query', {'Parameters': {'databaseId': 'WOK', 'usrQuery': 'TI=("application" "defined" "processors") AND AU=(poznanovic) AND PY=(2005)', 'count': 5, 'firstRecord': 1}})
+('Query', ['TI=("a" "case" "for" "open" "source" "in" "automotive" "embedded" "systems")', 'AU=(devi)', 'PY=(2005)'])
+('Failed query', {'Parameters': {'databaseId': 'WOK', 'usrQuery': 'TI=("a" "case" "for" "open" "source" "in" "automotive" "embedded" "systems") AND AU=(devi) AND PY=(2005)', 'count': 5, 'firstRecord': 1}})
+('Query', ['TI=("towards" "an" "open" "hardware" "open" "software" "toolkit" "for" "robust" "low" "cost" "eye" "tracking" "in" "hci" "applications" "technical" "report" "isu" "hci" "2005" "04")', 'AU=(winfield)', 'PY=(NA)'])
+Server error KeyError:'Data'. Sleeping 4s.
+Server error KeyError:'Data'. Sleeping 8s.
+Server error KeyError:'Data'. Sleeping 16s.
+Server error KeyError:'Data'. Sleeping 32s.
+Server error KeyError:'Data'. Sleeping 64s.
+Server error KeyError:'Data'. Sleeping 128s.
+Server error KeyError:'Data'. Sleeping 256s.
+Server error KeyError:'Data'. Sleeping 512s.
+Server error KeyError:'Data'. Sleeping 1024s.
+Server error KeyError:'Data'. Sleeping 1800s.

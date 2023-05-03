@@ -37,7 +37,7 @@ TERMS = (
 # 2005 → Arduino, Make, Git, ...
 # full_query [< 2005]: 615 results
 # full_query [>=2000 & < 2005]: 335 results
-YEARS = tuple(range(2011, 2023))
+YEARS = tuple(range(2005, 2023))
 
 
 # Months in current locale (English with the default locale)
@@ -53,7 +53,12 @@ class QueryBuilder:
     @staticmethod
     def quote(x):
         return f'"{x}"'
-
+    """
+    @staticmethod
+    #choose language articles are written in
+    def lang(x):
+        return f'"{x}"'
+    """
     @staticmethod
     def or_(*xs):
         return "(" + " OR ".join(xs) + ")"
@@ -127,6 +132,7 @@ def store_all(out_dir=None):
                 "query": base_query,
                 "year_low": year,
                 "year_high": year,
+                "lr":"lang_en",
             }
             # total_results is a bit fuzzy so play safe with a margin of 100
             if store_attempt(query_args, out_path, 100):
