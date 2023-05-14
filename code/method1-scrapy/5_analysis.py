@@ -31,9 +31,9 @@ def get_crossref_metadata(doi):
 projectPath = Path()
 while not (Path() / ".git").is_dir():
     projectPath = projectPath.parent
-dataDir = projectPath / "data/derived/20230214/"
+dataDir = projectPath / "data/method1-scrapy-data/derived/20230214/"
 dataFile = dataDir / "upwData.json"
-scoringFile = dataDir / "scoring_system.csv"
+scoringFile = dataDir / "May_2023_scoring system.csv"
 figDir = projectPath / "figures"
 
 ########

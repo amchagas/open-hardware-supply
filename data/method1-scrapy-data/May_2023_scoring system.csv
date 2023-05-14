@@ -1,0 +1,128 @@
+paper title,Scorer,"Describes
+open  hardware?",paper DOI,"is article open access (1 for yes, 0 for no)","OpenOMeter1
+Open Source licenses","OpenOMeter2
+editable design/code
+ files available","OpenOMeter3
+bill of materials
+available","OpenOMeter4
+Assembly instructions
+available","OpenOMeter5
+all files shared 
+in original format","OpenOMeter6
+files kept in 
+version control
+system open to
+edits by others","OpenOMeter7
+Guides on
+how to contribute","OpenOMeter8
+Issue tracking
+system available","
+Notes ",total points ,score as percentage
+"""A Versatile and customizable low-cost 3D-printed open standard for microscopic imaging""",Heba,1,10.1038/s41467-020-19447-9,1,1,1,1,1,0.5,1,1,1,points 5 and 6 where scored as half points as the study contained some of the files as shared but not all are editable or original.,8.5,94.44444444
+"""Open source software for medical image processing and visualization""",Heba,1,10.1145/1042091.1042120,1,1,1,1,1,0,0,1,1,"the software spoken about throughout the study is available for people to download and use, however, it is not editable and not n the original format.",7,77.77777778
+"""A versatile labVIEW and field-programmable gate array-based scanning probe microscope for in operando electronic device characteristics""",Heba,1,10.1063/1.4902934,1,0,0,1,1,0,0,0,0,"this study describes the versatile microscope in much detail and provides sufficient information for the materials used and how to set up and calibrate the microscope, however, it does not provide the files used for this  software nor does it point people towards how to contribute.",3,33.33333333
+"""Free and open source automated 3D microscope""",Heba,1,10.1111/jmi.12433,0,0,1,1,1,0.5,0,0,0,This study provides efficient info about the microscope and a repository providing the details on how to make it but it's all not editable and is published under a closed license so its not editable. ,3.5,38.88888889
+"""Open-source 3-D platform for low-cost scientific instrument Ecosystem""",Heba,1,10.1177/2211068215624406,1,1,1,1,1,0.5,1,1,1,"A well rounded study, providing all the materials used plus all the softwares needed to complete the equipment set up, and all links provided are free and open access, thus easily replicable and editable. ",8.5,94.44444444
+"""Open-source photometric system for enzymatic Nitrate Quantification""",Heba,1,10.1371/journal.pone.0134989,1,0,1,1,1,1,1,1,1,"repository does not include licensing, not included in the study which license is used.",8,88.88888889
+"""Generation of orientation tools for automated zebrafish screening assays using desktop 3D printing""",Heba,1,10.1186/1472-6750-14-36,1,1,0,1,1,1,0,0,0,"The information provided goes into great detail about how to recreate the moulds they have originally created, however, all the files provided are not editable and there is nowhere to communicate with the authors to recommend improvements. ",5,55.55555556
+"""Multimodal microscopy imaging with the Open Flexure Delta stage""",Heba,1,10.1364/OE.450211,1,0,1,1,1,1,1,1,1,"All details included, but under a closed license.",8,88.88888889
+"""Low cost and open source multi-fluorescence imaging system for teaching and research in biology and bioengineering""",Heba,1,10.1371/journal.pone.0187163,1,1,0,1,1,0.5,0,1,1,"closed license, and not all files shared in original format and not editable.",6.5,72.22222222
+"""A force and thermal sensing skin for robots in human environments"" ",Heba,1,10.1016/j.robot.2017.06.008,0,0,0,0.5,0,0,0,0,0,"Not a good example of open source study. Only some of the materials described, but not in great detail, and some components are not fully explained in terms of materials used and how they got to the final product. All files provided in non-editable format and there is no guides on how to communicate with authors or to change anything about the ""skin"".",0.5,5.555555556
+"""Mini photobioreactors for in Vivo real-time characterisation and evolutionary tuning of bacterial optogenetic circuit""",Heba,1,10.1021/acssynbio.7b00091,1,1,0,1,1,0,0,0.5,0,"details provided about the materials used and set up of the hardwareis provided in the supplementary info. The files provided are not editable, there is no specific details on how to contact authors, just author info.",4.5,50
+"""A simple device to apply equibiaxial strain to cells cultured on flexible membranes""",Heba,1,10.1152/ajpheart.00649.2007,1,1,0.5,1,1,0.5,0,0,0,"Only hardware included, and original images of device, no open software included in article. Hardware is described accurately and clearly. ",5,55.55555556
+"""An open-hardware platform for optogenetics and photobiology""",Heba,1,10.1038/srep35363,1,0,1,1,1,0,1,0,0,"The files included can be edited if the right tools are available, there is no info on how to contact the authors.",5,55.55555556
+"""Openspritzer: an open hardware pressure ejection system for reliably delivering picolitre volumes""",Heba,1,10.1038/s41598-017-02301-2,1,1,0.5,1,1,0,0,0,0,"*MAY BE ALTERED* SCAD files are stated to be available in the supplementary materials, however, link comes up with error message and no files are accessible. They state that the codes included can be edited. ",4.5,50
+"""Open ISEmeter: An open hardware high-impedance interface for potentiometric detection""",Heba,1,10.1063/1.4952419,0,1,1,1,1,0,0,0,0,"materials used and assembly instructions avaliable, however, the files stated to have all the files on the university website do not open or download.",4,44.44444444
+"""Validation of a smartphone-based EEG among people with epilepsy: A prospective study""",Heba,1,10.1038/srep45567,1,1,1,1,1,1,1,1,1,"An excellent example of an open-source Hardware and software. Very well put together and all the materials and instructions clearly presented, GitHub files provided and open to edits.",9,100
+"""Screening for protein-protein ineractions using using Förster resonance energy transfer (FRET) and fluorscence lifetime imaging microscopy (FLIM)",Heba,1,10.1038/srep28186,1,1,0,1,1,0,0,0.5,0,"not a clear study, hard to read and navigate, contains the materials used and way to replicate, all the open sources used are stated, however, none of them are open for edits and are mostly websites, not editable files.",4.5,50
+"""Open source 3-D printed Nutating Mixer""",Heba,1,10.3390/app7090942,1,1,1,1,1,1,1,1,1,"A good, organsied paper containing all the open features an open paper needs, product is easliy replicable as all the info needed is provided and all files can be edited.",9,100
+"""A Novel low-cost open-hardware platform for monitoring soil water content and Multiple soil-air-vegetation Parameters""",Heba,1,10.3390/s141019639,1,1,0,1,1,0,0,0,0,"software is only avaliable under request, not provided in the article - not open. no guides on how to contribute or issue tracking.",4,44.44444444
+"""Open LED illuminator: A simple and inexpensive LED illuminator for Fast Multicolor Particle Tracking in Neurons""",Heba,1,10.1371/journal.pone.0143547,1,1,1,1,1,1,0,0,0,"Materials and assembly process clearly described, however, there is no clear way of how to contribute and who to contact about issues.",6,66.66666667
+"""CheapStat: An Open-source, ""Do-it-yourself"" Potentiostat for Analytical and Educational Applications""",Heba,1,10.1371/journal.pone.0023783,1,1,0,1,1,0,0,0,0,"materials and assembly details avaliable, however, website linked for software details opens wrong page and no alternative avaliable, no guides on contribution or issue tracking. ",4,44.44444444
+"""Open-source, community-driven microfluidics with Metafluidics""",Heba,1,10.1038/nbt.3873,1,1,0,0,0,0,0,0,0,,2,22.22222222
+"ChronoRoot: 
+High-throughput phenotyping by deep segmentation networks reveals novel temporal parameters of plant root system architecture",Andre,1,10.1093/gigascience/giab052,1,1,1,0,1,0,1,0,1,,6,66.66666667
+PiBot: An Open Low-Cost Robotic Platform with Camera for STEM Education,Andre,1,https://doi.org/10.3390/electronics7120430,1,0.5,0,0,0,0,1,0,1,,3.5,38.88888889
+"A Survey on Information and Communication Technologies for Industry 4.0: State-of-the-Art, Taxonomies, Perspectives, and Challenges",Andre,0,10.1109/COMST.2019.2938259,,,,,,,,,,,,0
+Deployment Environment for a Swarm of Heterogeneous Robots,Andre,0,10.3390/robotics5040022,1,,,,,,,,,,1,11.11111111
+"Elemental: An Open-Source Wireless 
+Hardware and Software Platform for 
+Building Energy and Indoor Environmental Monitoring and Control",Andre,1,10.3390/s19184017,1,0.5,1,0,0,1,1,0,1,,5.5,61.11111111
+Urgent need hybrid production - what COVID-19 can teach us about dislocated production through 3d-printing and the maker scene,Andre,0,10.1186/s41205-020-00090-5,1,,,,,,,,,,1,11.11111111
+Coordinated Exploration for Grand Challenges: The Role of Advocacy Groups in Search Consortia,Andre,0,10.5465/amj.2015.0730,0,,,,,,,,,,,0
+Gaining Legitimacy by Being Different: Optimal Distinctiveness in Crowdfunding Platforms,Andre,0,10.5465/amj.2018.0620,0,,,,,,,,,,,0
+A Survey of Wearable Biometric Recognition Systems,Andre,0,10.1145/2968215,0,,,,,,,,,,,0
+Scalability Issues in Online Social Networks,Andre,0,10.1145/2968216,0,,,,,,,,,,,0
+Mulsemedia DIY: A Survey of Devices and a Tutorial for Building Your Own Mulsemedia Environment,Andre,0,10.1145/3319853,0,,,,,,,,,,,0
+Future internet research and experimentation: the FIRE initiative,Andre,0,10.1145/1273445.1273460,0,,,,,,,,,,,0
+OpenPiton: An Open Source Manycore Research Framework,Andre,0,10.1145/2954679.2872414,1,,,,,,,,,,1,11.11111111
+Blossom: A Handcrafted Open-Source Robot,Andre,1,10.1145/3310356,1,0.5,1,1,1,0,1,0,1,,6.5,72.22222222
+Robust Environmental Sensing Using UAVs,Andre,,10.1145/3464943,0,,,,,,,,,,,0
+Application of the Open qPCR Instrument for the in Vitro Selection of DNA Aptamers against Epidermal Growth Factor Receptor and <i>Drosophila</i> C Virus,Andre,0,10.1021/acscombsci.7b00138,0,,,,,,,,,,,0
+An Electronically Perceptive Bioinspired Soft Wet-Adhesion Actuator with Carbon Nanotube-Based Strain Sensors,Andre,1,10.1021/acsnano.1c05130,0,,,,,,,,,,,0
+Maasi: A 3D printed spin coater with touchscreen,Andre,1,10.1016/j.ohx.2022.e00316,1,0.5,1,1,1,1,1,0,1,,7.5,83.33333333
+A programmable optical stimulator for the Drosophila eye,Andre,1,10.1016/j.ohx.2017.07.001,1,1,0,1,1,0,0,0,0,,4,44.44444444
+"SitkaNet: A low-cost, distributed sensor network for landslide monitoring and study",Andre,1,10.1016/j.ohx.2021.e00191,1,1,1,1,1,1,1,0,1,,8,88.88888889
+Low-cost and precise inline pressure sensor housing and DAQ for use in laboratory experiments,Andre,1,10.1016/j.ohx.2020.e00112,1,1,1,1,1,1,1,0,1,,8,88.88888889
+LAMSkyCam: A low-cost and miniature ground-based sky camera,Andre,1,10.1016/j.ohx.2022.e00346,1,0.5,0,1,1,0,0,0,0,,3.5,38.88888889
+"A high performance, low power computational platform for complex sensing operations in smart cities",Andre,1,10.1016/j.ohx.2017.01.001,1,0.5,0,0,0,0,0,0,0,,1.5,16.66666667
+Economic savings for scientific free and open source technology: A review,Andre,0,10.1016/j.ohx.2020.e00139,1,,,,,,,,,,1,11.11111111
+Bringing IoT to the Lab: SiLA2 and Open-Source-Powered Gateway Module for Integrating Legacy Devices into the Digital Laboratory,Andre,1,10.1016/j.ohx.2020.e00118,1,1,1,1,1,1,0,0,0,,6,66.66666667
+An easy to implement logic analyzer for long-term precise measurements,Andre,1,10.1016/j.ohx.2020.e00164,1,0.5,0.5,1,1,1,1,0,1,,7,77.77777778
+ADO: An open digital end-to-end tank based aquaculture platform,Andre,1,10.1016/j.ohx.2022.e00283,1,0.5,0,1,1,0,0,0,0,,3.5,38.88888889
+All-in-one automated microfluidics control system,Andre,1,10.1016/j.ohx.2019.e00063,1,1,1,1,1,1,0,0,0,,6,66.66666667
+An open-source head-fixation and implant-protection system for mice,Andre,1,10.1016/j.ohx.2022.e00391,1,1,1,1,1,1,0,0,0,,6,66.66666667
+Real-Time Monitoring System to Manage Mental Healthcare Emergency Unit,Andre,0,10.4258/hir.2020.26.4.344,1,,,,,,,,,,1,11.11111111
+Low-Cost Assistive Technologies for Disabled People Using Open-Source Hardware and Software: A Systematic Literature Review,Andre,0,10.1109/ACCESS.2022.3221449,1,,,,,,,,,,1,11.11111111
+Irrig-OH: An Open-Hardware Device for Soil Water Potential Monitoring and Irrigation Management,Andre,1,10.1002/ird.1989,0,0,0,1,0,0,0,0,0,,1,11.11111111
+Parametric Open Source Cold-Frame Agrivoltaic Systems,Andre,1,10.3390/inventions6040071,1,1,1,1,1,1,0,0,0,,6,66.66666667
+hackAIR: Towards Raising Awareness about Air Quality in Europe by Developing a Collective Online Platform,Andre,0,10.3390/ijgi7050187,1,,,,,,,,,,1,11.11111111
+Design and Implementation of an Urban Farming Robot,Andre,,10.3390/mi13020250,1,0,0,1,0,0,0,0,0,,2,22.22222222
+Toward Open-Source Hardware and Software for the Mining Industry: a Case Study of Low-Cost Environmental Monitoring System for Non-Metallic Underground Mines,Andre,1,10.1007/s42461-019-0093-3,0,,,,,,,,,,,0
+A hybrid optical–wireless network for decimetre-level terrestrial positioning,Andre,0,10.1038/s41586-022-05315-7,0,,,,,,,,,,,0
+Two decades of neuroscience publication trends in Africa,Andre,0,10.1038/s41467-021-23784-8,1,,,,,,,,,,1,11.11111111
+Microscopy made to order,Andre,0,10.1038/s41592-021-01313-1,1,,,,,,,,,,1,11.11111111
+Microscopy: OpenSPIM 2.0,Andre,0,10.1038/nmeth.4070,1,,,,,,,,,,1,11.11111111
+The mesoSPIM initiative: open-source light-sheet microscopes for imaging cleared tissue,Andre,1,10.1038/s41592-019-0554-0,0,1,1,1,1,1,1,0,1,,7,77.77777778
+EEG miniaturization limits for stimulus decoding with EEG sensor networks,Andre,0,10.1088/1741-2552/ac2629,,,,,,,,,,,,0
+Open Source 3D-Printable Planetary Roller Screw for Food Processing Applications,Andre,1,10.3390/technologies9020024,1,0.5,1,1,1,1,1,0,1,,7.5,83.33333333
+Energy Conservation with Open Source Ad Blockers,Andre,0,10.3390/technologies8020018,0,,,,,,,,,,,0
+AN OPEN DROUGHT MONITORING SYSTEM FOR THE DEDURU OYA BASIN IN SRI LANKA IN THE CONTEXT OF THE 4ONSE PROJECT,Andre,1,10.5194/isprs-archives-XLII-4-W14-227-2019,1,0,0,0,0,0,0,0,0,,1,11.11111111
+Open LED Illuminator: A Simple and Inexpensive LED Illuminator for Fast Multicolor Particle Tracking in Neurons,Andre,1,10.1371/journal.pone.0143547,1,0,0,1,1,1,0,0,0,,4,44.44444444
+Message in a bottle: Open source technology to track the movement of plastic pollution,Andre,1,10.1371/journal.pone.0242459,1,0,0,0,0,0,0,0,0,,1,11.11111111
+PSoC-Stat: A single chip open source potentiostat based on a Programmable System on a Chip,Andre,1,10.1371/journal.pone.0201353,1,0.5,0.5,1,1,0.5,0.5,0,1,,6,66.66666667
+A low-cost and open-source solution to automate imaging and analysis of cyst nematode infection assays for Arabidopsis thaliana,Andre,1,10.1186/s13007-022-00963-2,1,0.5,0.5,0,1,0.5,1,0,1,,5.5,61.11111111
+Development of a cloud-based system for remote monitoring of a PVT panel,Andre,1,10.1515/eng-2016-0041,1,0,0,0,0,0,0,0,0,,1,11.11111111
+Camera sensor platform for high speed video data transmission using a wideband electro-optic polymer modulator,Andre,0,10.1364/OE.27.001877,1,,,,,,,,,,1,11.11111111
+Open hardware microsecond dispersive transient absorption spectrometer for linear optical response,Andre,1,10.1007/s43630-021-00127-6,1,0,0,0.5,1,0,0,0,0,,2.5,27.77777778
+The novel Mechanical Ventilator Milano for the COVID-19 pandemic,Andre,1,10.1063/5.0044445,1,0,0,0,0,0,0,0,0,,1,11.11111111
+"Plant, space and time - linked together in an integrative and scalable data management system for phenomic approaches in agronomic field trials",Andre,0,10.1186/s13007-020-00596-3,1,,,,,,,,,,1,11.11111111
+Global Coverage Measurement Planning Strategies for Mobile Robots Equipped with a Remote Gas Sensor,Andre,0,10.3390/s150306845,1,,,,,,,,,,1,11.11111111
+"A Low-Cost, Open Source Monitoring System for Collecting High Temporal Resolution Water Use Data on Magnetically Driven Residential Water Meters",Andre,1,10.3390/s20133655,1,1,1,1,1,1,1,0,1,,8,88.88888889
+Development of Non Expensive Technologies for Precise Maneuvering of Completely Autonomous Unmanned Aerial Vehicles,Andre,0,10.3390/s21020391,1,0,0,0,0,0,0,0,0,"This describes a low cost device, no claims as being an open source device",1,11.11111111
+Design of Wireless Sensors for IoT with Energy Storage and Communication Channel Heterogeneity,Andre,0,10.3390/s19153364,1,,,,,,,,,,1,11.11111111
+"A Low-Cost, Low-Power Water Velocity Sensor Utilizing Acoustic Doppler Measurement",Andre,1,10.3390/s22197451,1,0,1,1,0,0.5,0,0,0,,3.5,38.88888889
+An Ultra-Low Power CMOS Image Sensor with On-Chip Energy Harvesting and Power Management Capability,Andre,1,10.3390/s150305531,1,0,0,0,0,0,0,0,0,,1,11.11111111
+Design of a Low-Cost Air Levitation System for Teaching Control Engineering,Andre,1,10.3390/s17102321,1,0.5,1,0,1,1,1,0,1,,6.5,72.22222222
+"A Low-Cost, Stand-Alone Sensory Platform for Monitoring Extreme Solar Overirradiance Events",Andre,1,10.3390/s18082685,1,0,0,0,0,0,0,0,0,,1,11.11111111
+UAV-Based and WebRTC-Based Open Universal Framework to Monitor Urban and Industrial Areas,Andre,1,10.3390/s21124061,1,0,0,0,0,0,0,0,0,,1,11.11111111
+Comparison of Tagging Technologies for Safeguards of Copper Canisters for Nuclear Spent Fuel,Andre,0,10.3390/s18040929,1,,,,,,,,,,1,11.11111111
+A Multi-Port Hardware Energy Meter System for Data Centers and Server Farms Monitoring,Andre,1,10.3390/s23010119,1,0,0,0,0,0,0,0,0,,1,11.11111111
+Towards Fully Autonomous UAVs: A Survey,Andre,0,10.3390/s21186223,1,,,,,,,,,,1,
+A Low-Cost Data Acquisition System for Automobile Dynamics Applications,Andre,1,10.3390/s18020366,1,0,0,0,0,0,0,0,0,,1,
+An Open Hardware Design for Internet of Things Power Quality and Energy Saving Solutions,Andre,1,10.3390/s19030627,1,0.5,1,0,0,1,1,0,1,,5.5,
+Pump-Free Microfluidic Rapid Mixer Combined with a Paper-Based Channel,Andre,1,10.1021/acssensors.0c00937,0,,,,,,,,,,,
+An Arduino Investigation of Newton’s Law of Cooling,Andre,1,10.1119/1.5080580,1,0,0,1,1,0,0,0,0,,3,
+Curved-crease origami face shields for infection control,Andre,1,10.1371/journal.pone.0245737,1,0.5,1,0,1,1,1,1,1,,7.5,
+"PVP1—The People’s Ventilator Project: A fully open, low-cost, pressure-controlled ventilator research platform compatible with adult and pediatric uses",Andre,1,10.1371/journal.pone.0266810,1,0.5,1,1,1,1,1,0,1,,7.5,
+Steps to build a DIY low-cost fixed-wing drone for biodiversity conservation,Andre,1,10.1371/journal.pone.0255559,1,0.5,0,1,1,1,0,0,0,,4.5,
+"""Do-It-Yourself"" reliable pH-stat device by using open-source software, inexpensive hardware and available laboratory equipment",Andre,1,10.1371/journal.pone.0193744,1,0.5,0,0,0,0.5,1,0,1,,4,
+"Validation of modified radio-frequency identification tag firmware, using an equine population case study",Andre,0,10.1371/journal.pone.0210148,1,,,,,,,,,,1,
+Subject validation of reusable N95 stop-gap filtering facepiece respirators in COVID-19 pandemic,Andre,1,10.1371/journal.pone.0242304,1,1,0,0,1,0,1,0,1,,5,
+Autonomous drone hunter operating by deep learning and all-onboard computations in GPS-denied environments,Andre,0,10.1371/journal.pone.0225092,1,,,,,,,,,,1,
+Digital instrument with configurable hardware and firmware for multi-channel time measures,Andre,1,10.1063/1.5028131,1,0,0,0,0,0,0,0,0,,1,
+Open-source parametric 3-D printed slot die system for thin film semiconductor processing,Andre,1,10.1016/j.addma.2017.12.004,0,,,,,,,,,,,
+Rapid prototyping method for 3D PDMS microfluidic devices using a red femtosecond laser,Andre,1,10.1177/1687814020982713,1,0.5,0,0,1,0,0,0,0,,2.5,
+An Arduino based automatic pressure evaluation system to quantify growth of non‐model anaerobes in culture,Andre,1,10.1002/aic.16540,0,,,,,,,,,,,
+Development of an open hardware bioreactor for optimized cardiac cell culture integrating programmable mechanical and electrical stimulations,Andre,1,10.1063/1.5144922,1,0.5,0,0,1,0,0,0,0,,2.5,
+Optical measurements on a budget: A 3D-printed ellipsometer,Andre,1,10.1119/10.0009665,1,0.5,1,1,1,0,1,0,1,,6.5,

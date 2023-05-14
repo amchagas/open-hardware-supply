@@ -13,7 +13,8 @@ with open("scraper_api_key") as fh:
     key = fh.readline()
 
 pg = ProxyGenerator()
-pg.ScraperAPI(key)
+#success = pg.FreeProxies()
+success = pg.ScraperAPI(key)
 
 scholarly.use_proxy(pg)
 
@@ -37,13 +38,14 @@ TERMS = (
 # 2005 → Arduino, Make, Git, ...
 # full_query [< 2005]: 615 results
 # full_query [>=2000 & < 2005]: 335 results
-YEARS = tuple(range(2005, 2023))
+YEARS = tuple(range(2005, 2006))
 
 
 # Months in current locale (English with the default locale)
 # We exclude month 5 (May), as it coincides with the verb "may".
 MONTHS = tuple(calendar.month_name[m] for m in range(1, 13) if m != 5)
 
+LANGUAGES = tuple("en")
 
 # Query results are silently cut at 1k
 QUERY_MAX_RESULTS = 1000
@@ -132,7 +134,8 @@ def store_all(out_dir=None):
                 "query": base_query,
                 "year_low": year,
                 "year_high": year,
-                "lr":"lang_en",
+                "language": "en",
+                "review_only":False
             }
             # total_results is a bit fuzzy so play safe with a margin of 100
             if store_attempt(query_args, out_path, 100):
