@@ -41,8 +41,10 @@ figDir = projectPath / "figures"
 ########
 
 documentData = pd.read_json(dataFile)
+documentData["year"] = documentData["year"].astype("Int64")
 articleData = documentData[documentData.genre.eq("journal-article")]
 scoringData = pd.read_csv(scoringFile)
+scoringData = scoringData.dropna(subset=["total points "])
 scoringData["_total_points"] = scoringData["total points "].mul(2).astype(int)
 scoringData["_year"] = scoringData["paper DOI"].map(
     lambda x: get_crossref_metadata(x)["year"]
