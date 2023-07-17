@@ -78,3 +78,21 @@ Results will placed here and also as a preprint and then submitted peer-review.
 - Miguel Fernandes
 - Natasha Pouchkina-Stantcheva
 - Tom Baden
+
+
+
+--- 
+
+#### keywords used to exclude URLs from PDF mining:
+
+- orcid
+- nih
+
+
+
+####  keywords used to include URLs from PDF mining:
+- mendeley
+- osf
+- github
+- gitlab
+- .zip
