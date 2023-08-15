@@ -1,0 +1,4 @@
+pandas
+PyPDF2
+pdfminer
+scholarly
