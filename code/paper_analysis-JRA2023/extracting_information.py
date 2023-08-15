@@ -62,7 +62,7 @@ def hyperlinks_searching(page, include : set, exclude : set):
             obj = a.get_object()
             if '/A' in obj.keys() and '/URI' in obj['/A'].keys():
                 uri = obj['/A']['/URI']
-                if any(element in uri for element in include) and not any(element in uri for element in exclude):
+                if any(element in uri for element in include) or not any(element in uri for element in exclude):
                     return obj['/A']['/URI']
     else:
         return None
@@ -71,7 +71,7 @@ def hyperlinks_searching(page, include : set, exclude : set):
 # It takes in the path to the output csv file, the path to the downloaded Zotero database, and the path to the downloaded PDF files.
 def main(output_csv, database, downloaded):
     df = pd.read_csv(database)
-    for filename in os.listdir(downloaded)[4:10]:
+    for filename in os.listdir(downloaded):
         # Getting a row in the database
         entry = df.loc[df['Key'] == filename[:-4]]
         csv_entry = [entry['Key'].values[0], entry['Title'].values[0], entry['DOI'].values[0]]

@@ -21,13 +21,13 @@ def main(output, database, email):
         print(f"Downloaded PDF for publication: {publication_key}")
 
     # Opens a CSV file that contains information about all PDFs that need to be downloaded
-    # and appends their Zotero ID "row[0]" and title of the publication "row[4]" to a list
+    # and appends their Zotero ID "row[0]" and doi of the publication "row[8]" to a list
     # called "articles"
     articles = []
     with open(database, 'r', encoding="utf-8") as csvfile:
         csv_reader = csv.reader(csvfile)
         for row in csv_reader:
-            articles.append([row[0], row[4], row[8]])
+            articles.append([row[0], row[8]])
 
     # Checks if a PDF file is already downloaded.
     # If it is - does nothing, if not - sends a get request to Unpaywall API,
@@ -36,8 +36,7 @@ def main(output, database, email):
     downloaded_articles = [os.path.splitext(filename)[0] for filename in os.listdir(output)]
     for article in articles[1:15]:
         key = article[0]
-        title = article[1]
-        doi = article[2]
+        doi = article[1]
         if key not in downloaded_articles:
             if doi != "":
                 url = f"https://api.unpaywall.org/v2/{doi}?email={email}"
