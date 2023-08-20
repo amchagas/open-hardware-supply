@@ -79,30 +79,33 @@ def main(output_csv, database, downloaded):
         sections = set()
         f = os.path.join(downloaded, filename)
         # Extracting pages from the file and starting to search for keywords and links
-        pages = list(extract_pages(f))
-        for page_id, page in enumerate(pages):
-            page = list(page)
+        try:
+            pages = list(extract_pages(f))
+            for page_id, page in enumerate(pages):
+                page = list(page)
 
-            # Searching for keywords
-            for element_id, element in enumerate(page):
-                if isinstance(element, LTTextContainer):
-                    text_objects = [object for object in element._objs if isinstance(object, LTTextLine)]
-                    for line in text_objects:
-                        if any(phrase in line.get_text().lower() for phrase in open_hardware_variation):
-                            sections.add(section_keywords_searching(pages, page_id, element_id, [char.fontname for char in line if isinstance(char, LTChar)][0]))
+                # Searching for keywords
+                for element_id, element in enumerate(page):
+                    if isinstance(element, LTTextContainer):
+                        text_objects = [object for object in element._objs if isinstance(object, LTTextLine)]
+                        for line in text_objects:
+                            if any(phrase in line.get_text().lower() for phrase in open_hardware_variation):
+                                sections.add(section_keywords_searching(pages, page_id, element_id, [char.fontname for char in line if isinstance(char, LTChar)][0]))
 
-            # Searching for links
-            reader = PyPDF2.PdfReader(f)
-            page_pdf2 = reader.pages[page_id]
-            uri = hyperlinks_searching(page_pdf2, {"mendeley", "osf", "github", "gitlab", ".zip"}, {"orcid", "nih", "doi"})
-            if uri != None: links.add(uri)
+                # Searching for links
+                reader = PyPDF2.PdfReader(f)
+                page_pdf2 = reader.pages[page_id]
+                uri = hyperlinks_searching(page_pdf2, {"mendeley", "osf", "github", "gitlab", ".zip"}, {"orcid", "nih", "doi"})
+                if uri != None: links.add(uri)
 
-        # Appending an entry to a CSV file named Output.csv
-        csv_entry.append(sections) if sections != set() else csv_entry.append(None)
-        csv_entry.append(links) if links != set() else csv_entry.append(None)
-        print(csv_entry)
-        # with open(output_csv, 'a', newline='') as output:
-        #     csv.writer(output).writerow(csv_entry)
+            # Appending an entry to a CSV file named Output.csv
+            csv_entry.append(sections) if sections != set() else csv_entry.append(None)
+            csv_entry.append(links) if links != set() else csv_entry.append(None)
+            print(csv_entry)
+            # with open(output_csv, 'a', newline='') as output:
+            #     csv.writer(output).writerow(csv_entry)
+        except:
+            print(f"Couldn't process {filename}. Check its contents at {f}.")
 
 # Getting user information from the user_information.json
 if __name__ == "__main__":

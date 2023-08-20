@@ -1,4 +1,4 @@
 pandas
 PyPDF2
-pdfminer
+pdfminer.six
 scholarly
