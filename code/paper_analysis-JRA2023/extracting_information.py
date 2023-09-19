@@ -8,14 +8,14 @@ import json
 import saving_user_info
 
 # Set of keywords used for determining if a line of text is a section or not
-section_keywords = {"abstract", "introduction", "reults", "method", "conclusion", "discussion", "references"}
+section_keywords = {"abstract", "introduction", "results", "method", "conclusion", "discussion", "references"}
 # set of keywords used for finding "open hardware" term in a document
-open_hardware_variation = {"open hardware", "open_hardware", "open-hardware"}
+open_hardware_variation = {"open hardware", "open_hardware", "open-hardware", "open source hardware","open-source hardware"}
 
 # Function that returns a section under which term "open hardware" was found.
 # It takes in all the pages from the document, page id where the term was found,
 # position on the page where the term was found, and the font used in that section of text.
-def section_keywords_searching(pages: list[LTComponent], page_id : int, element_id : int, found_font_name : str):
+def section_keywords_searching(pages: LTComponent, page_id : int, element_id : int, found_font_name : str):
     if page_id >= 0:
         page = list(pages[page_id])
         while element_id >= 0:
@@ -95,7 +95,7 @@ def main(output_csv, database, downloaded):
                 # Searching for links
                 reader = PyPDF2.PdfReader(f)
                 page_pdf2 = reader.pages[page_id]
-                uri = hyperlinks_searching(page_pdf2, {"mendeley", "osf", "github", "gitlab", ".zip"}, {"orcid", "nih", "doi"})
+                uri = hyperlinks_searching(page_pdf2, {"mendeley", "osf", "github", "gitlab", ".zip"}, {"orcid", "nih", "doi","mailto:","creativecommons.org"})
                 if uri != None: links.add(uri)
 
             # Appending an entry to a CSV file named Output.csv

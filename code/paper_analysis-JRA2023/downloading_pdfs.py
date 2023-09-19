@@ -34,7 +34,7 @@ def main(output, database, email):
     # querying for the publication with the specified title name.
     # It then attempts to download the PDF file using the "url_for_pdf" provided by the response 
     downloaded_articles = [os.path.splitext(filename)[0] for filename in os.listdir(output)]
-    for article in articles[1:15]:
+    for article in articles:#[1:15]:
         key = article[0]
         doi = article[1]
         if key not in downloaded_articles:
