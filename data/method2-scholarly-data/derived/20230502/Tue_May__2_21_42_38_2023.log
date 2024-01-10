@@ -1,9 +1,0 @@
-('Query', ['TI=("application" "defined" "processors")', 'AU=(poznanovic)', 'PY=(2005)'])
-('Failed query', {'Parameters': {'databaseId': 'WOK', 'usrQuery': 'TI=("application" "defined" "processors") AND AU=(poznanovic) AND PY=(2005)', 'count': 5, 'firstRecord': 1}})
-('Query', ['TI=("a" "case" "for" "open" "source" "in" "automotive" "embedded" "systems")', 'AU=(devi)', 'PY=(2005)'])
-('Failed query', {'Parameters': {'databaseId': 'WOK', 'usrQuery': 'TI=("a" "case" "for" "open" "source" "in" "automotive" "embedded" "systems") AND AU=(devi) AND PY=(2005)', 'count': 5, 'firstRecord': 1}})
-('Query', ['TI=("towards" "an" "open" "hardware" "open" "software" "toolkit" "for" "robust" "low" "cost" "eye" "tracking" "in" "hci" "applications" "technical" "report" "isu" "hci" "2005" "04")', 'AU=(winfield)', 'PY=(NA)'])
-Server error KeyError:'Data'. Sleeping 4s.
-Server error KeyError:'Data'. Sleeping 8s.
-Server error KeyError:'Data'. Sleeping 16s.
-Server error KeyError:'Data'. Sleeping 32s.
