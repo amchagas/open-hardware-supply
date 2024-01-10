@@ -13,7 +13,7 @@ import os
 
 
 WOS_API = "https://wos-api.clarivate.com/api/wos"
-DATA_DIR = Path("../data/")
+DATA_DIR = Path("..\\..\\data\\method2-scholarly-data\\")
 
 all_files = list()
 for entry in os.listdir(DATA_DIR):

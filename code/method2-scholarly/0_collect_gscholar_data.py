@@ -28,9 +28,9 @@ if "logger" not in locals():
 TERMS = (
     "open hardware",
     "open source hardware",
-    "opensource hardware",
-    "open science hardware",
-    "open scientific hardware",
+    #"open source hardware",
+    #"open science hardware",
+    #"open scientific hardware",
     # 'open source instrument',
     # 'open source instrumentation',
 )
@@ -38,7 +38,7 @@ TERMS = (
 # 2005 → Arduino, Make, Git, ...
 # full_query [< 2005]: 615 results
 # full_query [>=2000 & < 2005]: 335 results
-YEARS = tuple(range(2005, 2006))
+YEARS = tuple(range(2023, 2024))
 
 
 # Months in current locale (English with the default locale)
@@ -76,8 +76,8 @@ class QueryBuilder:
 
 
 def get_full_query(terms):
-    return QueryBuilder.or_(QueryBuilder.quote(term) for term in terms)
-
+    #return QueryBuilder.or_(QueryBuilder.quote(term) for term in terms)
+    return QueryBuilder.or_(QueryBuilder.quote(terms))
 
 def get_pubs(query, year_low=None, year_high=None, start_index=0, **kwargs):
     search_pubs_args = {"year_low": year_low, "year_high": year_high, **kwargs}
