@@ -1,8 +1,0 @@
-('Query', ['TI=("Towards" "FAIR" "Principles" "for" "Open" "Hardware")', 'PY=(2021)', 'AU=(N Miljković)'])
-Server error KeyError:'Data'. Sleeping 4s.
-Server error KeyError:'Data'. Sleeping 8s.
-Server error KeyError:'Data'. Sleeping 16s.
-Server error KeyError:'Data'. Sleeping 32s.
-Server error KeyError:'Data'. Sleeping 64s.
-Server error KeyError:'Data'. Sleeping 128s.
-Server error KeyError:'Data'. Sleeping 256s.
