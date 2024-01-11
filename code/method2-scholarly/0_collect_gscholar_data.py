@@ -26,19 +26,19 @@ if "logger" not in locals():
 # Keep it simple and close to the essential terms,
 # and so in the scope of claiming OSH qualities
 TERMS = (
-    "open hardware",
-    "open source hardware",
+    #"open hardware",
     #"open source hardware",
     #"open science hardware",
-    #"open scientific hardware",
-    # 'open source instrument',
-    # 'open source instrumentation',
+    "open scientific hardware",
+    "open source instrument",
+    "open source instrumentation",
+    "open labware"
 )
 
 # 2005 → Arduino, Make, Git, ...
 # full_query [< 2005]: 615 results
 # full_query [>=2000 & < 2005]: 335 results
-YEARS = tuple(range(2023, 2024))
+YEARS = tuple(range(2005, 2024))
 
 
 # Months in current locale (English with the default locale)

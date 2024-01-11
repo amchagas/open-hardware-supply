@@ -13,7 +13,7 @@ import os
 
 
 WOS_API = "https://wos-api.clarivate.com/api/wos"
-DATA_DIR = Path("..\\..\\data\\method2-scholarly-data\\")
+DATA_DIR = Path("/home/andre/repositories/open-hardware-supply/data/method2-scholarly-data/dumpdata/")
 
 all_files = list()
 for entry in os.listdir(DATA_DIR):
@@ -84,7 +84,8 @@ class TitlesToRecords:
                 
                 author = line['bib'].get('author', None)
                 pubyear = line['bib'].get('pub_year', None)
-                
+                #print(pubyear)
+                #print(pubyear=="NA")
                 if author:
                     author = self.normalize_text(author[0].split(" ")[-1])
                     data['first_author'] = unidecode(author)
@@ -100,14 +101,19 @@ class TitlesToRecords:
                 data['pub_type']= line.get('container_type', None)
                 data['venue']= line['bib'].get('venue', None)
                 data['pub_url']= line.get('pub_url', None)
-                
-
-                
-                if pubyear := re.search(r"[,-] (\d{4}) -", data["pubyear"]) == "NA":
+                print(pubyear)
+                #print(pubyear := re.search(r"[,-] (\d{4}) -", data["pubyear"]))
+                #print(pubyear := re.search(r"[,-] (\d{4}) -", data["pubyear"]) == "NA")
+                if pubyear =="NA":
                     print("missing year")
                     self.logger.debug(("Missing year", data))
+                else:
+                    yield data
+                #if pubyear := re.search(r"[,-] (\d{4}) -", data["pubyear"]) == "NA":
+                #    print("missing year")
+                #    self.logger.debug(("Missing year", data))
                 print(data)
-                yield data
+                
         """
         for fpath in tqdm(self.source_paths):
             with fpath.open() as f:

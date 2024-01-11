@@ -6,7 +6,7 @@ import get_wos_records_from_api as gwr
 from pathlib import Path
 
 source_files =  gwr.DATA_PATHS 
-output_dir ="..\\data\\derived\\20230823\\"
+output_dir ="/home/andre/repositories/open-hardware-supply/data/method2-scholarly-data/dumpdata/derived/"
 api_key = Path('./wos_api_key').read_text()
 
 wosTtr = gwr.TitlesToRecords(source_files,output_dir,api_key)
