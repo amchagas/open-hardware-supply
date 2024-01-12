@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 import time
 from jellyfish import damerau_levenshtein_distance as edit_distance
+
 # from unidecode import unidecode
 from tqdm.auto import tqdm
 import os
@@ -22,22 +23,23 @@ for entry in os.listdir(DATA_DIR):
         all_files.append(entry)
 
 
-DATA_PATHS = [
-    DATA_DIR / file
-    for file in all_files]
+DATA_PATHS = [DATA_DIR / file for file in all_files]
 
 
 class TitlesToRecords:
     """
-    Downloads WOS records related to each item of Google Scholar scraped data, then find the best match.
+    Downloads WOS records related to each item of Google Scholar scraped data, then find
+    the best match.
     Instantiate the class, then:
     `wosTtr.download_records()` to download all matches into 'multi_records.json'
-    `wosTtr.dump_records()` to clean the downloaded data and dump it into the final 'records.jsonl'.
+    `wosTtr.dump_records()` to clean the downloaded data and dump it into the final
+    'records.jsonl'.
     Parameters:
     - source_files: paths to files containing information scraped from Google Scholar
     - output_dir: path where intermediate and resulting WOS records will be stored
     - api_key: WOS API key
     """
+
     def __init__(self, source_files, output_dir, api_key):
         self.api_key = api_key
         self.source_paths = [Path(file) for file in source_files]
@@ -109,9 +111,9 @@ class TitlesToRecords:
                     self.logger.debug(("Missing year", record))
                 # Fields not used for retrieving WOS records
                 if "pub_url" in record:
-                    data['pub_url'] = record['pub_url']
-                data['container_type'] = record['container_type']
-                data['venue'] = bib['venue']
+                    data["pub_url"] = record["pub_url"]
+                data["container_type"] = record["container_type"]
+                data["venue"] = bib["venue"]
                 yield data
 
     def build_query(self, data):
