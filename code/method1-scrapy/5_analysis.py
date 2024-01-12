@@ -42,7 +42,8 @@ figDir = projectPath / "figures"
 
 documentData = pd.read_json(dataFile)
 documentData["year"] = documentData["year"].astype("Int64")
-articleData = documentData[documentData.genre.eq("journal-article")]
+# articleData = documentData[documentData.genre.isin({"journal-article", "proceedings-article"})]
+articleData = documentData[documentData.genre.isin({"journal-article"})]
 scoringData = pd.read_csv(scoringFile)
 scoringData = scoringData.dropna(subset=["total points "])
 scoringData["_total_points"] = scoringData["total points "].mul(2).astype(int)

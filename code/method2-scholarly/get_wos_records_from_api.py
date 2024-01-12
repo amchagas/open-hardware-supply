@@ -7,13 +7,14 @@ from pathlib import Path
 import re
 import time
 from jellyfish import damerau_levenshtein_distance as edit_distance
-from unidecode import unidecode
-#from tqdm.auto import tqdm
+# from unidecode import unidecode
+from tqdm.auto import tqdm
 import os
 
 
 WOS_API = "https://wos-api.clarivate.com/api/wos"
-DATA_DIR = Path("/home/andre/repositories/open-hardware-supply/data/method2-scholarly-data/dumpdata/")
+# DATA_DIR = Path("/home/andre/repositories/open-hardware-supply/data/method2-scholarly-data/dumpdata/")
+DATA_DIR = Path("../../data/method2-scholarly-data/dumpdata")
 
 all_files = list()
 for entry in os.listdir(DATA_DIR):
@@ -44,12 +45,16 @@ class TitlesToRecords:
         self.store.mkdir(parents=True, exist_ok=True)
         self.multi_records_file = self.store / "multi_records.jsonl"
         self.records_file = self.store / "records.jsonl"
-        self.normalize_rex = re.compile(r"\W+")
+        self.normalize_title_rex = re.compile(r"[\W_]+")
+        self.normalize_author_rex = re.compile(r"[\W0-9_]+")
         self.query_fields = ["title", "pubyear", "first_author"]
         self.logger = self._logging()
 
-    def normalize_text(self, text):
-        return self.normalize_rex.sub(" ", text).strip().lower()
+    def normalize_title(self, text):
+        return self.normalize_title_rex.sub(" ", text).strip().casefold()
+
+    def normalize_author(self, text):
+        return self.normalize_author_rex.sub(" ", text).strip().casefold()
 
     def data_key(self, data):
         return tuple(tuple(x) for x in data)
@@ -57,86 +62,58 @@ class TitlesToRecords:
     def _logging(self):
         logger = logging.getLogger(f"{type(self).__module__}.{type(self).__name__}")
         logger.setLevel(logging.DEBUG)
-        logFileName = time.asctime().replace(" ","_").replace(":","_")
+        logFileName = time.asctime().replace(" ", "_").replace(":", "_")
         fh = logging.FileHandler(self.store / f"{logFileName}.log")
         fh.setLevel(logging.DEBUG)
         logger.addHandler(fh)
         return logger
 
     def scraped_data(self):
-        print("files found: "+str(len(self.source_paths)))
-        for idx,fpath in enumerate(self.source_paths):
-            print("processing file "+str(idx))
-            print(fpath)
-            with open(fpath,'r') as f:
-                json_data = f.readlines()
-            # Remove newline characters and parse JSON
-            json_data = [json.loads(line.strip()) for line in json_data]
-            # Extract relevant data from JSON
-            #extracted_data = []
-            for line in json_data:
-                data = dict()
-                #data["_line"]=line
-                
-                title = line['bib'].get('title', None)
-                data['title']= self.normalize_text(title)
-                
-                
-                author = line['bib'].get('author', None)
-                pubyear = line['bib'].get('pub_year', None)
-                #print(pubyear)
-                #print(pubyear=="NA")
-                if author:
-                    author = self.normalize_text(author[0].split(" ")[-1])
-                    data['first_author'] = unidecode(author)
-                else:
-                    data['first_author']="NA"                
-
-                
-                
-                
-                #data['author']= author,
-                data["pubyear"]= pubyear
-                #"first_author": data['bib'].get('first_author', None)
-                data['pub_type']= line.get('container_type', None)
-                data['venue']= line['bib'].get('venue', None)
-                data['pub_url']= line.get('pub_url', None)
-                print(pubyear)
-                #print(pubyear := re.search(r"[,-] (\d{4}) -", data["pubyear"]))
-                #print(pubyear := re.search(r"[,-] (\d{4}) -", data["pubyear"]) == "NA")
-                if pubyear =="NA":
-                    print("missing year")
-                    self.logger.debug(("Missing year", data))
-                else:
-                    yield data
-                #if pubyear := re.search(r"[,-] (\d{4}) -", data["pubyear"]) == "NA":
-                #    print("missing year")
-                #    self.logger.debug(("Missing year", data))
-                print(data)
-                
         """
-        for fpath in tqdm(self.source_paths):
+        scholarly returns an object with a structured record:
+        {
+          "author_id": [""],
+          "bib": {"abstract": "", "author": [""], "pub_year": "", "title": "", "venue": ""},
+          "citedby_url": "",
+          "container_type": "",
+          "eprint_url": "",
+          "filled": False,
+          "gsrank": 0,
+          "num_citations": 0,
+          "pub_url": "",
+          "source": "",
+          "url_add_sclib": "",
+          "url_related_articles": "",
+          "url_scholarbib": ""
+        }
+        """
+        self.logger.info(f"Files found: {len(self.source_paths)}")
+        for fpath in tqdm(self.source_paths, desc="File: "):
             with fpath.open() as f:
                 total = len(list(f.readlines()))
-            for line in tqdm(fpath.open().readlines(), total=total, desc=" "):
+            for line in tqdm(fpath.open().readlines(), total=total, desc="Line: "):
                 data = {}
                 data["_line"] = line
-                #scraped = json.loads(line)
-                scraped = json.loads(line.strip())
-                data["title"] = self.normalize_text(scraped["title"])
-                data["first_author"] = (
-                    scraped["publishedData"]
-                    .split("-")[0]
-                    .split(",")[0]
-                    .split()[-1]
-                    .strip("… ")
-                )
-                if pubyear := re.search(r"[,-] (\d{4}) -", scraped["publishedData"]):
-                    data["pubyear"] = int(pubyear.groups()[0])
+                record = json.loads(line)
+                bib = record["bib"]
+                # Fields used for retrieving WOS records
+                data["title"] = self.normalize_title(bib["title"])
+                # Treat records with 0 authors or where first author is ""
+                if len(authors := [s for s in bib["author"] if s]):
+                    data["first_author"] = self.normalize_author(authors[0].split()[-1])
                 else:
-                    self.logger.debug(("Missing year", scraped))
+                    self.logger.debug(("Missing authors", record))
+                if (pubyear := bib["pub_year"]) != "NA":
+                    data["pubyear"] = int(pubyear)
+                else:
+                    self.logger.debug(("Missing year", record))
+                # Fields not used for retrieving WOS records
+                if "pub_url" in record:
+                    data['pub_url'] = record['pub_url']
+                data['container_type'] = record['container_type']
+                data['venue'] = bib['venue']
                 yield data
-                """
+
     def build_query(self, data):
         tag = {"title": "TI", "first_author": "AU", "pubyear": "PY"}
         query = [
@@ -198,7 +175,7 @@ class TitlesToRecords:
             )
         with open(self.multi_records_file, "a") as rf:
             for data in self.scraped_data():
-                
+
                 data_key = self.data_key(data.items())
 
                 if data_key not in downloaded_data_keys:
@@ -217,7 +194,7 @@ class TitlesToRecords:
                 for x in rec["static_data"]["summary"]["titles"]["title"]
                 if x["type"] == "item"
             ]
-            rec_title = self.normalize_text(rec_title["content"])
+            rec_title = self.normalize_title(rec_title["content"])
             title_distance = edit_distance(rec_title, data["title"])
             if title_distance > 5:
                 continue
@@ -227,13 +204,14 @@ class TitlesToRecords:
                 debug["Good title"] = data["title"]
 
             rec_authors = [
-                y.get("last_name", y["full_name"].split(",")[0]).strip()
+                y.get("last_name", y["full_name"].split(",")[0]).strip().split()[-1]
                 for x in [rec["static_data"]["summary"]["names"]["name"]]
                 for y in (x if isinstance(x, list) else [x])
                 if "last_name" in y or "full_name" in y
             ]
             author_distance = min(
-                edit_distance(data["first_author"], author) for author in rec_authors
+                edit_distance(data["first_author"], self.normalize_author(author))
+                for author in rec_authors
             )
             if author_distance > 2:
                 continue
