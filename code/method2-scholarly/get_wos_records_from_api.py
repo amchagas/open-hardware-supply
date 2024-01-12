@@ -1,17 +1,16 @@
 #!/usr/bin/env python
 
-import httpx
 import json
 import logging
+import os
 from pathlib import Path
 import re
 import time
+
+import httpx
 from jellyfish import damerau_levenshtein_distance as edit_distance
-
-# from unidecode import unidecode
 from tqdm.auto import tqdm
-import os
-
+from unidecode import unidecode
 
 WOS_API = "https://wos-api.clarivate.com/api/wos"
 # DATA_DIR = Path("/home/andre/repositories/open-hardware-supply/data/method2-scholarly-data/dumpdata/")
@@ -56,6 +55,7 @@ class TitlesToRecords:
         return self.normalize_title_rex.sub(" ", text).strip().casefold()
 
     def normalize_author(self, text):
+        text = unidecode(text)
         return self.normalize_author_rex.sub(" ", text).strip().casefold()
 
     def data_key(self, data):
