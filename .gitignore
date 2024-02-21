@@ -27,3 +27,7 @@ __pycache__
 *zotero_api
 *scraperapi_api_key
 *log
+
+#raw data folders
+data/raw*
+
