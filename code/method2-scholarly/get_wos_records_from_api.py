@@ -13,8 +13,8 @@ from tqdm.auto import tqdm
 from unidecode import unidecode
 
 WOS_API = "https://wos-api.clarivate.com/api/wos"
-# DATA_DIR = Path("/home/andre/repositories/open-hardware-supply/data/method2-scholarly-data/dumpdata/")
-DATA_DIR = Path("../../data/method2-scholarly-data/dumpdata")
+DATA_DIR = Path("/home/andre/repositories/open-hardware-supply/data/method2-scholarly-data/open_source_hardware/2023")
+
 
 all_files = list()
 for entry in os.listdir(DATA_DIR):
@@ -42,6 +42,7 @@ class TitlesToRecords:
     def __init__(self, source_files, output_dir, api_key):
         self.api_key = api_key
         self.source_paths = [Path(file) for file in source_files]
+        #print (self.source_paths)
         self.store = Path(output_dir)
         self.store.mkdir(parents=True, exist_ok=True)
         self.multi_records_file = self.store / "multi_records.jsonl"
@@ -134,7 +135,7 @@ class TitlesToRecords:
         while True:
             try:
                 r = httpx.get(WOS_API, params=params, headers=headers)
-                time.sleep(1)
+                time.sleep(0.1)
                 return r.json()["Data"]["Records"]["records"]
             except (httpx.ReadTimeout, KeyError) as err:
                 error_count += 1

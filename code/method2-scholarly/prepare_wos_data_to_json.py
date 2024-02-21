@@ -2,7 +2,7 @@
 import jsonlines
 import json
 import doi as doiLib
-
+#from tqdm.auto import tqdm
 
 
 class Prepare:
@@ -38,9 +38,8 @@ class Prepare:
         with jsonlines.open(self.source_file) as reader:   
             
             for obj in reader:
+                
                 print ("starting " +str(done) +"\r")
-                #if done ==2066:
-                #    print(obj)
                 done = done +1
                 
                 try:
@@ -72,9 +71,16 @@ class Prepare:
                     area = obj["record"]["static_data"]["fullrecord_metadata"]["category_info"]["subheadings"]["subheading"]
                 except KeyError:
                     area = None
-                
                 self.dataDict["area"].append(area)
-                self.dataDict["identifier"].append(obj["record"]["dynamic_data"]["cluster_related"]["identifiers"]["identifier"])
+                
+                #print(obj["record"]["dynamic_data"]["cluster_related"]["identifiers"]["identifier"])
+                #print(type(obj["record"]["dynamic_data"]["cluster_related"]["identifiers"]["identifier"]))
+                try:
+                    identifier = obj["record"]["dynamic_data"]["cluster_related"]["identifiers"]["identifier"]
+                except TypeError:
+                    identifier = None
+                
+                self.dataDict["identifier"].append(identifier)
             
                 try:
                     keyword = obj["record"]["static_data"]["fullrecord_metadata"]["keywords"]["keyword"]
@@ -94,18 +100,23 @@ class Prepare:
                 doi = None
                 url = None
                 #print(index)
-                for item in obj["record"]["dynamic_data"]["cluster_related"]["identifiers"]["identifier"]:
-                    try:
-                        if item["type"]=="doi" or item["type"]=="xref_doi":    
-                            doi = item["value"]
-                    except TypeError:
-                        doi=None
                 
-                    try:
-                        validDoi = doiLib.validate_doi(doi)
-                    except ValueError:
-                        validDoi = None
-                
+                try:
+                    for item in obj["record"]["dynamic_data"]["cluster_related"]["identifiers"]["identifier"]:
+                        try:
+                            if item["type"]=="doi" or item["type"]=="xref_doi":    
+                                doi = item["value"]
+                        except TypeError:
+                            doi=None
+                    
+                        try:
+                            validDoi = doiLib.validate_doi(doi)
+                        except ValueError:
+                            validDoi = None
+                except TypeError:
+                    doi = None
+                    validDoi = None
+                    
                 self.dataDict["doi"].append(doi)
                 self.dataDict["validDoi"].append(validDoi)
             

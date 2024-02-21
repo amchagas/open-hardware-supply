@@ -14,17 +14,30 @@ to run zotero translator, one needs to have docker installed and run it so (if o
 import requests
 import pandas as pd
 from pyzotero import zotero
+import logging
 #import json
 #import time
 
 
-dataPath = "../data/derived/20230214/"
-dataFile = "upwData.json"
+dataRoot = "/home/andre/repositories/open-hardware-supply/data/raw/method2-scholarly-data/"
+logging.basicConfig(filename=dataRoot+"translator_errors.txt",level=logging.DEBUG)
+logging.captureWarnings(True)
+
+terms = ["open_labware",
+         #"open_source_instrument",
+         #"open_scientific_hardware",
+         #"open_source_instrumentation",
+         #"open_source_hardware",
+         #"open_science_hardware",
+         #"open_hardware",
+         ]
+
+dataPath = dataRoot+terms[0]+"/"
+dataFile = terms[0]+"_upwData.json"
 articles = pd.read_json(dataPath + dataFile)
 #idx = set(articles.doi)
 
-url = "http://127.0.0.1:1969/search"  # zotero translator server running locally
-headers = {"content-type": "text/plain", "Accept-Charset": "UTF-8"}
+
 # r = requests.post(url=url, data=dois[0], headers=headers)
 
 
@@ -58,13 +71,21 @@ if len(existing)>0:
 
 
 
+url = "http://127.0.0.1:1969/web"  # zotero translator server running locally
+#header = {"user-agent":'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 my-custom-translation-server/2.0 (a.maia-chagas@sussex.ac.uk)',
+#           "content-Type": "text/plain", "Accept-Charset": "UTF-8"}
+#Content-Type: text/plain
+header = {"content-type": "text/plain", "accept-charset": "UTF-8"}
+#headers = {'User-agent':  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'}
 
 # now add entries to the zotero collection, add the type of OA to tags
-index=0
+#index=0
 #allMeta = list()
 for idx in articles.index:
     try:
-        r = requests.post(url=url, data=articles["doi"][idx], headers=headers)
+        
+        r = requests.post(url=url, data="https://doi.org/"+articles["doi"][idx], headers=header)
+        #print(r.text)
         temp = r.json()
         r.close()
         
@@ -72,15 +93,15 @@ for idx in articles.index:
         
         zot.create_items(temp)
         zot.add_tags(zot.item(temp[0]["key"]),articles["oa_status"][idx])
-        index=index+1
-        print(index)
+        #index=index+1
+        #print(index)
 
         #time.sleep(0.5)
 
     except:
         print(articles["doi"][idx])
-        print(r)
-        print(r.reason)
+        #print(r.text)
+        #print(r.reason)
         
         
         

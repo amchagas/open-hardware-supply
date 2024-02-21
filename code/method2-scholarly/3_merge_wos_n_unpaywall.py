@@ -2,37 +2,86 @@ from unpywall.utils import UnpywallCredentials
 from unpywall import Unpywall
 import pandas as pd
 import json
+import os
+import time
+import logging
+
 
 
 with open("email") as fid:
     unpaywallcred = fid.readline()
 
-UnpywallCredentials(unpaywallcred)# could not get api cred on time, 
-#so using this email which is pasted all over the web.... #unpaywallcred)
+#UnpywallCredentials.set_email(unpaywallcred)
+UnpywallCredentials(unpaywallcred)# using this email which is pasted all over the web.... #unpaywallcred)
 
-dataPath = "../data/derived/20230214/"
+
+dataRoot = "/home/andre/repositories/open-hardware-supply/data/method2-scholarly-data/"
+
+logging.basicConfig(filename=dataRoot+"doierrors.txt",level=logging.DEBUG)
+logging.captureWarnings(True)
+
+
+terms = [#"open_labware",
+         #"open_source_instrument",
+         #"open_scientific_hardware",
+         #"open_source_instrumentation",
+         #on"open_source_hardware",
+         #"open_science_hardware",
+         "open_hardware"]
+locations = dict()
+for item in terms:
+    locations[item]=[]
+
+dirWalk = os.walk(dataRoot)
+for fullPath,_,_ in dirWalk:
+    for key in locations.keys():
+        if "/"+key+"/" in fullPath and "derived" in fullPath:
+            locations[key].append(fullPath)
+
 
 dataFile = "wos_data_as.json"
 
-
-with open(dataPath+dataFile,"r") as fid:
-    dataDict = json.load(fid)
-#convert dictionary to panda dataframe
-data = pd.DataFrame.from_dict(dataDict)
-
-
-
-#drop duplicated dois
-#data = data[data.duplicated(subset=['doi'])]
+for key in locations.keys():
+    allData = pd.DataFrame()
+    for dataPath in locations[key]:
+        with open(dataPath+"/"+dataFile,"r") as fid:
+            dataDict = json.load(fid)
+            #convert dictionary to panda dataframe
+            dataPD  = pd.DataFrame.from_dict(dataDict)
+            allData =pd.concat([allData,dataPD])
 
 
-dois = list(data["doi"])
-for idx,item in enumerate(dois):
-    if item == None:
-        dois[idx]="none"
-
-upwData = Unpywall.doi(dois=dois,errors="ignore",progress=True)
-upwData.to_json(dataPath+"upwData.json")
+    savePath = dataPath[0:dataPath.find("/"+key)+len(key)+2]
+    print(savePath)
+    temp = list(allData["doi"])
+    dois = [i for i in temp if i is not None]
+    #dois = allData["doi"][allData["doi"]!=None]
+    #dois = list(dois)
+    #for idx,item in enumerate(dois):
+    #    if item == None:
+    #        #dois[idx]="none"
+    #        dois.pop(idx)
+    #upwData = 
+    index = 0
+    errors=list()
+    for index,doi in enumerate(dois):
+        try:
+            onePoint = Unpywall.doi(dois=[doi],errors="ignore")#,progress=True)
+            time.sleep(0.1)
+            print(index)
+            if index==0:
+                upwData=onePoint
+            else:
+                if onePoint is not None:
+                    onePoint.index=[index]
+                    upwData = pd.concat([upwData,onePoint])
+        #except HTTPError:
+        #    errors.append(doi)
+        finally:
+            errors.append(doi)
+    #upwData = Unpywall.doi(dois=dois,errors="ignore",progress=True)
+    
+    upwData.to_json(savePath+key+"_upwData.json")
 
 #upwJson = upwData.to_json()
 #parsed = json.loads(upwJson)
