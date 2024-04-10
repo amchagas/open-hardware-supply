@@ -23,21 +23,40 @@ dataRoot = "/home/andre/repositories/open-hardware-supply/data/raw/method2-schol
 logging.basicConfig(filename=dataRoot+"translator_errors.txt",level=logging.DEBUG)
 logging.captureWarnings(True)
 
-terms = ["open_labware",
-         #"open_source_instrument",
-         #"open_scientific_hardware",
-         #"open_source_instrumentation",
-         #"open_source_hardware",
-         #"open_science_hardware",
-         #"open_hardware",
-         ]
+useEachTerm = True
 
-dataPath = dataRoot+terms[0]+"/"
-dataFile = terms[0]+"_upwData.json"
-articles = pd.read_json(dataPath + dataFile)
-#idx = set(articles.doi)
+if useEachTerm:
+    
+    terms = [#"open_labware",
+        #"open_source_instrument",
+        #"open_scientific_hardware",
+        #"open_source_instrumentation",
+        #"open_source_hardware",
+        #"open_science_hardware",
+        "open_hardware",
+        ]
 
 
+    dataLoc = list()
+
+    for term in terms:
+       #dataPath = dataRoot
+       dataFile = term+"wos_upwData_combined.json"
+       dataLoc.append(dataRoot + dataFile)
+
+    articles = pd.DataFrame()
+    for item in dataLoc:
+        data = pd.read_json(item)
+        articles = pd.concat([articles,data],ignore_index=True)
+     
+    
+else:
+    allCombName = "allWosEntries_combined_raw.json"
+    articles = pd.read_json(dataRoot+allCombName)
+    
+
+#remove duplicates (ie articles that were found more than once by the queries of different terms
+articles = articles.drop_duplicates(subset='doi', keep="first")
 # r = requests.post(url=url, data=dois[0], headers=headers)
 
 
@@ -45,21 +64,23 @@ articles = pd.read_json(dataPath + dataFile)
 
 with open("zotero_api","r") as fid:
     key = fid.readline()
-
+# 
 zot = zotero.Zotero(library_id=4871493,library_type='group', api_key=key)
-
-#grab all existing entries on the database
+# 
+# #grab all existing entries on the database
 numItems = zot.count_items()
+
+
 allPrevious = zot.everything(zot.top())
+
 
 #compare to Unpaywall entries and index entries already present in the zotero 
 #collection
 existing = list()
 for item in allPrevious:
     try:
-        existingDoi = item["data"]["DOI"]
-        if len(articles[articles["doi"]==existingDoi].index)>0:
-            existing.append(articles[articles["doi"]==existingDoi].index.values[0])
+        existing.append(item["data"]["DOI"])
+
         
     except KeyError:
         print("no doi in this entry")
@@ -67,24 +88,31 @@ for item in allPrevious:
 
 #drop the entries that are already present on the zotero collection
 if len(existing)>0:
-    articles = articles.drop(labels=existing,axis=0)
-
-
-
+    for item in existing:
+        articles = articles.drop(articles[articles.doi==item].index)
+ 
+# 
+# 
 url = "http://127.0.0.1:1969/web"  # zotero translator server running locally
 #header = {"user-agent":'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 my-custom-translation-server/2.0 (a.maia-chagas@sussex.ac.uk)',
 #           "content-Type": "text/plain", "Accept-Charset": "UTF-8"}
-#Content-Type: text/plain
+# #Content-Type: text/plain
 header = {"content-type": "text/plain", "accept-charset": "UTF-8"}
-#headers = {'User-agent':  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'}
-
+# #headers = {'User-agent':  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'}
+# 
 # now add entries to the zotero collection, add the type of OA to tags
 #index=0
 #allMeta = list()
+s = requests.Session()
 for idx in articles.index:
+    print(articles["doi"][idx])
+    
     try:
+        articleUrl ="https://doi.org/"+articles["doi"][idx]
+        r = s.get(url=url,data=articleUrl,headers=header,verify=False)
+        r = s.post(url=url,data=articleUrl,headers=header,verify=False)
         
-        r = requests.post(url=url, data="https://doi.org/"+articles["doi"][idx], headers=header)
+        #r = requests.post(url=url, data="https://doi.org/"+articles["doi"][idx], headers=header)
         #print(r.text)
         temp = r.json()
         r.close()
@@ -92,56 +120,57 @@ for idx in articles.index:
         #temp[0]["tags"].append(articles["oa_status"][idx])
         
         zot.create_items(temp)
+        #zot.add_tags(zot.item(temp[0]["key"]),articles["oa_status"][idx])
         zot.add_tags(zot.item(temp[0]["key"]),articles["oa_status"][idx])
-        #index=index+1
-        #print(index)
+        print("success")
 
         #time.sleep(0.5)
 
-    except:
-        print(articles["doi"][idx])
-        #print(r.text)
-        #print(r.reason)
-        
-        
-        
+    except Exception as e:
+        print("fail")
+        print(e)
         
 
-
-
-#for item in allMeta:
-#    if item !="None":
         
-
-#        time.sleep(1)
         
-#with open(dataPath + "zotMeta.json", "w") as fid:
-#    json.dump(allMeta, fid)
-
-
-
-#with open(dataPath + "zotMeta.json", "r") as fid:
-#    allMeta = json.load(fid)
- 
- #print(data)
-
-
-#zotTitles = list()
-#for item in allPrevious:
-#    try:
-#        zotTitles.append(item["data"]["title"])
-#    except KeyError:
-#        print(item["data"]["itemType"])
-
-#allMetaTitles = list()
-
-#for item in allMeta:
-#    try:
-#        print(item[0]["title"])
-#        allMetaTitles.append(item[0]["title"])
-#    except TypeError:
-#        print(item)
-
-
-
+#         
+#         
+# 
+# 
+# 
+# #for item in allMeta:
+# #    if item !="None":
+#         
+# 
+# #        time.sleep(1)
+#         
+# #with open(dataPath + "zotMeta.json", "w") as fid:
+# #    json.dump(allMeta, fid)
+# 
+# 
+# 
+# #with open(dataPath + "zotMeta.json", "r") as fid:
+# #    allMeta = json.load(fid)
+#  
+#  #print(data)
+# 
+# 
+# #zotTitles = list()
+# #for item in allPrevious:
+# #    try:
+# #        zotTitles.append(item["data"]["title"])
+# #    except KeyError:
+# #        print(item["data"]["itemType"])
+# 
+# #allMetaTitles = list()
+# 
+# #for item in allMeta:
+# #    try:
+# #        print(item[0]["title"])
+# #        allMetaTitles.append(item[0]["title"])
+# #    except TypeError:
+# #        print(item)
+# 
+# 
+# 
 

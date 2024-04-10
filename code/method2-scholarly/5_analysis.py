@@ -28,10 +28,20 @@ def get_crossref_metadata(doi):
 # Paths #
 #########
 
-projectPath = Path()
-while not (Path() / ".git").is_dir():
+projectPath = Path().absolute()
+while not (projectPath / ".git").is_dir():
     projectPath = projectPath.parent
-dataDir = projectPath / "data/derived/20230214/"
+dataDir = projectPath / "data/raw/method2-scholarly-data/"
+
+#dataFiles = list()
+#for item in os.listdir(dataDir):
+#    if "upwData_combined.json" in item:
+#        dataFiles.append(item)
+
+
+##put all datafiles together in one
+    
+
 dataFile = dataDir / "upwData.json"
 scoringFile = dataDir / "scoring_system.csv"
 figDir = projectPath / "figures"

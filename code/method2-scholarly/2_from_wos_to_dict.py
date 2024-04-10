@@ -6,7 +6,7 @@ from pathlib import Path
 #from tqdm.auto import tqdm
 
 
-dataloc = "/home/andre/repositories/open-hardware-supply/data/method2-scholarly-data/"
+dataloc = "/home/andre/repositories/open-hardware-supply/data/raw/method2-scholarly-data/"
 
 locations = [#"open_labware/derived/",
              # open_source_instrument/derived/",
