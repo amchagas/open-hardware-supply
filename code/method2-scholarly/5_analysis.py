@@ -1,8 +1,10 @@
 """
-preliminary analysis
+Preliminary analysis
 """
 
+import io
 from functools import cache
+import os
 from pathlib import Path
 
 import httpx
@@ -11,12 +13,24 @@ import pandas as pd
 import seaborn as sns
 
 
+def main():
+    dirs = get_directories()
+    data_dir = dirs["data_dir"]
+    out_dir = dirs["out_dir"]
+    data = {**get_document_data(data_dir), **get_scoring_data(data_dir)}
+    plot_doc(data["document"], out_dir)
+    plot_art(data["article"], out_dir)
+    plot_scoring(data["scoring"], out_dir)
+    plot_joint_score_time(data["scoring"], out_dir)
+    plot_joint_score_journal(data["scoring"], out_dir)
+
+
 @cache
 def _get_crossref_metadata(doi):
     return httpx.get(f"https://api.crossref.org/works/{doi}").json()
 
 
-def get_crossref_metadata(doi):
+def _get_extracted_crossref_metadata(doi):
     data = _get_crossref_metadata(doi)
     return {
         "year": data["message"]["published"]["date-parts"][0][0],
@@ -24,139 +38,155 @@ def get_crossref_metadata(doi):
     }
 
 
-#########
-# Paths #
-#########
-
-projectPath = Path().absolute()
-while not (projectPath / ".git").is_dir():
-    projectPath = projectPath.parent
-dataDir = projectPath / "data/raw/method2-scholarly-data/"
-
-#dataFiles = list()
-#for item in os.listdir(dataDir):
-#    if "upwData_combined.json" in item:
-#        dataFiles.append(item)
+def get_directories():
+    print(f"\nCurrent directory is {os.getcwd()}")
+    data_dir = Path(input("\nEnter path to the data directory: "))
+    out_dir = Path(input("\nEnter path to the output directory: "))
+    return {"data_dir": data_dir, "out_dir": out_dir}
 
 
-##put all datafiles together in one
-    
+def get_document_data(data_dir):
+    combined_data_file_name = "wos_upwData_combined.json"
+    document = pd.read_json(data_dir / combined_data_file_name)
+    article = document[document.genre.eq("journal-article")]
+    return {"document": document, "article": article}
 
-dataFile = dataDir / "upwData.json"
-scoringFile = dataDir / "scoring_system.csv"
-figDir = projectPath / "figures"
 
-########
-# Data #
-########
-
-documentData = pd.read_json(dataFile)
-articleData = documentData[documentData.genre.eq("journal-article")]
-scoringData = pd.read_csv(scoringFile)
-scoringData["_total_points"] = scoringData["total points "].mul(2).astype(int)
-scoringData["_year"] = scoringData["paper DOI"].map(
-    lambda x: get_crossref_metadata(x)["year"]
-)
-scoringData["_journal"] = (
-    scoringData["paper DOI"]
-    .map(lambda x: get_crossref_metadata(x)["journal"])
-    .replace(
-        {
-            "PLoS ONE": "PLOS ONE",
-            "American Journal of Physiology-"
-            "Heart and Circulatory Physiology": "American Journal of Physiology",
-        }
+def _get_gds_export(document_key, sheet_name, export_format="csv"):
+    gds_base_tpl = "https://docs.google.com/spreadsheets/d/{document_key}"
+    gds_export_tpl = (
+        gds_base_tpl + "/gviz/tq?tqx=out:{export_format}&sheet={sheet_name}"
     )
-)
-
-#########
-# Plots #
-#########
-
-plt.close()
-fig = sns.displot(
-    documentData,
-    x="genre",
-    hue="oa_status",
-    hue_order=("gold", "green", "bronze", "hybrid", "closed"),
-    multiple="dodge",
-    shrink=0.8,
-    aspect=16 / 9,
-)
-fig.set_axis_labels("Genre")
-fig.legend.set_title("Access")
-fig.savefig(figDir / "documents-dist-genre_X_oa_status.png", dpi=300)
-
-plt.close()
-fig = sns.displot(
-    data=articleData,
-    x="year",
-    discrete=True,
-    hue="is_oa",
-    multiple="dodge",
-    shrink=0.8,
-    aspect=16 / 9,
-)
-fig.ax.set_xticks(range(articleData.year.min(), articleData.year.max() + 1))
-fig.tick_params(rotation=45)
-fig.set_axis_labels("Year")
-fig.legend.set_title("Open Access")
-fig.savefig(figDir / "articles-dist-year_X_is_oa.png", dpi=300)
-
-plt.close()
-fig = sns.displot(
-    data=scoringData,
-    x="_total_points",
-    bins=range(0, 19),
-    discrete=True,
-    shrink=0.8,
-    aspect=16 / 9,
-    hue="_total_points",
-    hue_norm=(0, 18 * 4 / 3),  # use colormap up to bright "open-style" oranges
-    palette="PuOr_r",
-)
-fig.ax.set_xticks(range(0, 19))
-fig.ax.set_yticks(range(0, scoringData["_total_points"].value_counts().max() + 1))
-fig.legend.set_title("Score")
-fig.set_axis_labels("Score")
-fig.figure.savefig(figDir / "scoring-hist-_total_points.png", dpi=300)
-
-plt.close()
-fig = sns.jointplot(
-    data=scoringData,
-    x="_year",
-    y="_total_points",
-    kind="hist",
-    joint_kws={"discrete": True},
-    marginal_kws={"discrete": True},
-)
-fig.ax_joint.set_xticks(
-    range(scoringData["_year"].min(), scoringData["_year"].max() + 1)
-)
-fig.ax_joint.set_yticks(range(0, 19))
-fig.ax_joint.tick_params(rotation=45)
-fig.set_axis_labels("Year", "Score")
-fig.savefig(figDir / "scoring-joint-_total_points_X__year.png", dpi=300)
+    gds_export_url = gds_export_tpl.format(
+        document_key=document_key, sheet_name=sheet_name, export_format=export_format
+    )
+    return httpx.get(gds_export_url).text
 
 
-plt.close()
-fig = sns.JointGrid(
-    data=scoringData,
-    x="_total_points",
-    y="_journal",
-    hue="_year",
-)
-fig.plot_joint(
-    sns.swarmplot,
-    size=7,
-    order=sorted(scoringData["_journal"].unique()),
-)
-fig.plot_marginals(
-    sns.histplot,
-    multiple="stack",
-    discrete=True,
-)
-fig.ax_joint.set_xticks(range(0, 19))
-fig.set_axis_labels("Score", "Journal")
-fig.ax_joint.legend().set_title("Year")
-fig.savefig(figDir / "scoring-jointswarm-_total_points_X__journal_X__year.png", dpi=300)
+def get_scoring_data():
+    """
+    Download a sheet from Google Spreadsheets (gds) by `key`.
+    Return an enriched DataFrame.
+    """
+    gds_scoring_key = "1FqyM3ZwSqYrTSOx_0ddZzDjBz_c8wecN2xA_E-VyNsU"
+    csv_text = _get_gds_export(
+        document_key=gds_scoring_key, sheet_name="review1", export_format="csv"
+    )
+    scoring = pd.read_csv(io.StringIO(csv_text))
+    scoring["_total_points"] = scoring["total points "].mul(2).astype("Int64")
+    scoring["_year"] = scoring["paper DOI"].map(
+        lambda x: _get_extracted_crossref_metadata(x)["year"]
+    )
+    scoring["_journal"] = (
+        scoring["paper DOI"]
+        .map(lambda x: _get_extracted_crossref_metadata(x)["journal"])
+        .replace(
+            {
+                "PLoS ONE": "PLOS ONE",
+                "American Journal of Physiology-"
+                "Heart and Circulatory Physiology": "American Journal of Physiology",
+            }
+        )
+    )
+    return {"scoring": scoring}
+
+
+def plot_doc(document, out_dir):
+    plt.close()
+    fig = sns.displot(
+        document,
+        x="genre",
+        hue="oa_status",
+        hue_order=("gold", "green", "bronze", "hybrid", "closed"),
+        multiple="dodge",
+        shrink=0.8,
+        aspect=16 / 9,
+    )
+    fig.set_axis_labels("Genre")
+    fig.legend.set_title("Access")
+    fig.savefig(out_dir / "documents-dist-genre_X_oa_status.png", dpi=300)
+
+
+def plot_art(article, out_dir):
+    plt.close()
+    fig = sns.displot(
+        data=article,
+        x="year",
+        discrete=True,
+        hue="is_oa",
+        multiple="dodge",
+        shrink=0.8,
+        aspect=16 / 9,
+    )
+    fig.ax.set_xticks(range(article.year.min(), article.year.max() + 1))
+    fig.tick_params(rotation=45)
+    fig.set_axis_labels("Year")
+    fig.legend.set_title("Open Access")
+    fig.savefig(out_dir / "articles-dist-year_X_is_oa.png", dpi=300)
+
+
+def plot_scoring(scoring, out_dir):
+    plt.close()
+    fig = sns.displot(
+        data=scoring,
+        x="_total_points",
+        bins=range(0, 19),
+        discrete=True,
+        shrink=0.8,
+        aspect=16 / 9,
+        hue="_total_points",
+        hue_norm=(0, 18 * 4 / 3),  # use colormap up to bright "open-style" oranges
+        palette="PuOr_r",
+    )
+    fig.ax.set_xticks(range(0, 19))
+    fig.ax.set_yticks(range(0, scoring["_total_points"].value_counts().max() + 1))
+    fig.legend.set_title("Score")
+    fig.set_axis_labels("Score")
+    fig.figure.savefig(out_dir / "scoring-hist-_total_points.png", dpi=300)
+
+
+def plot_joint_score_time(scoring, out_dir):
+    plt.close()
+    fig = sns.jointplot(
+        data=scoring,
+        x="_year",
+        y="_total_points",
+        kind="hist",
+        joint_kws={"discrete": True},
+        marginal_kws={"discrete": True},
+    )
+    fig.ax_joint.set_xticks(range(scoring["_year"].min(), scoring["_year"].max() + 1))
+    fig.ax_joint.set_yticks(range(0, 19))
+    fig.ax_joint.tick_params(rotation=45)
+    fig.set_axis_labels("Year", "Score")
+    fig.savefig(out_dir / "scoring-joint-_total_points_X__year.png", dpi=300)
+
+
+def plot_joint_score_journal(scoring, out_dir):
+    plt.close()
+    fig = sns.JointGrid(
+        data=scoring,
+        x="_total_points",
+        y="_journal",
+        hue="_year",
+    )
+    fig.plot_joint(
+        sns.swarmplot,
+        size=7,
+        order=sorted(scoring["_journal"].unique()),
+    )
+    fig.plot_marginals(
+        sns.histplot,
+        multiple="stack",
+        discrete=True,
+    )
+    fig.ax_joint.set_xticks(range(0, 19))
+    fig.set_axis_labels("Score", "Journal")
+    fig.ax_joint.legend().set_title("Year")
+    fig.savefig(
+        out_dir / "scoring-jointswarm-_total_points_X__journal_X__year.png", dpi=300
+    )
+
+
+if __name__ == "__main__":
+    main()

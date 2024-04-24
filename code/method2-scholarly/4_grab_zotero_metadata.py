@@ -93,14 +93,17 @@ if len(existing)>0:
  
 # 
 # 
-url = "http://127.0.0.1:1969/web"  # zotero translator server running locally
+
+# Zotero translator server running locally
+url = "http://127.0.0.1:1969/web"
+
 #header = {"user-agent":'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 my-custom-translation-server/2.0 (a.maia-chagas@sussex.ac.uk)',
 #           "content-Type": "text/plain", "Accept-Charset": "UTF-8"}
 # #Content-Type: text/plain
 header = {"content-type": "text/plain", "accept-charset": "UTF-8"}
 # #headers = {'User-agent':  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'}
-# 
-# now add entries to the zotero collection, add the type of OA to tags
+
+# Now add entries to the zotero collection, add the type of OA to tags
 #index=0
 #allMeta = list()
 s = requests.Session()
