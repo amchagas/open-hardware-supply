@@ -2,22 +2,32 @@
 Preliminary analysis
 """
 
-import io
 from functools import cache
+import logging
 import os
 from pathlib import Path
+import readline
 
 import httpx
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
+logger = logging.getLogger(__name__)
+
+# Restrict delims so completion works with paths.
+readline.set_completer_delims("\t\n")
+readline.parse_and_bind("tab: complete")
+
+PATHS = {"data_dir": None, "data_path": None, "out_dir": None}
+
 
 def main():
-    dirs = get_directories()
-    data_dir = dirs["data_dir"]
-    out_dir = dirs["out_dir"]
-    data = {**get_document_data(data_dir), **get_scoring_data(data_dir)}
+    setup_paths()
+    data_dir = PATHS["data_dir"]
+    out_dir = PATHS["out_dir"]
+    data_path = PATHS["data_path"]
+    data = {**get_document_data(data_path), **get_scoring_data(data_dir)}
     plot_doc(data["document"], out_dir)
     plot_art(data["article"], out_dir)
     plot_scoring(data["scoring"], out_dir)
@@ -25,9 +35,12 @@ def main():
     plot_joint_score_journal(data["scoring"], out_dir)
 
 
-@cache
-def _get_crossref_metadata(doi):
-    return httpx.get(f"https://api.crossref.org/works/{doi}").json()
+if "_get_crossref_metadata" not in globals():
+    """So as to not restart the cache when reloading."""
+
+    @cache
+    def _get_crossref_metadata(doi):
+        return httpx.get(f"https://api.crossref.org/works/{doi}").json()
 
 
 def _get_extracted_crossref_metadata(doi):
@@ -38,16 +51,19 @@ def _get_extracted_crossref_metadata(doi):
     }
 
 
-def get_directories():
+def setup_paths():
     print(f"\nCurrent directory is {os.getcwd()}")
-    data_dir = Path(input("\nEnter path to the data directory: "))
-    out_dir = Path(input("\nEnter path to the output directory: "))
-    return {"data_dir": data_dir, "out_dir": out_dir}
+    if PATHS["data_dir"] is None:
+        PATHS["data_dir"] = Path(input("Enter path to the data directory: ").strip())
+    if PATHS["data_path"] is None:
+        PATHS["data_path"] = Path(input("Enter path to the data file: ").strip())
+    if PATHS["out_dir"] is None:
+        PATHS["out_dir"] = Path(input("Enter path to the output directory: ").strip())
+    PATHS["out_dir"].mkdir(exist_ok=True)
 
 
-def get_document_data(data_dir):
-    combined_data_file_name = "wos_upwData_combined.json"
-    document = pd.read_json(data_dir / combined_data_file_name)
+def get_document_data(data_path):
+    document = pd.read_json(data_path)
     article = document[document.genre.eq("journal-article")]
     return {"document": document, "article": article}
 
@@ -63,16 +79,21 @@ def _get_gds_export(document_key, sheet_name, export_format="csv"):
     return httpx.get(gds_export_url).text
 
 
-def get_scoring_data():
+def get_scoring_data(data_dir):
     """
-    Download a sheet from Google Spreadsheets (gds) by `key`.
-    Return an enriched DataFrame.
+    Download a sheet from Google Spreadsheets (gds) by `key` and return an enriched
+    DataFrame.
     """
-    gds_scoring_key = "1FqyM3ZwSqYrTSOx_0ddZzDjBz_c8wecN2xA_E-VyNsU"
-    csv_text = _get_gds_export(
-        document_key=gds_scoring_key, sheet_name="review1", export_format="csv"
-    )
-    scoring = pd.read_csv(io.StringIO(csv_text))
+    score_path = Path(data_dir / "score_cache.csv")
+    try:
+        gds_scoring_key = "1FqyM3ZwSqYrTSOx_0ddZzDjBz_c8wecN2xA_E-VyNsU"
+        csv_text = _get_gds_export(
+            document_key=gds_scoring_key, sheet_name="review1", export_format="csv"
+        )
+        score_path.write_text(csv_text)
+    except Exception:
+        logger.warning("Downloading score sheet failed, will try cached version.")
+    scoring = pd.read_csv(score_path)
     scoring["_total_points"] = scoring["total points "].mul(2).astype("Int64")
     scoring["_year"] = scoring["paper DOI"].map(
         lambda x: _get_extracted_crossref_metadata(x)["year"]
