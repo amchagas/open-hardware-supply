@@ -16,7 +16,7 @@ import pandas as pd
 from pyzotero import zotero
 import logging
 #import json
-#import time
+import time
 
 
 dataRoot = "/home/andre/repositories/open-hardware-supply/data/raw/method2-scholarly-data/"
@@ -106,19 +106,21 @@ header = {"content-type": "text/plain", "accept-charset": "UTF-8"}
 # Now add entries to the zotero collection, add the type of OA to tags
 #index=0
 #allMeta = list()
-s = requests.Session()
+#s = requests.Session()
 for idx in articles.index:
     print(articles["doi"][idx])
     
     try:
         articleUrl ="https://doi.org/"+articles["doi"][idx]
-        r = s.get(url=url,data=articleUrl,headers=header,verify=False)
-        r = s.post(url=url,data=articleUrl,headers=header,verify=False)
+        #r = s.get(url=url,data=articleUrl,headers=header,verify=False)
+        #r = s.post(url=url,data=articleUrl,headers=header,verify=False)
         
-        #r = requests.post(url=url, data="https://doi.org/"+articles["doi"][idx], headers=header)
+        
+        r = requests.post(url=url, data="https://doi.org/"+articles["doi"][idx], headers=header)
         #print(r.text)
         temp = r.json()
         r.close()
+        time.sleep(1)
         
         #temp[0]["tags"].append(articles["oa_status"][idx])
         

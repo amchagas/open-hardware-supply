@@ -19,7 +19,14 @@ logger = logging.getLogger(__name__)
 readline.set_completer_delims("\t\n")
 readline.parse_and_bind("tab: complete")
 
-PATHS = {"data_dir": None, "data_path": None, "out_dir": None}
+PATHS = {"data_dir": None,
+         "data_path": None,
+         "out_dir": None}
+
+#/home/andre/repositories/open-hardware-supply/data/raw/method2-scholarly-data
+#/home/andre/repositories/open-hardware-supply/data/raw/method2-scholarly-data/open_hardwarewos_upwData_combined.json
+#/home/andre/repositories/open-hardware-supply/data/raw/method2-scholarly-data/output
+
 
 
 def main():
@@ -139,7 +146,7 @@ def plot_art(article, out_dir):
         shrink=0.8,
         aspect=16 / 9,
     )
-    fig.ax.set_xticks(range(article.year.min(), article.year.max() + 1))
+    fig.ax.set_xticks(range(int(article.year.min()), int(article.year.max()) + 1))
     fig.tick_params(rotation=45)
     fig.set_axis_labels("Year")
     fig.legend.set_title("Open Access")
