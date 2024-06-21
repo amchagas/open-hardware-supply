@@ -1,0 +1,5 @@
+[submodule "data"]
+	path = data
+	url = https://gin.g-node.org/solstag/open-hardware-supply-data.git
+	datalad-id = ab7be9a7-171f-4d35-ba60-c43cf57802f1
+	datalad-url = https://gin.g-node.org/solstag/open-hardware-supply-data.git
