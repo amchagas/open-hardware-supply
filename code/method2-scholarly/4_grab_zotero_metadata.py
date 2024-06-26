@@ -99,38 +99,23 @@ headers = {'Content-Type': 'text/plain',}
 # Now add entries to the zotero collection, add the type of OA to tags
 #index=0
 #allMeta = list()
-s = requests.Session()
 for idx in articles.index:
     print(articles["doi"][idx])
     
-    try:   
-        
-        r = requests.post(url=url, data=articles["doi"][idx],
-                         headers=headers)
-        
-        #print(r.text)
-        temp = r.json()
-        #r.close()
-        time.sleep(0.5)
+    r = requests.post(url=url, data=articles["doi"][idx],
+                      headers=headers)
+
+    print(r.status_code)        
+    #print(r.text)
     
-        #temp[0]["tags"].append(articles["oa_status"][idx])
     
+    time.sleep(1)
+    #r.close()
+    if r.status_code== 200:
+        temp = r.json()    
         zot.create_items(temp)
-        #zot.add_tags(zot.item(temp[0]["key"]),articles["oa_status"][idx])
-        zot.add_tags(zot.item(temp[0]["key"]),articles["oa_status"][idx])
     
-        r.close()
-        print("success")
-        
-        #time.sleep(0.5)
-
-    except Exception as e:
-        print("fail")
-        print(e)
-        
-
-    
-        
+    r.close()   
         
 #         
 #         
