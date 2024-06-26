@@ -12,21 +12,21 @@ with open("email") as fid:
     unpaywallcred = fid.readline()
 
 #UnpywallCredentials.set_email(unpaywallcred)
-UnpywallCredentials(unpaywallcred)# using this email which is pasted all over the web.... #unpaywallcred)
+UnpywallCredentials(unpaywallcred)
 
 
-dataRoot = "/home/andre/repositories/open-hardware-supply/data/raw/method2-scholarly-data/"
+dataRoot = "/home/andre/repositories/open-hardware-supply/data/method2-scholarly-data/"
 
 logging.basicConfig(filename=dataRoot+"doierrors.txt",level=logging.DEBUG)
 logging.captureWarnings(True)
 
 
-terms = ["open_labware",
-         "open_source_instrument",
-         "open_scientific_hardware",
-         "open_source_instrumentation",
-         "open_source_hardware",
-         "open_science_hardware",
+terms = [#"open_labware",
+         #"open_source_instrument",
+         #"open_scientific_hardware",
+         #"open_source_instrumentation",
+         #"open_source_hardware",
+         #"open_science_hardware",
          "open_hardware"]
 locations = dict()
 for item in terms:
@@ -84,7 +84,8 @@ for key in locations.keys():
     combined = pd.merge(dataChunk, upData,on="doi",how="inner" )
     articles = pd.concat([articles,upData])
     upData.to_json(savePath+"_upwData.json")
-    combined.to_json(savePath+"wos_upwData_combined.json") 
+    combined.to_json(savePath+"wos_upwData_combined.json")
+    
 
 
 

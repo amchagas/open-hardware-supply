@@ -7,8 +7,8 @@ Stephan Hügel, The Pyzotero Authors (2019, May 18). urschrei/pyzotero: Version 
 also uses zotero translator server via docker.
 to run zotero translator, one needs to have docker installed and run it so (if one is using command line):
 
-#docker pull zotero/translation-server
-#docker run -d -p 1969:1969 --rm --name translation-server zotero/translation-server
+docker pull zotero/translation-server
+docker run -d -p 1969:1969 --rm --name translation-server zotero/translation-server
 
 """
 import requests
@@ -17,13 +17,13 @@ from pyzotero import zotero
 import logging
 #import json
 import time
+import urllib
 
-
-dataRoot = "/home/andre/repositories/open-hardware-supply/data/raw/method2-scholarly-data/"
+dataRoot = "/home/andre/repositories/open-hardware-supply/data/method2-scholarly-data/"
 logging.basicConfig(filename=dataRoot+"translator_errors.txt",level=logging.DEBUG)
 logging.captureWarnings(True)
 
-useEachTerm = True
+useEachTerm = False
 
 if useEachTerm:
     
@@ -41,7 +41,7 @@ if useEachTerm:
 
     for term in terms:
        #dataPath = dataRoot
-       dataFile = term+"wos_upwData_combined.json"
+       dataFile = term+"/"+"wos_upwData_combined.json"
        dataLoc.append(dataRoot + dataFile)
 
     articles = pd.DataFrame()
@@ -90,45 +90,38 @@ for item in allPrevious:
 if len(existing)>0:
     for item in existing:
         articles = articles.drop(articles[articles.doi==item].index)
- 
-# 
-# 
+
+
 
 # Zotero translator server running locally
-url = "http://127.0.0.1:1969/web"
-
-#header = {"user-agent":'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 my-custom-translation-server/2.0 (a.maia-chagas@sussex.ac.uk)',
-#           "content-Type": "text/plain", "Accept-Charset": "UTF-8"}
-# #Content-Type: text/plain
-header = {"content-type": "text/plain", "accept-charset": "UTF-8"}
-# #headers = {'User-agent':  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'}
-
+url = "http://127.0.0.1:1969/search"
+headers = {'Content-Type': 'text/plain',}
 # Now add entries to the zotero collection, add the type of OA to tags
 #index=0
 #allMeta = list()
-#s = requests.Session()
+s = requests.Session()
 for idx in articles.index:
     print(articles["doi"][idx])
     
-    try:
-        articleUrl ="https://doi.org/"+articles["doi"][idx]
-        #r = s.get(url=url,data=articleUrl,headers=header,verify=False)
-        #r = s.post(url=url,data=articleUrl,headers=header,verify=False)
+    try:   
         
+        r = requests.post(url=url, data=articles["doi"][idx],
+                         headers=headers)
         
-        r = requests.post(url=url, data="https://doi.org/"+articles["doi"][idx], headers=header)
         #print(r.text)
         temp = r.json()
-        r.close()
-        time.sleep(1)
-        
+        #r.close()
+        time.sleep(0.5)
+    
         #temp[0]["tags"].append(articles["oa_status"][idx])
-        
+    
         zot.create_items(temp)
         #zot.add_tags(zot.item(temp[0]["key"]),articles["oa_status"][idx])
         zot.add_tags(zot.item(temp[0]["key"]),articles["oa_status"][idx])
+    
+        r.close()
         print("success")
-
+        
         #time.sleep(0.5)
 
     except Exception as e:
@@ -136,6 +129,7 @@ for idx in articles.index:
         print(e)
         
 
+    
         
         
 #         
