@@ -7,9 +7,9 @@ import saving_user_info
 
 def main(output, database, email):
 
-    pg = scholarly.ProxyGenerator()
-    pg.FreeProxies()
-    scholarly.scholarly.use_proxy(pg)
+    #pg = scholarly.ProxyGenerator()
+    #pg.FreeProxies()
+    #scholarly.scholarly.use_proxy(pg)
 
     # Function to download a PDF file. Takes the url of a PDF file and fetches a get request,
     # then writes the response to the file that uses Zotero ID as its name

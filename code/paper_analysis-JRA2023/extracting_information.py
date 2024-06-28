@@ -95,15 +95,15 @@ def main(output_csv, database, downloaded):
                 # Searching for links
                 reader = PyPDF2.PdfReader(f)
                 page_pdf2 = reader.pages[page_id]
-                uri = hyperlinks_searching(page_pdf2, {"mendeley", "osf", "github", "gitlab", ".zip"}, {"orcid", "nih", "doi","mailto:","creativecommons.org"})
+                uri = hyperlinks_searching(page_pdf2, {"mendeley", "osf", "github", "gitlab", ".zip"}, {"orcid", "nih", "doi","mailto:","creativecommons.org", "twitter"})
                 if uri != None: links.add(uri)
 
             # Appending an entry to a CSV file named Output.csv
             csv_entry.append(sections) if sections != set() else csv_entry.append(None)
             csv_entry.append(links) if links != set() else csv_entry.append(None)
             print(csv_entry)
-            # with open(output_csv, 'a', newline='') as output:
-            #     csv.writer(output).writerow(csv_entry)
+            with open(output_csv, 'a', newline='') as output:
+                 csv.writer(output).writerow(csv_entry)
         except:
             print(f"Couldn't process {filename}. Check its contents at {f}.")
 
