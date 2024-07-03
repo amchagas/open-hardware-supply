@@ -71,6 +71,7 @@ def hyperlinks_searching(page, include : set, exclude : set):
 # It takes in the path to the output csv file, the path to the downloaded Zotero database, and the path to the downloaded PDF files.
 def main(output_csv, database, downloaded):
     df = pd.read_csv(database)
+    data_out=list()
     for filename in os.listdir(downloaded):
         # Getting a row in the database
         entry = df.loc[df['Key'] == filename[:-4]]
@@ -101,12 +102,17 @@ def main(output_csv, database, downloaded):
             # Appending an entry to a CSV file named Output.csv
             csv_entry.append(sections) if sections != set() else csv_entry.append(None)
             csv_entry.append(links) if links != set() else csv_entry.append(None)
-            print(csv_entry)
-            with open(output_csv, 'a', newline='') as output:
-                 csv.writer(output).writerow(csv_entry)
+            data_out.append(csv_entry)
+            #print(csv_entry)
+            #with open(output_csv, 'a', newline='') as output:
+            #    data_writer = csv.writer(output)
+            #    data_writer.writerow(csv_entry)
+                
         except:
             print(f"Couldn't process {filename}. Check its contents at {f}.")
-
+    frame_out = pd.DataFrame(data_out)
+    frame_out.to_csv(output)
+            
 # Getting user information from the user_information.json
 if __name__ == "__main__":
     file_name = "user_information.json"
@@ -115,4 +121,5 @@ if __name__ == "__main__":
         database = data["database"]
         downloaded = data["downloaded"]
         output = data["output"]
+        print(output)
     main(output, database, downloaded)
