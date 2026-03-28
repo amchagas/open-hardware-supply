@@ -90,8 +90,6 @@ See [code/README.md](code/README.md).
 - Are there elements of the documentation that would hint towards long term design sustainability? in other words are there documentation elements that indicate if a design is going to remain an open hardware prototype, or if it is going to evolve towards being an open hardware product?
 
 
-# Methods
-
 ## Collaborators (αβ)
 - [Alexandre Hannud Abdo](https://orcid.org/0000-0002-4849-4631)
 - [Andre Maia Chagas](https://orcid.org/0000-0003-2609-3017) (project lead)
