@@ -15,3 +15,9 @@ Use the Unpaywall database through its API and from the DOI get information abou
 
 #### Zotero
 Use DOIs and the Zotero translation server to automatically add all collected entries to a Zotero group. For this group, read access is made public and write access is restricted to admins.
+
+### Folder `paper_analysis-JRA2023`
+Download PDFs from a Zotero group and extract information from them.
+
+### Folders `method1-scrapy`, `scrapy-spider` and `legacy`
+Deprecated and no longer in use, replaced by `method2-scholarly`.
