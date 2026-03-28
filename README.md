@@ -17,7 +17,7 @@ Please get in touch if you want to contribute!
 - Sample publications to be coded
 - Code publications
 
-## Data
+## Outputs
 ### Acquired
 - Bibliographic records A
     - Count: 1k
@@ -56,15 +56,19 @@ Please get in touch if you want to contribute!
     - Storage: GIN repository
 
 
-## Coding publications
-### Criteria
-- Base: Open-O-Meter
-- Adaptations: Open access, Community spaces
-- Definition: See our [Codebook](/docs/codebook.md)
+## Methods
+### Data acquisition
+See [code/README.md](code/README.md).
 
-### Corpus
-- Representative sample of publications
-- Stratified by year
+### Publication coding
+- Criteria
+  - Base: Open-O-Meter
+  - Adaptations: Open access, Community spaces
+  - Definition: See our [Codebook](docs/codebook.md)
+
+- Corpus
+  - Representative sample of publications
+  - Stratified by year
 
 
 ## Hypotheses
@@ -86,21 +90,7 @@ Please get in touch if you want to contribute!
 - Are there elements of the documentation that would hint towards long term design sustainability? in other words are there documentation elements that indicate if a design is going to remain an open hardware prototype, or if it is going to evolve towards being an open hardware product?
 
 
-## Data collection
-1. Use [Scholarly](Scrapy) with [ScraperAPI](https://www.scraperapi.com/) to scrape data from Google Scholar (GS). Use GS because it perhaps the only easily accessible database that performs queries on the entire documents it hosts, as opposed to only title, abstract.
-
-Combine keywords with time markers to divide the number of hits per keyword query, bypassing Google's "result output limitation", i.e. only the first 1000 values being returned for a search.
-
-1. This generates an amass of disorganized data including books and chapters, master and doctoral theses, preprints and peer reviewed articles etc. And not all entries include a Digital Object Identifier (DOI), complicating the task of obtaining structured metadata.
-
-To solve this, match each entry from GS with the Web of Science (WOS) database, using title, author and year to get matches. This gives us structured metadata including DOIs
-
-1. Use the Unpaywall database through its API and from the DOI get information about whether or not each entry is published as open access (OA) or not, and what kind of OA is it (Gold, Hybrid, Green, Diamond etc).
-
-1. Use DOIs and the Zotero translation server to automatically add all collected entries to a Zotero group.
-
-For this group, read access is made public and write access is restricted to admins.
-
+# Methods
 
 ## Collaborators (αβ)
 - [Alexandre Hannud Abdo](https://orcid.org/0000-0002-4849-4631)
@@ -113,3 +103,11 @@ For this group, read access is made public and write access is restricted to adm
 - Miguel Fernandes
 - Natasha Pouchkina-Stantcheva
 - Tom Baden
+
+
+## Useful links
+
+- Scholarly
+- Bibliodbs
+- GIN
+- Datalad
