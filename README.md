@@ -58,7 +58,7 @@ Please get in touch if you want to contribute!
 
 ## Methods
 ### Data acquisition
-See [code/README.md](code/README.md).
+See [code/README.md](code#data-collection).
 
 ### Publication coding
 - Criteria
