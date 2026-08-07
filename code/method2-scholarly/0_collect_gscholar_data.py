@@ -26,13 +26,13 @@ if "logger" not in locals():
 # Keep it simple and close to the essential terms,
 # and so in the scope of claiming OSH qualities
 TERMS = (
-#    "open hardware",
+    "Open hardware",
     "open source hardware",
-#    "open science hardware",
-#    "open scientific hardware",
-#    "open source instrument",
-#    "open source instrumentation",
-#    "open labware"
+    "open science hardware",
+    "open labware",
+    "free and open source hardware",
+    "low cost",
+    "frugal",
 )
 
 # 2005 → Arduino, Make, Git, ...
